@@ -1,0 +1,20 @@
+Package: tricolore
+Type: Package
+Title: A Balanced Color Scale for Ternary Compositions
+Version: 0.1.0
+Author: Jonas Schöley
+Maintainer: Jonas Schöley <jschoeley@gmail.com>
+Description: A balanced color scale for ternary compositions with options for
+  compositional discretization, centering, and deep customization.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 2.10),
+    ggtern,
+    shiny
+Imports:
+    grDevices,
+    scales,
+    rlang,
+    dplyr
+RoxygenNote: 6.0.1
