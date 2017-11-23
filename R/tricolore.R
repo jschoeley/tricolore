@@ -299,7 +299,8 @@ MixColor <- function (df, p1, p2, p3,
   if (legend) {
     lgnd = PlotLegend(k, hue, chroma, lightness, contrast, center) +
       geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
-                 data = mixture, shape = 21, color = 'black') +
+                 data = mixture, shape = 1, size = 1,
+                 color = 'black', alpha = 0.7) +
       labs(x = quo_text(p1), y = quo_text(p2), z = quo_text(p3))
 
     result = list(hexsrgb = mixture[['hexsrgb']], legend = lgnd)
@@ -341,6 +342,7 @@ PlotLegend <- function (k, hue = 80, chroma = 170, lightness = 80,
     # basic legend
     ggtern(sub_triangles, aes(x = p1, y = p2, z = p3)) +
     geom_polygon(aes(group = id, fill = rgb, color = rgb), lwd = 1) +
+    geom_mask() +
     # rgb color input
     scale_color_identity(guide = FALSE) +
     scale_fill_identity(guide = FALSE) +
@@ -359,7 +361,7 @@ PlotLegend <- function (k, hue = 80, chroma = 170, lightness = 80,
       },
       if (center) {
         list(
-          annotate(geom = 'segment',
+          annotate(geom = 'segment', color = 'black', alpha = 0.7,
                    x = c(1,0,0), xend = c(0,0.5,0.5),
                    y = c(0,1,0), yend = c(0.5,0,0.5),
                    z = c(0,0,1), zend = c(0.5,0.5,0)),
@@ -371,7 +373,6 @@ PlotLegend <- function (k, hue = 80, chroma = 170, lightness = 80,
 
   return(legend)
 }
-
 
 # Shiny app ---------------------------------------------------------------
 

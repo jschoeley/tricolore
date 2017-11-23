@@ -1,3 +1,5 @@
+#library(tricolore)
+
 # Functions ---------------------------------------------------------------
 
 gghole <- function (fort) {
@@ -71,8 +73,9 @@ server <- function(input, output) {
       geom_polygon(aes(fill = rgb), color = NA,
                    data = eu_nuts2_sectors$hole) +
       annotation_custom(ggplotGrob(lgnd),
-                        xmin = -8.1e5,xmax = 73e5,
-                        ymin = 42e5, ymax = 55e5)
+                        xmin = -8.1e5, xmax = 73e5,
+                        ymin = 42e5, ymax = 55e5) +
+      labs(caption = 'Labor force composition in EU regions. Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
 
     print(eumap)
   })
