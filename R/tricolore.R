@@ -85,7 +85,6 @@ Centre <- function (P) {
 #'
 #' @keywords internal
 GetCentroids <- function (k) {
-
   # total number of centroids and centroid id
   K = k^2; id = 1:K
 
@@ -109,12 +108,11 @@ GetCentroids <- function (k) {
 #'
 #' @examples
 #' p <- c(0.5, 0.2, 0.3)
-#' C <- prop.table(matrix(runif(12), ncol = 3), 1)
+#' C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
 #' GetTernaryDistance(p, C)
 GetTernaryDistance <- function(p, C) {
   Q = t(p-t(C))
-  d = -Q[,2]*Q[,3]-Q[,3]*Q[,1]-Q[,1]*Q[,2]
-  return(d)
+  return(-Q[,2]*Q[,3]-Q[,3]*Q[,1]-Q[,1]*Q[,2])
 }
 
 # from nnet::which.is.max()
@@ -385,7 +383,6 @@ DemoTricolore <- function() {
   }
   shiny::runApp(app_dir, display.mode = 'normal')
 }
-
 
 # Data --------------------------------------------------------------------
 
