@@ -86,18 +86,16 @@ Centre <- function (P) {
 #' @keywords internal
 GetCentroids <- function (k) {
 
+  # total number of centroids and centroid id
   K = k^2; id = 1:K
+
+  # centroid coordinates as function of K and id
   g = floor(sqrt(K-id)); gsq = g^2
+  c1 = (((-K + id + g*(g+2) + 1) %% 2) - 3*gsq - 3*id + 3*K + 1) / (6*k)
+  c2 = -(((-K + gsq + id + 2*g + 1) %% 2) + 3*g - 3*k + 1) / (3*k)
+  c3 = (((-K + gsq + id + 2*g + 1) %% 2) + 3*gsq + 6*g + 3*id - 3*K + 1) / (6*k)
 
-  M = matrix(nrow = K, ncol = 3)
-
-  M[,1] = (((-K + id + g*(g+2) + 1) %% 2) - 3*gsq - 3*id + 3*K + 1) / (6*k)
-  M[,2] = -(((-K + gsq + id + 2*g + 1) %% 2) + 3*g - 3*k + 1) / (3*k)
-  M[,3] = (((-K + gsq + id + 2*g + 1) %% 2) + 3*gsq + 6*g + 3*id - 3*K + 1) / (6*k)
-
-  M = cbind(id, M)
-  colnames(M) = c('id', 'p1', 'p2', 'p3')
-  return(M)
+  return(cbind(id = id, p1 = c1, p2 = c2, p3 = c3))
 }
 
 #' Distance Between Points in Ternary Coordinates
