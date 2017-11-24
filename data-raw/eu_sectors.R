@@ -11,7 +11,7 @@ library(tidyverse)
 # Input -------------------------------------------------------------------
 
 # labor market composition by EU nuts 2
-dat <- read_csv('../priv/lfst_r_lfe2en2_1_Data.csv', na = ':')
+dat <- read_csv('./data-raw/lfst_r_lfe2en2_1_Data.csv', na = ':')
 
 # Transform ---------------------------------------------------------------
 
@@ -22,7 +22,6 @@ eu_sectors <-
   # compute labor force share by sector
   select(TIME, GEO, NACE_R2, Value) %>%
   mutate(
-    GEO = as.factor(GEO),
     sector = recode(NACE_R2,
                     `A` = 'primary',
                     `B-E` = 'secondary',
@@ -40,4 +39,4 @@ eu_sectors <-
   select(-TOTAL, -TIME) %>%
   rename(nuts2 = GEO)
 
-save(eu_sectors, file = '../priv/eu_sectors.RData')
+save(eu_sectors, file = './data-raw/eu_sectors.RData')

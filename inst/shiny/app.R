@@ -57,7 +57,7 @@ server <- function(input, output) {
     # customize legend
     lgnd <- mixed[['legend']] +
       labs(x = 'Pri', y = 'Sec', z = 'Ter') +
-      theme(plot.background = element_rect(color = 'grey'))
+      theme(plot.background = element_rect(color = 'grey90'))
 
     # mix colors
     eu_sectors$rgb <- mixed[['hexsrgb']]
@@ -75,6 +75,7 @@ server <- function(input, output) {
       annotation_custom(ggplotGrob(lgnd),
                         xmin = -8.1e5, xmax = 73e5,
                         ymin = 42e5, ymax = 55e5) +
+      scale_fill_identity() +
       labs(caption = 'Labor force composition in EU regions. Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
 
     print(eumap)
