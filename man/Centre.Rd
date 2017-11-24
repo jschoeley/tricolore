@@ -2,7 +2,7 @@
 % Please edit documentation in R/tricolore.R
 \name{Centre}
 \alias{Centre}
-\title{Centre Composition}
+\title{Center Composition}
 \usage{
 Centre(P)
 }
@@ -11,10 +11,10 @@ Centre(P)
 i=1,...,n.}
 }
 \value{
-n by m matrix of centred compositions.
+n by m matrix of centered compositions.
 }
 \description{
-Centre a compositional data set.
+Center a compositional data set around its mean.
 }
 \examples{
 P <- prop.table(matrix(runif(300), 100), margin = 1)

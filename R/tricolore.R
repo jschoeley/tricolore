@@ -19,19 +19,18 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
   # The geometric mean can't really deal with elements equal to 0.
   # This option recodes 0's as NA instead, thereby ignoring 0's
   # in the calculation of the mean.
-  if (isTRUE(zero.rm)) { x[x==0] = NA }
-  g = exp(mean(log(x), na.rm = na.rm))
-  return(g)
+  if (zero.rm) { x = x[x!=0] }
+  return(exp(mean(log(x), na.rm = na.rm)))
 }
 
-#' Centre Composition
+#' Center Composition
 #'
-#' Centre a compositional data set.
+#' Center a compositional data set around its mean.
 #'
 #' @param P n by m matrix of compositions {p1, ..., pm}_i for
 #'          i=1,...,n.
 #'
-#' @return n by m matrix of centred compositions.
+#' @return n by m matrix of centered compositions.
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(300), 100), margin = 1)
@@ -44,10 +43,14 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
 #'
 #' @keywords internal
 Centre <- function (P) {
+  # calculate the geometric mean for each element of the composition
   g = apply(P, MARGIN = 2, FUN = GeometricMean)
+  # the closed vector of geometric means is the mean (centroid)
+  # of the compositional data set
   centre = g/sum(g)
-  Pc = t(t(P)*(1/centre))
-  return(prop.table(Pc, margin = 1))
+  # perturbating the original composition by the inverse
+  # centroid centers the composition around the centroid
+  return(prop.table(t(t(P)*(1/centre)), margin = 1))
 }
 
 # Discrete Ternary Geometry -----------------------------------------------
@@ -99,8 +102,7 @@ GetCentroids <- function (k) {
 
 #' Distance Between Points in Ternary Coordinates
 #'
-#' The distances between ternary coordinate p and a set of ternary coordinates
-#' C.
+#' The distances between ternary coordinate p and a set of ternary coordinates C.
 #'
 #' @param p A vector of ternary coordinates {p1, p2, p3}.
 #' @param C n by 3 matrix of ternary coordinates {p1, p2, p3}_i for i=1,...,n.

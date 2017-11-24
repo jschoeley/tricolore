@@ -15,8 +15,7 @@ GetTernaryDistance(p, C)
 Vector of distances between coordinate p and all coordinates in C.
 }
 \description{
-The distances between ternary coordinate p and a set of ternary coordinates
-C.
+The distances between ternary coordinate p and a set of ternary coordinates C.
 }
 \examples{
 p <- c(0.5, 0.2, 0.3)
