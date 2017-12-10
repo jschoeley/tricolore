@@ -4,8 +4,9 @@
 \alias{MixColor}
 \title{Ternary Balance Scheme Colors}
 \usage{
-MixColor(df, p1, p2, p3, k = Inf, hue = 80, chroma = 170,
-  lightness = 80, contrast = 0.6, center = FALSE, legend = FALSE)
+MixColor(df, p1, p2, p3, k = Inf, hue = 0.3, chroma = 0.8,
+  lightness = 0.8, contrast = 0.6, center = FALSE, legend = FALSE,
+  color_space = "hcl")
 }
 \arguments{
 \item{df}{Data frame.}
@@ -19,11 +20,11 @@ of ternary composition.}
 \item{p3}{Unquoted column name for variable in df giving third proportion
 of ternary composition.}
 
-\item{hue}{Primary hue of the first ternary element in angular degrees [0, 360).}
+\item{hue}{Primary hue of the first ternary element [0, 1].}
 
-\item{chroma}{Maximum possible chroma of mixed colors >= 0.}
+\item{chroma}{Maximum possible chroma of mixed colors [0, 1].}
 
-\item{lightness}{Lightness of mixed colours [0, 100].}
+\item{lightness}{Lightness of mixed colours [0, 1].}
 
 \item{center}{Should the composition be centered? (default=TRUE)}
 

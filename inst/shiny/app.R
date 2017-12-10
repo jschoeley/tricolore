@@ -23,16 +23,19 @@ ui <- fluidPage(
       sliderInput(inputId = 'k', label = 'Number of colors', ticks = FALSE,
                   min = 2, max = 20, step = 1, value = 5),
       sliderInput(inputId = 'hue', label = 'Hue', ticks = FALSE,
-                  min = 0, max = 359, step = 1, value = 115),
+                  min = 0, max = 1, step = 0.1, value = 0),
       sliderInput(inputId = 'chroma', label = 'Chroma', ticks = FALSE,
-                  min = 0, max = 200, step = 1, value = 170),
+                  min = 0, max = 1, step = 0.1, value = 1),
       sliderInput(inputId = 'lightness', label = 'Lightness', ticks = FALSE,
-                  min = 1, max = 99, step = 1, value = 80),
+                  min = 0, max = 1, step = 0.1, value = 0.7),
       sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.6),
+                  min = 0, max = 1, step = 0.1, value = 0),
       radioButtons(inputId = 'center', label = 'Center composition',
                    choices = list(No = FALSE, Yes = TRUE),
-                   selected = TRUE)
+                   selected = TRUE),
+      radioButtons(inputId = 'color_space', label = 'Color space',
+                   choices = list(HCL = 'hcl', HSV = 'hsv'),
+                   selected = 'hsv')
     ),
 
     # OUTPUT
@@ -52,7 +55,8 @@ server <- function(input, output) {
                       k = input$k,
                       hue = input$hue, chroma = input$chroma,
                       lightness = input$lightness, contrast = input$contrast,
-                      center = input$center, legend = TRUE)
+                      center = input$center, legend = TRUE,
+                      color_space = input$color_space)
 
     # customize legend
     lgnd <- mixed[['legend']] +

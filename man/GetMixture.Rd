@@ -4,7 +4,7 @@
 \alias{GetMixture}
 \title{RGB Mixture of Ternary Composition}
 \usage{
-GetMixture(P, k, h_, c_, l_, contrast, center)
+GetMixture(P, k, h_, c_, l_, contrast, center, color_space)
 }
 \arguments{
 \item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
@@ -15,7 +15,7 @@ Values above 99 imply no discretization.}
 
 \item{h_}{Primary hue of the first ternary element in angular degrees [0, 360).}
 
-\item{c_}{Maximum possible chroma of mixed colors >= 0.}
+\item{c_}{Maximum possible chroma of mixed colors [0, 200].}
 
 \item{l_}{Lightness of mixed colours [0, 100].}
 

@@ -187,7 +187,7 @@ GetVertices <- function (C) {
 #' @param k Number of breaks in the discrete color scale. An integer >0.
 #'          Values above 99 imply no discretization.
 #' @param h_ Primary hue of the first ternary element in angular degrees [0, 360).
-#' @param c_ Maximum possible chroma of mixed colors >= 0.
+#' @param c_ Maximum possible chroma of mixed colors [0, 200].
 #' @param l_ Lightness of mixed colours [0, 100].
 #' @param center Should the composition be centered? (default=TRUE)
 #'
@@ -201,7 +201,7 @@ GetVertices <- function (C) {
 #' @importFrom scales rescale
 #'
 #' @keywords internal
-GetMixture <- function (P, k, h_, c_, l_, contrast, center) {
+GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
 
   P[is.nan(P) | is.infinite(P)] = NA
 
@@ -243,8 +243,17 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center) {
 
   # convert the complex representation of the color mixture to
   # hex-srgb representation via the hcl (CIE-Luv) color space
-  hexsrgb = hcl(h = M[,1], c = M[,2], l = M[,3],
-                alpha = 1, fixup = TRUE)
+  # or the hsv color spave
+  if (color_space == 'hcl') {
+    # expects h = [0, 360], c = [0, 200], l = c[0, 100]
+    hexsrgb = hcl(h = M[,1], c = M[,2], l = M[,3],
+                  alpha = 1, fixup = TRUE)
+  }
+  if (color_space == 'hsv') {
+    # expects h = [0, 1], c = [0, 1], l = c[0, 1]
+    hexsrgb = hsv(h = M[,1]/360, s = M[,2]/200, v = M[,3]/100,
+                  alpha = 1)
+  }
 
   result = data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
                       row.names = NULL, check.rows = FALSE, check.names = FALSE,
@@ -266,9 +275,9 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center) {
 #'           of ternary composition.
 #' @param p3 Unquoted column name for variable in df giving third proportion
 #'           of ternary composition.
-#' @param hue Primary hue of the first ternary element in angular degrees [0, 360).
-#' @param chroma Maximum possible chroma of mixed colors >= 0.
-#' @param lightness Lightness of mixed colours [0, 100].
+#' @param hue Primary hue of the first ternary element [0, 1].
+#' @param chroma Maximum possible chroma of mixed colors [0, 1].
+#' @param lightness Lightness of mixed colours [0, 1].
 #' @param center Should the composition be centered? (default=TRUE)
 #' @param legend Should a legend be returned along with the colors? (default=FALSE)
 #'
@@ -286,16 +295,17 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center) {
 #'
 #' @export
 MixColor <- function (df, p1, p2, p3,
-                      k = Inf, hue = 80, chroma = 170, lightness = 80,
-                      contrast = 0.6, center = FALSE, legend = FALSE) {
+                      k = Inf, hue = 0.3, chroma = 0.8, lightness = 0.8,
+                      contrast = 0.6, center = FALSE, legend = FALSE,
+                      color_space = 'hcl') {
 
   p1 = enquo(p1); p2 = enquo(p2); p3 = enquo(p3)
 
   P = cbind(df[[quo_text(p1)]], df[[quo_text(p2)]], df[[quo_text(p3)]])
-  mixture = GetMixture(P, k, hue, chroma, lightness, contrast, center)
+  mixture = GetMixture(P, k, hue*360, chroma*200, lightness*100, contrast, center, color_space)
 
   if (legend) {
-    lgnd = PlotLegend(k, hue, chroma, lightness, contrast, center) +
+    lgnd = PlotLegend(k, hue, chroma, lightness, contrast, center, color_space) +
       geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
                  data = mixture, shape = 1, size = 1,
                  color = 'black', alpha = 0.7) +
@@ -319,8 +329,8 @@ MixColor <- function (df, p1, p2, p3,
 #' @import ggtern
 #'
 #' @export
-PlotLegend <- function (k, hue = 80, chroma = 170, lightness = 80,
-                        contrast = 0.6, center = FALSE) {
+PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
+                        contrast = 0.6, center = FALSE, color_space = 'hcl') {
 
   if (k > 99) { k = 100 }
 
@@ -329,8 +339,8 @@ PlotLegend <- function (k, hue = 80, chroma = 170, lightness = 80,
   # sub-triangle.
   C = GetCentroids(k)
   V = GetVertices(C)
-  rgbs = GetMixture(P = C[,-1], k = Inf, hue, chroma,
-                    lightness, contrast, center)[['hexsrgb']]
+  rgbs = GetMixture(P = C[,-1], k = Inf, hue*360, chroma*200,
+                    lightness*100, contrast, center, color_space)[['hexsrgb']]
   sub_triangles = data.frame(V, rgb = rep(rgbs, 3))
 
   # plot the legend
