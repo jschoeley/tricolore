@@ -1,7 +1,7 @@
 Package: tricolore
 Type: Package
 Title: A Balanced Color Scale for Ternary Compositions
-Version: 0.2.0.9001
+Version: 0.2.0.9002
 Author: Jonas Schöley
 Maintainer: Jonas Schöley <jschoeley@gmail.com>
 Description: A balanced color scale for ternary compositions with options for

@@ -20,8 +20,8 @@ The geometric mean as numeric scalar.
 Calculate the geometric mean for a numeric vector.
 }
 \examples{
-GeometricMean(0:100)
-GeometricMean(0:100, zero.rm = FALSE)
+tricolore:::GeometricMean(0:100)
+tricolore:::GeometricMean(0:100, zero.rm = FALSE)
 
 }
 \keyword{internal}

@@ -29,7 +29,8 @@ Return the ternary balance scheme colors for a matrix of ternary compositions.
 }
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
-GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6, center = TRUE)
+tricolore:::GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
+                       center = TRUE, color_space = 'hcl')
 
 }
 \keyword{internal}

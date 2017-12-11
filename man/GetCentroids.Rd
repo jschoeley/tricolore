@@ -17,9 +17,9 @@ Segment an equilateral triangle into k^2 equilateral sub-triangles and return
 the barycentric centroid coordinates of each sub-triangle.
 }
 \examples{
-GetCentroids(1)
-GetCentroids(2)
-GetCentroids(3)
+tricolore:::GetCentroids(1)
+tricolore:::GetCentroids(2)
+tricolore:::GetCentroids(3)
 
 }
 \references{

@@ -23,8 +23,8 @@ the barycentric vertex coordinates of each sub-triangle.
 }
 \examples{
 k = 2
-C <- GetCentroids(k)
-GetVertices(C)
+C <- tricolore:::GetCentroids(k)
+tricolore:::GetVertices(C)
 
 }
 \references{

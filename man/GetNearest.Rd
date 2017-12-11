@@ -18,6 +18,6 @@ For Ternary Coordinates P Return the Nearest Coordinate in Set C
 }
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
-C <- GetCentroids(2)[,-1]
-GetNearest(P, C)
+C <- tricolore:::GetCentroids(2)[,-1]
+tricolore:::GetNearest(P, C)
 }

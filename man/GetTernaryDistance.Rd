@@ -20,5 +20,5 @@ The distances between ternary coordinate p and a set of ternary coordinates C.
 \examples{
 p <- c(0.5, 0.2, 0.3)
 C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
-GetTernaryDistance(p, C)
+tricolore:::GetTernaryDistance(p, C)
 }

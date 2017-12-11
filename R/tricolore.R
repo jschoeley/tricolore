@@ -11,8 +11,8 @@
 #' @return The geometric mean as numeric scalar.
 #'
 #' @examples
-#' GeometricMean(0:100)
-#' GeometricMean(0:100, zero.rm = FALSE)
+#' tricolore:::GeometricMean(0:100)
+#' tricolore:::GeometricMean(0:100, zero.rm = FALSE)
 #'
 #' @keywords internal
 GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
@@ -34,7 +34,7 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(300), 100), margin = 1)
-#' Centre(P)
+#' tricolore:::Centre(P)
 #'
 #' @references Von Eynatten, H., Pawlowsky-Glahn, V., & Egozcue, J. J. (2002).
 #' Understanding perturbation on the simplex: A simple method to better
@@ -79,9 +79,9 @@ Centre <- function (P) {
 #'   Ternary Mixtures.
 #'
 #' @examples
-#' GetCentroids(1)
-#' GetCentroids(2)
-#' GetCentroids(3)
+#' tricolore:::GetCentroids(1)
+#' tricolore:::GetCentroids(2)
+#' tricolore:::GetCentroids(3)
 #'
 #' @keywords internal
 GetCentroids <- function (k) {
@@ -109,7 +109,7 @@ GetCentroids <- function (k) {
 #' @examples
 #' p <- c(0.5, 0.2, 0.3)
 #' C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
-#' GetTernaryDistance(p, C)
+#' tricolore:::GetTernaryDistance(p, C)
 GetTernaryDistance <- function(p, C) {
   Q = t(p-t(C))
   return(-Q[,2]*Q[,3]-Q[,3]*Q[,1]-Q[,1]*Q[,2])
@@ -130,8 +130,8 @@ GetMaxIndex <- function (x) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
-#' C <- GetCentroids(2)[,-1]
-#' GetNearest(P, C)
+#' C <- tricolore:::GetCentroids(2)[,-1]
+#' tricolore:::GetNearest(P, C)
 GetNearest <- function (P, C, index = FALSE) {
   id = apply(P, 1, function (x) GetMaxIndex(-GetTernaryDistance(x, C)))
   return(C[id,])
@@ -152,8 +152,8 @@ GetNearest <- function (P, C, index = FALSE) {
 #'
 #' @examples
 #' k = 2
-#' C <- GetCentroids(k)
-#' GetVertices(C)
+#' C <- tricolore:::GetCentroids(k)
+#' tricolore:::GetVertices(C)
 #'
 #' @references S. H. Derakhshan and C. V. Deutsch (2009): A Color Scale for
 #'   Ternary Mixtures.
@@ -195,7 +195,8 @@ GetVertices <- function (C) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
-#' GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6, center = TRUE)
+#' tricolore:::GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
+#'                        center = TRUE, color_space = 'hcl')
 #'
 #' @importFrom grDevices hcl hsv
 #' @importFrom scales rescale

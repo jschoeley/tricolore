@@ -18,7 +18,7 @@ Center a compositional data set around its mean.
 }
 \examples{
 P <- prop.table(matrix(runif(300), 100), margin = 1)
-Centre(P)
+tricolore:::Centre(P)
 
 }
 \references{
