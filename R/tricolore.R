@@ -186,7 +186,7 @@ GetVertices <- function (C) {
 #'          i=1, ..., n.
 #' @param k Number of breaks in the discrete color scale. An integer >0.
 #'          Values above 99 imply no discretization.
-#' @param h_ Primary hue of the first ternary element in angular degrees [0, 360).
+#' @param h_ Primary hue of the first ternary element in angular degrees [0, 360].
 #' @param c_ Maximum possible chroma of mixed colors [0, 200].
 #' @param l_ Lightness of mixed colours [0, 100].
 #' @param center Should the composition be centered? (default=TRUE)
@@ -197,13 +197,11 @@ GetVertices <- function (C) {
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6, center = TRUE)
 #'
-#' @importFrom grDevices hcl
+#' @importFrom grDevices hcl hsv
 #' @importFrom scales rescale
 #'
 #' @keywords internal
 GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
-
-  P[is.nan(P) | is.infinite(P)] = NA
 
   # generate primary colours starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the colour wheel.
@@ -243,7 +241,7 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
 
   # convert the complex representation of the color mixture to
   # hex-srgb representation via the hcl (CIE-Luv) color space
-  # or the hsv color spave
+  # or the hsv (polar RGB) color space
   if (color_space == 'hcl') {
     # expects h = [0, 360], c = [0, 200], l = c[0, 100]
     hexsrgb = hcl(h = M[,1], c = M[,2], l = M[,3],
@@ -289,9 +287,8 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 #' MixColor(P, V1, V2, V3, legend = TRUE)
 #'
-#' @importFrom grDevices hcl
-#' @importFrom scales rescale
 #' @importFrom rlang enquo quo_text
+#' @importFrom ggplot2 aes_string geom_point labs
 #'
 #' @export
 MixColor <- function (df, p1, p2, p3,
@@ -326,7 +323,10 @@ MixColor <- function (df, p1, p2, p3,
 #' @param k Number of breaks on each axis.
 #' @inheritParams MixColor
 #'
-#' @import ggtern
+#' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
+#'   scale_fill_identity element_text element_blank
+#' @importFrom ggtern ggtern geom_mask theme_classic theme annotate
+#'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @export
 PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
@@ -348,8 +348,9 @@ PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
 
   legend <-
     # basic legend
-    ggtern(sub_triangles, aes(x = p1, y = p2, z = p3)) +
-    geom_polygon(aes(group = id, fill = rgb, color = rgb), lwd = 1) +
+    ggtern(sub_triangles, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
+    geom_polygon(aes_string(group = 'id', fill = 'rgb', color = 'rgb'),
+                 lwd = 1) +
     geom_mask() +
     # rgb color input
     scale_color_identity(guide = FALSE) +

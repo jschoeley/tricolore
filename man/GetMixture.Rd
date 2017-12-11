@@ -13,7 +13,7 @@ i=1, ..., n.}
 \item{k}{Number of breaks in the discrete color scale. An integer >0.
 Values above 99 imply no discretization.}
 
-\item{h_}{Primary hue of the first ternary element in angular degrees [0, 360).}
+\item{h_}{Primary hue of the first ternary element in angular degrees [0, 360].}
 
 \item{c_}{Maximum possible chroma of mixed colors [0, 200].}
 

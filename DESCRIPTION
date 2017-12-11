@@ -1,7 +1,7 @@
 Package: tricolore
 Type: Package
 Title: A Balanced Color Scale for Ternary Compositions
-Version: 0.1.0
+Version: 0.2.0.9001
 Author: Jonas Schöley
 Maintainer: Jonas Schöley <jschoeley@gmail.com>
 Description: A balanced color scale for ternary compositions with options for
@@ -9,14 +9,8 @@ Description: A balanced color scale for ternary compositions with options for
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 2.10),
-    ggtern,
-    shiny
-Imports:
-    grDevices,
-    scales,
-    rlang,
-    dplyr
+Depends: R (>= 2.10)
+Imports: grDevices, scales, rlang, ggplot2, ggtern, dplyr, shiny
 RoxygenNote: 6.0.1
 Suggests: 
     testthat
