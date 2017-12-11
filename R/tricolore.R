@@ -106,6 +106,8 @@ GetCentroids <- function (k) {
 #'
 #' @return Vector of distances between coordinate p and all coordinates in C.
 #'
+#' @references https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Distance_between_points
+#'
 #' @examples
 #' p <- c(0.5, 0.2, 0.3)
 #' C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
@@ -209,6 +211,10 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
   # input hue in degrees, all further calculations in radians.
   phi = (h_*0.0174 + c(0, 2.09, 4.19)) %% 6.28
 
+  # optional centering of the composition
+  # we keep a copy called "Plgnd" to plot the
+  # centered data points in the legend, whereas
+  # "P" may be discretized later on
   if (center) {
     P = Plgnd = Centre(prop.table(P, margin = 1))
   } else {
@@ -249,14 +255,15 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
                   alpha = 1, fixup = TRUE)
   }
   if (color_space == 'hsv') {
-    # expects h = [0, 1], c = [0, 1], l = c[0, 1]
+    # expects h = [0, 1], c = s = [0, 1], l = v = c[0, 1]
     hexsrgb = hsv(h = M[,1]/360, s = M[,2]/200, v = M[,3]/100,
                   alpha = 1)
   }
 
+  # (centered) compositions, hcl values of mixtures and hexsrgb code
   result = data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
-                      row.names = NULL, check.rows = FALSE, check.names = FALSE,
-                      stringsAsFactors = FALSE)
+                      row.names = NULL, check.rows = FALSE,
+                      check.names = FALSE, stringsAsFactors = FALSE)
   colnames(result) = c('p1', 'p2', 'p3', 'h', 'c', 'l', 'hexsrgb')
   return(result)
 }
@@ -297,19 +304,27 @@ MixColor <- function (df, p1, p2, p3,
                       contrast = 0.6, center = FALSE, legend = FALSE,
                       color_space = 'hcl') {
 
+  # construct 3 column matrix of proportions
   p1 = enquo(p1); p2 = enquo(p2); p3 = enquo(p3)
-
   P = cbind(df[[quo_text(p1)]], df[[quo_text(p2)]], df[[quo_text(p3)]])
-  mixture = GetMixture(P, k, hue*360, chroma*200, lightness*100, contrast, center, color_space)
 
+  # derive the color mixture
+  # the magic numbers rescale the [0,1] color-specification to the
+  # cylindrical-coordinates format required by GetMixture()
+  mixture = GetMixture(P, k, hue*360, chroma*200, lightness*100, contrast,
+                       center, color_space)
+
+  # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
-    lgnd = PlotLegend(k, hue, chroma, lightness, contrast, center, color_space) +
+    lgnd =
+      PlotLegend(k, hue, chroma, lightness, contrast, center, color_space) +
       geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
                  data = mixture, shape = 1, size = 1,
                  color = 'black', alpha = 0.7) +
       labs(x = quo_text(p1), y = quo_text(p2), z = quo_text(p3))
 
     result = list(hexsrgb = mixture[['hexsrgb']], legend = lgnd)
+  # ... else just return a vector of hexsrgb codes of the mixed colors
   } else {
     result = mixture[['hexsrgb']]
   }
@@ -333,6 +348,7 @@ MixColor <- function (df, p1, p2, p3,
 PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
                         contrast = 0.6, center = FALSE, color_space = 'hcl') {
 
+  # don't allow more than 100^2 different colors in the legend
   if (k > 99) { k = 100 }
 
   # partition the ternary legend into k^2 equilateral sub-triangles
@@ -346,7 +362,6 @@ PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
 
   # plot the legend
   breaks = seq(0, 1, length.out = k+1); labs = round(breaks*100, 1)
-
   legend <-
     # basic legend
     ggtern(sub_triangles, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
