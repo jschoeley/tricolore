@@ -5,7 +5,7 @@
 \title{Ternary Balance Scheme Legend}
 \usage{
 PlotLegend(k, hue = 0.3, chroma = 0.8, lightness = 0.8, contrast = 0.6,
-  center = FALSE, color_space = "hcl")
+  center = FALSE, vscale = FALSE, color_space = "hcl")
 }
 \arguments{
 \item{k}{Number of breaks on each axis.}

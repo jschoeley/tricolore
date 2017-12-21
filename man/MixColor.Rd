@@ -5,8 +5,8 @@
 \title{Ternary Balance Scheme Colors}
 \usage{
 MixColor(df, p1, p2, p3, k = Inf, hue = 0.3, chroma = 0.8,
-  lightness = 0.8, contrast = 0.6, center = FALSE, legend = FALSE,
-  color_space = "hcl")
+  lightness = 0.8, contrast = 0.6, center = FALSE, vscale = FALSE,
+  legend = FALSE, color_space = "hcl")
 }
 \arguments{
 \item{df}{Data frame.}

@@ -4,7 +4,7 @@
 \alias{GetMixture}
 \title{RGB Mixture of Ternary Composition}
 \usage{
-GetMixture(P, k, h_, c_, l_, contrast, center, color_space)
+GetMixture(P, k, h_, c_, l_, contrast, center, vscale, color_space)
 }
 \arguments{
 \item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
@@ -30,7 +30,7 @@ Return the ternary balance scheme colors for a matrix of ternary compositions.
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-                       center = TRUE, color_space = 'hcl')
+                       center = TRUE, vscale = FALSE, color_space = 'hcl')
 
 }
 \keyword{internal}

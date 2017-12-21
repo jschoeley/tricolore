@@ -17,8 +17,7 @@
 #' @keywords internal
 GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
   # The geometric mean can't really deal with elements equal to 0.
-  # This option recodes 0's as NA instead, thereby ignoring 0's
-  # in the calculation of the mean.
+  # This option removes 0 elements from the vector.
   if (zero.rm) { x = x[x!=0] }
   return(exp(mean(log(x), na.rm = na.rm)))
 }
@@ -51,6 +50,65 @@ Centre <- function (P) {
   # perturbating the original composition by the inverse
   # centroid centers the composition around the centroid
   return(prop.table(t(t(P)*(1/centre)), margin = 1))
+}
+
+#' Total Variance of Composition
+#'
+#' Compute the total variance of a compositional data set.
+#'
+#' @param P n by m matrix of compositions {p1, ..., pm}_i for
+#'          i=1,...,n.
+#'
+#' @return The total variance of the compositional data set as a scalar.
+#'
+#' @examples
+#' P <- prop.table(matrix(runif(300), 100), margin = 1)
+#' tricolore:::TotalVariance(P)
+#' P2 <- rbind(P, c(0, 0, 1))
+#' tricolore:::TotalVariance(P2)
+#' tricolore:::TotalVariance(P2, zero.rm = FALSE)
+#'
+#' @references Pawlowsky-Glahn, V., Egozcue, J. J., & Tolosana-Delgado, R. (2007).
+#'   Lecture Notes on Compositional Data Analysis.
+#'
+#' @keywords internal
+TotalVariance <- function (P, na.rm = TRUE, zero.rm = TRUE) {
+  # number of parts in composition
+  D = ncol(P)
+  # remove observations where any part is 0
+  if (zero.rm) { P = P[!apply(P, 1, function (x) any(x == 0)),] }
+  # variances of all log-ratios of compositions
+  TV = matrix(NA, nrow = D, ncol = D)
+  for (i in 1:D) {
+    for (j in 1:D) {
+      TV[i,j] = var(log(P[,i]/P[,j]), na.rm = na.rm)
+    }
+  }
+  # summing up the variances of all the log-ratios yields the total variance
+  return(sum(TV, na.rm = FALSE)/(2*D))
+}
+
+#' Scale Composition To Unity Variance
+#'
+#' Scale a compositional data set to unity variance.
+#'
+#' @param P n by m matrix of compositions {p1, ..., pm}_i for
+#'          i=1,...,n.
+#'
+#' @return An n by m matrix of compositions with variance scaled to unity.
+#'
+#' @examples
+#' P <- prop.table(matrix(runif(300), 100), margin = 1)
+#' ScaleVariance(P)
+#' tricolore:::TotalVariance(P)
+#' tricolore:::TotalVariance(ScaleVariance(P))
+#'
+#' @references Pawlowsky-Glahn, V., Egozcue, J. J., & Tolosana-Delgado, R. (2007).
+#'   Lecture Notes on Compositional Data Analysis.
+#'
+#' @keywords internal
+ScaleVariance <- function (P) {
+  return(prop.table(P^(1/sqrt(TotalVariance(P))), margin = 1))
 }
 
 # Discrete Ternary Geometry -----------------------------------------------
@@ -198,13 +256,13 @@ GetVertices <- function (C) {
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::GetMixture(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-#'                        center = TRUE, color_space = 'hcl')
+#'                        center = TRUE, vscale = FALSE, color_space = 'hcl')
 #'
 #' @importFrom grDevices hcl hsv
 #' @importFrom scales rescale
 #'
 #' @keywords internal
-GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
+GetMixture <- function (P, k, h_, c_, l_, contrast, center, vscale, color_space) {
 
   # generate primary colours starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the colour wheel.
@@ -215,10 +273,12 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
   # we keep a copy called "Plgnd" to plot the
   # centered data points in the legend, whereas
   # "P" may be discretized later on
+  P = Plgnd = prop.table(P, margin = 1)
   if (center) {
-    P = Plgnd = Centre(prop.table(P, margin = 1))
-  } else {
-    P = Plgnd = prop.table(P, margin = 1)
+    P = Plgnd = Centre(P)
+  }
+  if (vscale) {
+    P = Plgnd = ScaleVariance(P)
   }
 
   # discretize composition
@@ -301,8 +361,8 @@ GetMixture <- function (P, k, h_, c_, l_, contrast, center, color_space) {
 #' @export
 MixColor <- function (df, p1, p2, p3,
                       k = Inf, hue = 0.3, chroma = 0.8, lightness = 0.8,
-                      contrast = 0.6, center = FALSE, legend = FALSE,
-                      color_space = 'hcl') {
+                      contrast = 0.6, center = FALSE, vscale = FALSE,
+                      legend = FALSE, color_space = 'hcl') {
 
   # construct 3 column matrix of proportions
   p1 = enquo(p1); p2 = enquo(p2); p3 = enquo(p3)
@@ -312,12 +372,12 @@ MixColor <- function (df, p1, p2, p3,
   # the magic numbers rescale the [0,1] color-specification to the
   # cylindrical-coordinates format required by GetMixture()
   mixture = GetMixture(P, k, hue*360, chroma*200, lightness*100, contrast,
-                       center, color_space)
+                       center, vscale, color_space)
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
     lgnd =
-      PlotLegend(k, hue, chroma, lightness, contrast, center, color_space) +
+      PlotLegend(k, hue, chroma, lightness, contrast, center, vscale, color_space) +
       geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
                  data = mixture, shape = 1, size = 1,
                  color = 'black', alpha = 0.7) +
@@ -346,7 +406,8 @@ MixColor <- function (df, p1, p2, p3,
 #'
 #' @export
 PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
-                        contrast = 0.6, center = FALSE, color_space = 'hcl') {
+                        contrast = 0.6, center = FALSE, vscale = FALSE,
+                        color_space = 'hcl') {
 
   # don't allow more than 100^2 different colors in the legend
   if (k > 99) { k = 100 }
@@ -357,7 +418,8 @@ PlotLegend <- function (k, hue = 0.3, chroma = 0.8, lightness = 0.8,
   C = GetCentroids(k)
   V = GetVertices(C)
   rgbs = GetMixture(P = C[,-1], k = Inf, hue*360, chroma*200,
-                    lightness*100, contrast, center, color_space)[['hexsrgb']]
+                    lightness*100, contrast, center = FALSE, vscale = FALSE,
+                    color_space)[['hexsrgb']]
   sub_triangles = data.frame(V, rgb = rep(rgbs, 3))
 
   # plot the legend

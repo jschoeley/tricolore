@@ -1,4 +1,7 @@
-#library(tricolore)
+library(shiny)
+library(dplyr)
+library(ggtern)
+library(tricolore)
 
 # Functions ---------------------------------------------------------------
 
@@ -33,6 +36,9 @@ ui <- fluidPage(
       radioButtons(inputId = 'center', label = 'Center composition',
                    choices = list(No = FALSE, Yes = TRUE),
                    selected = TRUE),
+      radioButtons(inputId = 'vscale', label = 'Scale composition',
+                   choices = list(No = FALSE, Yes = TRUE),
+                   selected = TRUE),
       radioButtons(inputId = 'color_space', label = 'Color space',
                    choices = list(HCL = 'hcl', HSV = 'hsv'),
                    selected = 'hsv')
@@ -55,8 +61,8 @@ server <- function(input, output) {
                       k = input$k,
                       hue = input$hue, chroma = input$chroma,
                       lightness = input$lightness, contrast = input$contrast,
-                      center = input$center, legend = TRUE,
-                      color_space = input$color_space)
+                      center = input$center, vscale = input$vscale,
+                      legend = TRUE, color_space = input$color_space)
 
     # customize legend
     lgnd <- mixed[['legend']] +
