@@ -252,7 +252,6 @@ TernaryNearest <- function (P, C, index = FALSE) {
 #' @param contrast Lightness contrast of the color scale [0, 1).
 #' @param center Ternary coordinates of the grey-point.
 #' @param scale Scaling factor > 0.
-#' @param color_space Color space to use for mixing ('hcl', 'hsv').
 #'
 #' @return An n row data frame giving, for each row of the input P, the input
 #' proportions (p1, p2, p3), parameters of the color mixture (h, c, l) and the
@@ -261,12 +260,12 @@ TernaryNearest <- function (P, C, index = FALSE) {
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::ColorMap(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-#'                      center = TRUE, scale = 1, color_space = 'hcl')
+#'                      center = TRUE, scale = 1)
 #'
 #' @importFrom grDevices hcl hsv
 #'
 #' @keywords internal
-ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale, color_space) {
+ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale) {
 
   # generate primary colours starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the colour wheel.
@@ -307,17 +306,8 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale, color_space) {
 
   # convert the complex representation of the color mixture to
   # hex-srgb representation via the hcl (CIE-Luv) color space
-  # or the hsv (polar RGB) color space
-  if (color_space == 'hcl') {
-    # expects h = [0, 360], c = [0, 200], l = c[0, 100]
-    hexsrgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
-                   alpha = 1, fixup = TRUE)
-  }
-  if (color_space == 'hsv') {
-    # expects h = [0, 1], c = s = [0, 1], l = v = c[0, 1]
-    hexsrgb <- hsv(h = M[,1]/360, s = M[,2]/200, v = M[,3]/100,
-                   alpha = 1)
-  }
+  hexsrgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
+                 alpha = 1, fixup = TRUE)
 
   # (centered) compositions, hcl values of mixtures and hexsrgb code
   result <- data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
@@ -335,7 +325,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale, color_space) {
 #'
 #' @examples
 #' tricolore:::ColorKey(k = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
-#'                      center = rep(1/3, 3), scale = 1, color_space = 'hcl')
+#'                      center = rep(1/3, 3), scale = 1)
 #'
 #' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
 #'   scale_fill_identity element_text element_blank
@@ -343,7 +333,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale, color_space) {
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @keywords internal
-ColorKey <- function (k, h_, c_, l_, contrast, center, scale, color_space) {
+ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 
   # don't allow more than 100^2 different colors/regions in the legend
   if (k > 99) { k = 100 }
@@ -353,7 +343,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale, color_space) {
   C <- TernaryMeshCentroids(k)
   V <- TernaryMeshVertices(C)
   rgbs <- ColorMap(P = C[,-1], k = Inf, h_, c_, l_,
-                   contrast, center, scale, color_space)[['hexsrgb']]
+                   contrast, center, scale)[['hexsrgb']]
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
   # plot the legend
@@ -424,7 +414,6 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale, color_space) {
 Tricolore <- function (df, p1, p2, p3,
                        k = Inf, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), scale = 1,
-                       color_space = 'hcl',
                        legend = TRUE, show_data = TRUE, show_center = TRUE) {
 
   # construct 3 column matrix of proportions
@@ -442,13 +431,13 @@ Tricolore <- function (df, p1, p2, p3,
   # the magic numbers rescale the [0,1] color-specification to the
   # cylindrical-coordinates format required by ColorMap()
   mixture <- ColorMap(P, k, hue*360, chroma*200, lightness*100,
-                      contrast, center, scale, color_space)
+                      contrast, center, scale)
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
     lgnd <-
       ColorKey(k, hue*360, chroma*200, lightness*100,
-               contrast, center, scale, color_space) +
+               contrast, center, scale) +
       list(
         # labels take names from input variables
         labs(x = quo_text(p1), y = quo_text(p2), z = quo_text(p3)),

@@ -4,7 +4,7 @@
 \alias{ColorKey}
 \title{Ternary Balance Scheme Legend}
 \usage{
-ColorKey(k, h_, c_, l_, contrast, center, scale, color_space)
+ColorKey(k, h_, c_, l_, contrast, center, scale)
 }
 \arguments{
 \item{k}{Number of breaks in the discrete color scale. An integer >0.
@@ -21,15 +21,13 @@ Values above 99 imply no discretization.}
 \item{center}{Ternary coordinates of the grey-point.}
 
 \item{scale}{Scaling factor > 0.}
-
-\item{color_space}{Color space to use for mixing ('hcl', 'hsv').}
 }
 \description{
 Plot a ternary balance scheme legend.
 }
 \examples{
 tricolore:::ColorKey(k = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
-                     center = rep(1/3, 3), scale = 1, color_space = 'hcl')
+                     center = rep(1/3, 3), scale = 1)
 
 }
 \keyword{internal}

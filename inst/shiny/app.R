@@ -23,21 +23,21 @@ ui <- fluidPage(
 
     # INPUT
     sidebarPanel(width = 3,
-      sliderInput(inputId = 'k', label = 'Number of colors', ticks = FALSE,
+      sliderInput(inputId = 'k', label = 'Discretization factor', ticks = FALSE,
                   min = 2, max = 20, step = 1, value = 5),
       sliderInput(inputId = 'hue', label = 'Hue', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0),
+                  min = 0, max = 1, step = 0.1, value = 0.3),
       sliderInput(inputId = 'chroma', label = 'Chroma', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 1),
+                  min = 0, max = 1, step = 0.1, value = 0.9),
       sliderInput(inputId = 'lightness', label = 'Lightness', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.7),
+                  min = 0, max = 1, step = 0.1, value = 0.8),
       sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0),
+                  min = 0, max = 1, step = 0.1, value = 0.6),
       radioButtons(inputId = 'center', label = 'Center composition',
-                   choices = list(No = FALSE, Yes = TRUE),
-                   selected = FALSE),
-      sliderInput(inputId = 'scale', label = 'Scale composition',
-                  min = 0.5, max = 2, step = 0.1, value = 1)
+                   choices = list(No = 'No', Yes = 'Yes'),
+                   selected = 'No'),
+      sliderInput(inputId = 'scale', label = 'Scaling factor',
+                  min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE)
     ),
 
     # OUTPUT
@@ -57,7 +57,7 @@ server <- function(input, output) {
                        k = input$k,
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
-                       center = ifelse(input$center == TRUE, NA, rep(1/3,3)),
+                       center = switch(input$center, No = rep(1/3,3), Yes = NA),
                        scale = input$scale,
                        legend = TRUE)
 

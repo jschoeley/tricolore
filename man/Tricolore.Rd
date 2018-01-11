@@ -6,8 +6,7 @@
 \usage{
 Tricolore(df, p1, p2, p3, k = Inf, hue = 0, chroma = 0.8,
   lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), scale = 1,
-  color_space = "hcl", legend = TRUE, show_data = TRUE,
-  show_center = TRUE)
+  legend = TRUE, show_data = TRUE, show_center = TRUE)
 }
 \arguments{
 \item{df}{Data frame.}
