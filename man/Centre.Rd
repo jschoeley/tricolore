@@ -2,7 +2,7 @@
 % Please edit documentation in R/tricolore.R
 \name{Centre}
 \alias{Centre}
-\title{Center Composition}
+\title{Compositional Centre}
 \usage{
 Centre(P)
 }
@@ -11,10 +11,10 @@ Centre(P)
 i=1,...,n.}
 }
 \value{
-n by m matrix of centered compositions.
+The centre of P as an m element numeric vector.
 }
 \description{
-Center a compositional data set around its mean.
+Calculate the centre of a compositional data set.
 }
 \examples{
 P <- prop.table(matrix(runif(300), 100), margin = 1)
@@ -26,5 +26,9 @@ Von Eynatten, H., Pawlowsky-Glahn, V., & Egozcue, J. J. (2002).
 Understanding perturbation on the simplex: A simple method to better
 visualize and interpret compositional data in ternary diagrams.
 Mathematical Geology, 34(3), 249-257.
+
+Pawlowsky-Glahn, V., Egozcue, J. J., & Tolosana-Delgado, R. (2007). Lecture
+Notes on Compositional Data Analysis. Retrieved from
+https://dugi-doc.udg.edu/bitstream/handle/10256/297/CoDa-book.pdf
 }
 \keyword{internal}

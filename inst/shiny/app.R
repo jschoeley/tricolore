@@ -35,13 +35,9 @@ ui <- fluidPage(
                   min = 0, max = 1, step = 0.1, value = 0),
       radioButtons(inputId = 'center', label = 'Center composition',
                    choices = list(No = FALSE, Yes = TRUE),
-                   selected = TRUE),
-      radioButtons(inputId = 'vscale', label = 'Scale composition',
-                   choices = list(No = FALSE, Yes = TRUE),
-                   selected = TRUE),
-      radioButtons(inputId = 'color_space', label = 'Color space',
-                   choices = list(HCL = 'hcl', HSV = 'hsv'),
-                   selected = 'hsv')
+                   selected = FALSE),
+      sliderInput(inputId = 'scale', label = 'Scale composition',
+                  min = 0.5, max = 2, step = 0.1, value = 1)
     ),
 
     # OUTPUT
@@ -56,22 +52,22 @@ server <- function(input, output) {
   output$example <- renderPlot(width = 700, height = 700, {
 
     # mix color, generate legend
-    mixed <- MixColor(eu_sectors,
-                      p1 = primary, p2 = secondary, p3 = tertiary,
-                      k = input$k,
-                      hue = input$hue, chroma = input$chroma,
-                      lightness = input$lightness, contrast = input$contrast,
-                      center = input$center, vscale = input$vscale,
-                      legend = TRUE, color_space = input$color_space)
+    mixed <- Tricolore(eu_sectors,
+                       p1 = primary, p2 = secondary, p3 = tertiary,
+                       k = input$k,
+                       hue = input$hue, chroma = input$chroma,
+                       lightness = input$lightness, contrast = input$contrast,
+                       center = ifelse(input$center == TRUE, NA, rep(1/3,3)),
+                       scale = input$scale,
+                       legend = TRUE)
 
     # customize legend
     lgnd <- mixed[['legend']] +
       labs(x = 'Pri', y = 'Sec', z = 'Ter') +
       theme(plot.background = element_rect(color = 'grey90'))
 
-    # mix colors
-    eu_sectors$rgb <- mixed[['hexsrgb']]
     # merge data and map
+    eu_sectors$rgb <- mixed[['hexsrgb']]
     eu_nuts2_sectors <- gghole(dplyr::right_join(eushp_nuts2,
                                                  eu_sectors,
                                                  c('id' = 'nuts2')))

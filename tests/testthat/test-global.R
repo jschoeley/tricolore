@@ -12,15 +12,24 @@ test_that('GeometricMean() works', {
 
 test_that('Centre() works', {
   P <- prop.table(matrix(runif(300), 100), margin = 1)
-  expect_equal(prop.table(apply(Centre(P), 2, GeometricMean)), rep(1/3, 3))
-  expect_equal(NROW(Centre(P)), 100)
-  expect_equal(NCOL(Centre(P)), 3)
+  expect_equal(prop.table(apply(t(t(P)/Centre(P)), 2, GeometricMean)), rep(1/3, 3))
+  expect_equal(NROW(Centre(P)), 3)
+  expect_equal(NCOL(Centre(P)), 1)
 })
 
-test_that('GetCentroids() works', {
+
+test_that('Pertube() works', {
+  P <- prop.table(matrix(runif(300), 100), margin = 1)
+  expect_equal(Pertube(P, rep(1/3, 3)), P)
+  expect_equal(Centre(Pertube(P, 1/Centre(P))), rep(1/3, 3))
+  expect_equal(NROW(Pertube(P, rep(1/3, 3))), 100)
+  expect_equal(NCOL(Pertube(P, rep(1/3, 3))), 3)
+})
+
+test_that('TernaryMeshCentroids() works', {
   k = sample(1:100, size = 1)
-  expect_equal(NROW(GetCentroids(k)), k^2)
-  expect_equal(GetCentroids(k)[,'id'], 1:k^2)
-  expect_equal(rowSums(GetCentroids(k)[,2:4]), rep(1, k^2))
-  expect_equivalent(prop.table(apply(GetCentroids(k)[,2:4], 2, GeometricMean)), rep(1/3, 3))
+  expect_equal(NROW(TernaryMeshCentroids(k)), k^2)
+  expect_equal(TernaryMeshCentroids(k)[,'id'], 1:k^2)
+  expect_equal(rowSums(TernaryMeshCentroids(k)[,2:4]), rep(1, k^2))
+  expect_equivalent(prop.table(apply(TernaryMeshCentroids(k)[,2:4], 2, GeometricMean)), rep(1/3, 3))
 })
