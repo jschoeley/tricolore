@@ -4,7 +4,7 @@
 \alias{TernaryNearest}
 \title{For Ternary Coordinates P Return the Nearest Coordinate in Set C}
 \usage{
-TernaryNearest(P, C, index = FALSE)
+TernaryNearest(P, C)
 }
 \arguments{
 \item{P, C}{n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
@@ -20,4 +20,6 @@ For Ternary Coordinates P Return the Nearest Coordinate in Set C
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 C <- tricolore:::TernaryMeshCentroids(2)[,-1]
 tricolore:::TernaryNearest(P, C)
+
 }
+\keyword{internal}

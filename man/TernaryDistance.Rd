@@ -21,7 +21,9 @@ The distances between ternary coordinate p and a set of ternary coordinates C.
 p <- c(0.5, 0.2, 0.3)
 C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
 tricolore:::TernaryDistance(p, C)
+
 }
 \references{
 https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Distance_between_points
 }
+\keyword{internal}

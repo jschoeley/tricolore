@@ -20,13 +20,18 @@ of ternary composition.}
 \item{p3}{Unquoted column name for variable in df giving third proportion
 of ternary composition.}
 
+\item{k}{Number of breaks in the discrete color scale. An integer >0.
+Values above 99 imply no discretization.}
+
 \item{hue}{Primary hue of the first ternary element [0, 1].}
 
 \item{chroma}{Maximum possible chroma of mixed colors [0, 1].}
 
 \item{lightness}{Lightness of mixed colours [0, 1].}
 
-\item{center}{Ternary coordinates of the color scale center
+\item{contrast}{Lightness contrast of the color scale [0, 1).}
+
+\item{center}{Ternary coordinates of the color scale center.
 (default = 1/3,1/3,1/3).
 NA puts center over the compositional mean of the data.}
 
@@ -34,6 +39,10 @@ NA puts center over the compositional mean of the data.}
 color scale on the center.}
 
 \item{legend}{Should a legend be returned along with the colors? (default=TRUE)}
+
+\item{show_data}{Should the data be shown on the legend? (default=TRUE)}
+
+\item{show_center}{Should the center be shown on the legend? (default=TRUE)}
 }
 \value{
 legend=FALSE: A vector of rgbs hex-codes representing the ternary

@@ -215,6 +215,8 @@ TernaryMeshVertices <- function (C) {
 #' p <- c(0.5, 0.2, 0.3)
 #' C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
 #' tricolore:::TernaryDistance(p, C)
+#'
+#' @keywords internal
 TernaryDistance <- function(p, C) {
   Q <- t(p-t(C))
   return(-Q[,2]*Q[,3]-Q[,3]*Q[,1]-Q[,1]*Q[,2])
@@ -231,7 +233,9 @@ TernaryDistance <- function(p, C) {
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' C <- tricolore:::TernaryMeshCentroids(2)[,-1]
 #' tricolore:::TernaryNearest(P, C)
-TernaryNearest <- function (P, C, index = FALSE) {
+#'
+#' @keywords internal
+TernaryNearest <- function (P, C) {
   id <- apply(P, 1, function (x) MaxIndex(-TernaryDistance(x, C)))
   return(C[id,])
 }
@@ -388,15 +392,20 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #'           of ternary composition.
 #' @param p3 Unquoted column name for variable in df giving third proportion
 #'           of ternary composition.
+#' @param k Number of breaks in the discrete color scale. An integer >0.
+#'          Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element [0, 1].
 #' @param chroma Maximum possible chroma of mixed colors [0, 1].
 #' @param lightness Lightness of mixed colours [0, 1].
-#' @param center Ternary coordinates of the color scale center
+#' @param contrast Lightness contrast of the color scale [0, 1).
+#' @param center Ternary coordinates of the color scale center.
 #'  (default = 1/3,1/3,1/3).
 #'  NA puts center over the compositional mean of the data.
 #' @param scale The scaling of the color scale. Choose values > 1 to focus the
 #'  color scale on the center.
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
+#' @param show_data Should the data be shown on the legend? (default=TRUE)
+#' @param show_center Should the center be shown on the legend? (default=TRUE)
 #'
 #' @return legend=FALSE: A vector of rgbs hex-codes representing the ternary
 #'         balance scheme colors. legend=TRUE: A list with elements "hexsrgb"
