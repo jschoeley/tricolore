@@ -74,8 +74,8 @@ Centre <- function (P) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
-#' cP <- Pertube(P, 1/Centre(P))
-#' Centre(cP)
+#' cP <- tricolore:::Pertube(P, 1/tricolore:::Centre(P))
+#' tricolore:::Centre(cP)
 #'
 #' @references
 #' Von Eynatten, H., Pawlowsky-Glahn, V., & Egozcue, J. J. (2002).
@@ -104,7 +104,7 @@ Pertube <- function (P, c = rep(1/3, 3)) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
-#' PowerScale(P, 2)
+#' tricolore:::PowerScale(P, 2)
 #'
 #' @references
 #' Pawlowsky-Glahn, V., Egozcue, J. J., & Tolosana-Delgado, R. (2007). Lecture

@@ -20,7 +20,7 @@ Raise a compositional data-set to a given power.
 }
 \examples{
 P <- prop.table(matrix(runif(12), 4), margin = 1)
-PowerScale(P, 2)
+tricolore:::PowerScale(P, 2)
 
 }
 \references{

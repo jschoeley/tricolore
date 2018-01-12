@@ -20,8 +20,8 @@ Pertube a compositional data set by a compositional vector.
 }
 \examples{
 P <- prop.table(matrix(runif(12), 4), margin = 1)
-cP <- Pertube(P, 1/Centre(P))
-Centre(cP)
+cP <- tricolore:::Pertube(P, 1/tricolore:::Centre(P))
+tricolore:::Centre(cP)
 
 }
 \references{
