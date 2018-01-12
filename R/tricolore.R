@@ -475,8 +475,16 @@ Tricolore <- function (df, p1, p2, p3,
 
 # Shiny app ---------------------------------------------------------------
 
+#' Interactive Tricolore Demonstration
+#'
+#' An interactive demonstration of the tricolore color scale inspired by the
+#' colorbrewer2.org application. Helps in picking the right color scale for your
+#' data.
+#'
+#' @return Opens a shiny app session.
+#'
 #' @export
-DemoTricolore <- function() {
+DemoTricolore <- function () {
   app_dir <- system.file('shiny', package = 'tricolore')
   if (app_dir == '') {
     stop("Could not find example directory. Try re-installing 'tricolore'.",

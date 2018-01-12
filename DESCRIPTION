@@ -1,11 +1,11 @@
 Package: tricolore
 Type: Package
-Title: A Balanced Color Scale for Ternary Compositions
+Title: A Flexible Color Scale for Ternary Compositions
 Version: 0.2.0.9004
 Author: Jonas Schöley
 Maintainer: Jonas Schöley <jschoeley@gmail.com>
-Description: A balanced color scale for ternary compositions with options for
-  compositional discretization, centering, and deep customization.
+Description: A flexible color scale for ternary compositions with options for
+  discretization, centering and scaling.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
