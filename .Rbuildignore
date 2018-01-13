@@ -2,5 +2,6 @@
 ^\.Rproj\.user$
 priv
 readme_files
-readme.md
+README.md
+README.R
 data-raw
