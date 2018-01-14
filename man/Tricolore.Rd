@@ -4,7 +4,7 @@
 \alias{Tricolore}
 \title{Ternary Balance Color Scale}
 \usage{
-Tricolore(df, p1, p2, p3, k = Inf, hue = 0, chroma = 0.8,
+Tricolore(df, p1, p2, p3, k = 100, hue = 0, chroma = 0.8,
   lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), scale = 1,
   legend = TRUE, show_data = TRUE, show_center = TRUE)
 }

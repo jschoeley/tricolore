@@ -10,7 +10,7 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports: grDevices, rlang, ggplot2, ggtern, dplyr, shiny
+Imports: grDevices, rlang, ggplot2, ggtern, dplyr, shiny, assertthat
 RoxygenNote: 6.0.1
 Suggests: 
     testthat

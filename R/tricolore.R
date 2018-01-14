@@ -346,7 +346,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
   # calculate ternary vertex coordinates and fill color for each sub-triangle.
   C <- TernaryMeshCentroids(k)
   V <- TernaryMeshVertices(C)
-  rgbs <- ColorMap(P = C[,-1], k = Inf, h_, c_, l_,
+  rgbs <- ColorMap(P = C[,-1], k = 100, h_, c_, l_,
                    contrast, center, scale)[['hexsrgb']]
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
@@ -422,7 +422,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #'
 #' @export
 Tricolore <- function (df, p1, p2, p3,
-                       k = Inf, hue = 0, chroma = 0.8, lightness = 0.7,
+                       k = 100, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), scale = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE) {
 
