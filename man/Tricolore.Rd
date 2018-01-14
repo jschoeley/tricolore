@@ -55,6 +55,6 @@ return a color key.
 }
 \examples{
 P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
-Tricolore(P, V1, V2, V3)
+Tricolore(P, 'V1', 'V2', 'V3')
 
 }

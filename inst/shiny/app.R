@@ -56,7 +56,7 @@ server <- function(input, output) {
 
     # mix color, generate legend
     mixed <- Tricolore(eu_sectors,
-                       p1 = primary, p2 = secondary, p3 = tertiary,
+                       p1 = 'primary', p2 = 'secondary', p3 = 'tertiary',
                        k = input$k,
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,

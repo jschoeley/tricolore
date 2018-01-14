@@ -413,9 +413,8 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #'
 #' @examples
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
-#' Tricolore(P, V1, V2, V3)
+#' Tricolore(P, 'V1', 'V2', 'V3')
 #'
-#' @importFrom rlang enquo quo_text
 #' @importFrom ggplot2 aes_string geom_point labs
 #' @importFrom ggtern geom_Lline geom_Tline geom_Rline
 #' @importFrom assertthat assert_that
@@ -429,8 +428,7 @@ Tricolore <- function (df, p1, p2, p3,
   assert_that(is.data.frame(df))
 
   # construct 3 column matrix of proportions
-  p1 = enquo(p1); p2 = enquo(p2); p3 = enquo(p3)
-  P <- cbind(df[[quo_text(p1)]], df[[quo_text(p2)]], df[[quo_text(p3)]])
+  P <- cbind(df[[p1]], df[[p2]], df[[p3]])
   # ensure data is closed
   P <- prop.table(P, 1)
 
@@ -452,7 +450,7 @@ Tricolore <- function (df, p1, p2, p3,
                contrast, center, scale) +
       list(
         # labels take names from input variables
-        labs(x = quo_text(p1), y = quo_text(p2), z = quo_text(p3)),
+        labs(x = p1, y = p2, z = p3),
         if (show_center) {
           list(
             geom_Lline(Lintercept = center[1], color = 'black', alpha = 0.5),
