@@ -21,7 +21,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #'     via centering and scaling of the color scale
 #'   - hue, chroma and lightness options
 #'
-#' ![](readme_files/teaser.png)
+#' ![](README_files/teaser.png)
 #'
 #'## Install
 
@@ -45,7 +45,7 @@ library(tricolore)
 # simulate 243 ternary compositions
 P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 # color-code each composition and return a corresponding color key
-tric <- Tricolore(P, V1, V2, V3)
+tric <- Tricolore(P, 'V1', 'V2', 'V3')
 # the color-coded compositions
 head(tric$hexsrgb)
 
@@ -72,7 +72,7 @@ head(eushp_nuts2)
 #' the resulting vector of hexsrgb color codes with the map data.
 
 # generate colors based on compositions in `eu_sectors`, default options
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary')
 
 # merge vector of colors with with map data
 eu_sectors$srgb <- tricol$hexsrgb
@@ -102,7 +102,7 @@ europe_map +
 #' the tertiary (services) sector in red. This is easily achieved by changing
 #' *hue* parameter of the color scale.
 
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary, hue = 0.33)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33)
 
 #' *In the examples to follow I omit the whole mapping code. It is identical for
 #' all examples.*
@@ -126,7 +126,7 @@ europe_map +
 #' 3^2=9 colors. The discrete scale pronounces the east-west divide in
 #' labor force composition.
 
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary, hue = 0.33, k = 3)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
 
 #+echo=FALSE
 eu_sectors$srgb <- tricol$hexsrgb
@@ -154,7 +154,7 @@ europe_map +
 #' Europe, the south of Spain and Italy have a higher than average share of
 #' workers active in the primary sector.
 
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary,
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary',
                     hue = 0.33, center = NA)
 
 #+echo=FALSE

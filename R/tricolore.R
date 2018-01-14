@@ -138,7 +138,7 @@ PowerScale <- function (P, scale = 1) {
   return(prop.table(P^scale, margin = 1))
 }
 
-# Discrete Ternary Geometry -----------------------------------------------
+# Ternary Geometry --------------------------------------------------------
 
 # T(K=k^2):   Equilateral triangle subdivided into K equilateral sub-triangles.
 #             Each side of T is divided into k intervals of equal length.

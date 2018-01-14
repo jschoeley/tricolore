@@ -1,7 +1,7 @@
 Tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley
-Sat Jan 13 19:39:36 2018
+Sun Jan 14 22:42:01 2018
 
 What is 'tricolore'?
 --------------------
@@ -12,7 +12,7 @@ Tricolore is a flexible color scale for three-part (ternary) compositions allowi
 -   support for unbalanced compositional data or data with very narrow range via centering and scaling of the color scale
 -   hue, chroma and lightness options
 
-![](readme_files/teaser.png)
+![](README_files/teaser.png)
 
 Install
 -------
@@ -36,12 +36,12 @@ library(tricolore)
 # simulate 243 ternary compositions
 P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 # color-code each composition and return a corresponding color key
-tric <- Tricolore(P, V1, V2, V3)
+tric <- Tricolore(P, 'V1', 'V2', 'V3')
 # the color-coded compositions
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#2D8A6DFF" "#846E59FF" "#C4697EFF" "#B3715AFF" "#009E57FF" "#876E9AFF"
+    ## [1] "#886968FF" "#6D8246FF" "#9775C2FF" "#9A6F5BFF" "#A57256FF" "#00929BFF"
 
 ``` r
 tric$legend
@@ -63,14 +63,14 @@ head(eu_sectors)
 ```
 
     ## # A tibble: 6 x 4
-    ##   nuts2 primary secondary tertiary
-    ##   <chr>   <dbl>     <dbl>    <dbl>
-    ## 1 AT11  0.0442      0.268    0.682
-    ## 2 AT12  0.0562      0.244    0.700
-    ## 3 AT13  0.00518     0.143    0.852
-    ## 4 AT21  0.0566      0.265    0.671
-    ## 5 AT22  0.0610      0.292    0.647
-    ## 6 AT31  0.0623      0.331    0.606
+    ##   nuts2     primary secondary  tertiary
+    ##   <chr>       <dbl>     <dbl>     <dbl>
+    ## 1  AT11 0.044227886 0.2683658 0.6821589
+    ## 2  AT12 0.056190950 0.2437842 0.6999005
+    ## 3  AT13 0.005176357 0.1433731 0.8515710
+    ## 4  AT21 0.056603774 0.2649211 0.6707740
+    ## 5  AT22 0.060979730 0.2920608 0.6469595
+    ## 6  AT31 0.062290240 0.3311854 0.6063901
 
 In order to prepare a map I've prepared a data frame with the outlines of the European NUTS-2 regions and neighboring countries, `eushp_nuts2`
 
@@ -90,7 +90,7 @@ Using tricolore, I color-code each regions labor force composition and merge the
 
 ``` r
 # generate colors based on compositions in `eu_sectors`, default options
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary')
 
 # merge vector of colors with with map data
 eu_sectors$srgb <- tricol$hexsrgb
@@ -115,7 +115,7 @@ europe_map +
 I'm not happy with the basic colors used to represent primary, secondary, and tertiary sectors. I think its much more natural to encode the primary (agricultural) sector in green, the secondary (industrial) sector in blue and the tertiary (services) sector in red. This is easily achieved by changing *hue* parameter of the color scale.
 
 ``` r
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary, hue = 0.33)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33)
 ```
 
 *In the examples to follow I omit the whole mapping code. It is identical for all examples.*
@@ -127,7 +127,7 @@ tricol <- Tricolore(eu_sectors, primary, secondary, tertiary, hue = 0.33)
 Up until now I used continuous colors to show the regional labor force composition. A discrete color scale introduces sharp contours which sometimes pronounce interesting patterns in the data. The `k` parameter determines the number of colors for the color scale. A value of 3 gives a discrete scale of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor force composition.
 
 ``` r
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary, hue = 0.33, k = 3)
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
@@ -139,7 +139,7 @@ A technique I've adopted from compositional data analysis is *ternary centering*
 Centering the color scale over the labor-force composition of the average European NUTS-2 region shows various patterns of deviations from the average. Metropolitan regions (Hamburg, Stockholm, Paris, Madrid) have a higher than average share of tertiary workers. Large parts of France are quite grey, indicating a labor-force composition close to the average, while Eastern Europe, the south of Spain and Italy have a higher than average share of workers active in the primary sector.
 
 ``` r
-tricol <- Tricolore(eu_sectors, primary, secondary, tertiary,
+tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary',
                     hue = 0.33, center = NA)
 ```
 
