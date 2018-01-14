@@ -33,3 +33,9 @@ test_that('TernaryMeshCentroids() works', {
   expect_equal(rowSums(TernaryMeshCentroids(k)[,2:4]), rep(1, k^2))
   expect_equivalent(prop.table(apply(TernaryMeshCentroids(k)[,2:4], 2, GeometricMean)), rep(1/3, 3))
 })
+
+test_that('Argument checks work', {
+  P <- as.data.frame(prop.table(matrix(runif(300), 100), margin = 1))
+  expect_error(Tricolore(as.matrix(P), p1 = V1, p2 = V2, p3 = V3),
+               'df is not a data frame')
+})

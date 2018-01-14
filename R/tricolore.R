@@ -418,12 +418,15 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #' @importFrom rlang enquo quo_text
 #' @importFrom ggplot2 aes_string geom_point labs
 #' @importFrom ggtern geom_Lline geom_Tline geom_Rline
+#' @importFrom assertthat assert_that
 #'
 #' @export
 Tricolore <- function (df, p1, p2, p3,
                        k = Inf, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), scale = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE) {
+
+  assert_that(is.data.frame(df))
 
   # construct 3 column matrix of proportions
   p1 = enquo(p1); p2 = enquo(p2); p3 = enquo(p3)

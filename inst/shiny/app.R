@@ -31,13 +31,16 @@ ui <- fluidPage(
                              min = 0, max = 1, step = 0.1, value = 0.8),
                  sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
                              min = 0, max = 1, step = 0.1, value = 0.6),
+                 sliderInput(inputId = 'scale', label = 'Scaling',
+                             min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE),
                  sliderInput(inputId = 'k', label = 'Discretization', ticks = FALSE,
                              min = 2, max = 20, step = 1, value = 5),
                  radioButtons(inputId = 'center', label = 'Mean centering',
                               choices = list(No = 'No', Yes = 'Yes'),
                               selected = 'No'),
-                 sliderInput(inputId = 'scale', label = 'Scaling',
-                             min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE)
+                 radioButtons(inputId = 'show_data', label = 'Show data',
+                              choices = list(No = FALSE, Yes = TRUE),
+                              selected = 'FALSE')
     ),
 
     # OUTPUT
@@ -58,8 +61,8 @@ server <- function(input, output) {
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
                        center = switch(input$center, No = rep(1/3,3), Yes = NA),
-                       scale = input$scale,
-                       legend = TRUE)
+                       scale = input$scale, show_data = input$show_data,
+                       show_center = FALSE, legend = TRUE)
 
     # customize legend
     lgnd <- mixed[['legend']] +
