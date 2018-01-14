@@ -23,21 +23,21 @@ ui <- fluidPage(
 
     # INPUT
     sidebarPanel(width = 3,
-      sliderInput(inputId = 'k', label = 'Discretization factor', ticks = FALSE,
-                  min = 2, max = 20, step = 1, value = 5),
-      sliderInput(inputId = 'hue', label = 'Hue', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.3),
-      sliderInput(inputId = 'chroma', label = 'Chroma', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.9),
-      sliderInput(inputId = 'lightness', label = 'Lightness', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.8),
-      sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
-                  min = 0, max = 1, step = 0.1, value = 0.6),
-      radioButtons(inputId = 'center', label = 'Center composition',
-                   choices = list(No = 'No', Yes = 'Yes'),
-                   selected = 'No'),
-      sliderInput(inputId = 'scale', label = 'Scaling factor',
-                  min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE)
+                 sliderInput(inputId = 'hue', label = 'Hue', ticks = FALSE,
+                             min = 0, max = 1, step = 0.1, value = 0.3),
+                 sliderInput(inputId = 'chroma', label = 'Chroma', ticks = FALSE,
+                             min = 0, max = 1, step = 0.1, value = 0.9),
+                 sliderInput(inputId = 'lightness', label = 'Lightness', ticks = FALSE,
+                             min = 0, max = 1, step = 0.1, value = 0.8),
+                 sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
+                             min = 0, max = 1, step = 0.1, value = 0.6),
+                 sliderInput(inputId = 'k', label = 'Discretization', ticks = FALSE,
+                             min = 2, max = 20, step = 1, value = 5),
+                 radioButtons(inputId = 'center', label = 'Mean centering',
+                              choices = list(No = 'No', Yes = 'Yes'),
+                              selected = 'No'),
+                 sliderInput(inputId = 'scale', label = 'Scaling',
+                             min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE)
     ),
 
     # OUTPUT
