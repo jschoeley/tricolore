@@ -6,19 +6,20 @@
 \usage{
 Tricolore(df, p1, p2, p3, k = 100, hue = 0, chroma = 0.8,
   lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), scale = 1,
-  legend = TRUE, show_data = TRUE, show_center = TRUE)
+  legend = TRUE, show_data = TRUE, show_center = TRUE,
+  input_validation = TRUE)
 }
 \arguments{
 \item{df}{Data frame.}
 
-\item{p1}{Unquoted column name for variable in df giving first proportion
-of ternary composition.}
+\item{p1}{Column name for variable in df giving first proportion
+of ternary composition (string).}
 
-\item{p2}{Unquoted column name for variable in df giving second proportion
-of ternary composition.}
+\item{p2}{Column name for variable in df giving second proportion
+of ternary composition (string.}
 
-\item{p3}{Unquoted column name for variable in df giving third proportion
-of ternary composition.}
+\item{p3}{Column name for variable in df giving third proportion
+of ternary composition (string).}
 
 \item{k}{Number of breaks in the discrete color scale. An integer >0.
 Values above 99 imply no discretization.}
@@ -43,6 +44,8 @@ color scale on the center.}
 \item{show_data}{Should the data be shown on the legend? (default=TRUE)}
 
 \item{show_center}{Should the center be shown on the legend? (default=TRUE)}
+
+\item{input_validation}{Should the function arguments be validated? (default=TRUE)}
 }
 \value{
 legend=FALSE: A vector of rgbs hex-codes representing the ternary

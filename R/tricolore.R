@@ -6,6 +6,28 @@ MaxIndex <- function (x) {
   if (length(y) > 1L) sample(y, 1L) else y
 }
 
+# validate main arguments of tricolore function
+ValidateMainArguments <- function (df, p1, p2, p3) {
+  # argument validation
+  assert_that(!missing(df), !missing(p1), !missing(p2), !missing(p3),
+              msg = 'main argument missing')
+  assert_that(is.data.frame(df))
+  assert_that(is.string(p1), is.string(p2), is.string(p3))
+  assert_that(p1 %in% names(df), msg = paste('variable', p1 ,'not found in df'))
+  assert_that(p2 %in% names(df), msg = paste('variable', p2 ,'not found in df'))
+  assert_that(p3 %in% names(df), msg = paste('variable', p3 ,'not found in df'))
+  assert_that(is.numeric(df[[p1]]), msg = paste('variable', p1 ,'is not numeric'))
+  assert_that(is.numeric(df[[p2]]), msg = paste('variable', p2 ,'is not numeric'))
+  assert_that(is.numeric(df[[p3]]), msg = paste('variable', p3 ,'is not numeric'))
+  assert_that(!any(df[[p1]] < 0, na.rm = TRUE),
+              msg = paste('variable', p1 ,'contains negative values'))
+  assert_that(!any(df[[p2]] < 0, na.rm = TRUE),
+              msg = paste('variable', p2 ,'contains negative values'))
+  assert_that(!any(df[[p3]] < 0, na.rm = TRUE),
+              msg = paste('variable', p3 ,'contains negative values'))
+  # NA, Inf, NaN are allowed and are expected to return NA as color
+}
+
 # Compositional Data Analysis ---------------------------------------------
 
 #' Geometric Mean
@@ -386,12 +408,12 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #' return a color key.
 #'
 #' @param df Data frame.
-#' @param p1 Unquoted column name for variable in df giving first proportion
-#'           of ternary composition.
-#' @param p2 Unquoted column name for variable in df giving second proportion
-#'           of ternary composition.
-#' @param p3 Unquoted column name for variable in df giving third proportion
-#'           of ternary composition.
+#' @param p1 Column name for variable in df giving first proportion
+#'           of ternary composition (string).
+#' @param p2 Column name for variable in df giving second proportion
+#'           of ternary composition (string.
+#' @param p3 Column name for variable in df giving third proportion
+#'           of ternary composition (string).
 #' @param k Number of breaks in the discrete color scale. An integer >0.
 #'          Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element [0, 1].
@@ -406,6 +428,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
 #' @param show_data Should the data be shown on the legend? (default=TRUE)
 #' @param show_center Should the center be shown on the legend? (default=TRUE)
+#' @param input_validation Should the function arguments be validated? (default=TRUE)
 #'
 #' @return legend=FALSE: A vector of rgbs hex-codes representing the ternary
 #'         balance scheme colors. legend=TRUE: A list with elements "hexsrgb"
@@ -417,15 +440,17 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #'
 #' @importFrom ggplot2 aes_string geom_point labs
 #' @importFrom ggtern geom_Lline geom_Tline geom_Rline
-#' @importFrom assertthat assert_that
+#' @importFrom assertthat assert_that is.string
 #'
 #' @export
 Tricolore <- function (df, p1, p2, p3,
                        k = 100, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), scale = 1,
-                       legend = TRUE, show_data = TRUE, show_center = TRUE) {
+                       legend = TRUE, show_data = TRUE, show_center = TRUE,
+                       input_validation = TRUE) {
 
-  assert_that(is.data.frame(df))
+  # validation of main input arguments
+  if (input_validation) { ValidateMainArguments(df, p1, p2, p3) }
 
   # construct 3 column matrix of proportions
   P <- cbind(df[[p1]], df[[p2]], df[[p3]])
