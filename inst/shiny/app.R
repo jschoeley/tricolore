@@ -31,7 +31,7 @@ ui <- fluidPage(
                              min = 0, max = 1, step = 0.1, value = 0.8),
                  sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
                              min = 0, max = 1, step = 0.1, value = 0.6),
-                 sliderInput(inputId = 'scale', label = 'Scaling',
+                 sliderInput(inputId = 'spread', label = 'Spread',
                              min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE),
                  sliderInput(inputId = 'k', label = 'Discretization', ticks = FALSE,
                              min = 2, max = 20, step = 1, value = 5),
@@ -61,7 +61,7 @@ server <- function(input, output) {
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
                        center = switch(input$center, No = rep(1/3,3), Yes = NA),
-                       scale = input$scale, show_data = input$show_data,
+                       spread = input$spread, show_data = input$show_data,
                        show_center = FALSE, legend = TRUE)
 
     # customize legend
