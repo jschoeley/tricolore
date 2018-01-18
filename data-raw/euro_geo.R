@@ -21,8 +21,8 @@ library(ggplot2)
 # Geodata European regions ------------------------------------------------
 
 # geodata will be stored in a directory 'geodata'
-ifelse(!dir.exists('./geodata'),
-       dir.create('./geodata'),
+ifelse(!dir.exists('./data-raw/geodata'),
+       dir.create('./data-raw/geodata'),
        paste('Directory already exists'))
 
 # Eurostat shapefiles for European regions
@@ -32,8 +32,8 @@ download.file(
   'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_20M_SH.zip',
   destfile = f
 )
-unzip(f, exdir = 'geodata/.')
-euro_geo <- readOGR('geodata/NUTS_2013_20M_SH/data/.', 'NUTS_RG_20M_2013')
+unzip(f, exdir = './data-raw/geodata/.')
+euro_geo <- readOGR('./data-raw/geodata/NUTS_2013_20M_SH/data/.', 'NUTS_RG_20M_2013')
 
 # colnames to lower case
 names(euro_geo@data) <- tolower(names(euro_geo@data))
@@ -62,7 +62,7 @@ ggplot(euro_geo_nuts2) +
   expand_limits(x = euro_geo_nuts2$long, y = euro_geo_nuts2$lat) +
   theme_void()
 
-save(euro_geo_nuts2, file = './data-raw/euro_geo_nuts2.RData')
+save(euro_geo_nuts2, file = './data-raw/euro_geo_nuts2.RData', compress = 'xz')
 
 # Geodata European countries and neighbours -------------------------------
 
@@ -72,8 +72,8 @@ download.file(
   'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/CNTR_2010_20M_SH.zip',
   destfile = f
 )
-unzip(f, exdir = 'geodata/.')
-world_geo <- readOGR('geodata/CNTR_2010_20M_SH/CNTR_2010_20M_SH/Data/.',
+unzip(f, exdir = './data-raw/geodata/.')
+world_geo <- readOGR('./data-raw/geodata/CNTR_2010_20M_SH/CNTR_2010_20M_SH/Data/.',
                     'CNTR_RG_20M_2010')
 
 # colnames to lower case
@@ -115,4 +115,4 @@ ggplot(euro_region_geo) +
   expand_limits(x = euro_region_geo$long, y = euro_region_geo$lat) +
   theme_void()
 
-save(euro_region_geo, file = './data-raw/euro_region_geo.RData')
+save(euro_region_geo, file = './data-raw/euro_region_geo.RData', compress = 'xz')

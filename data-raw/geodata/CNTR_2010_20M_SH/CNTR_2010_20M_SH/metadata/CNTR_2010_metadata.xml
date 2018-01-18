@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?><gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<gmd:fileIdentifier xmlns:gmd="http://www.isotc211.org/2005/gmd"><CharacterString xmlns="http://www.isotc211.org/2005/gco">{2FAC73CC-4701-45AE-839C-8D36A846BB90}</CharacterString></gmd:fileIdentifier>
+	<gmd:language xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:LanguageCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#LanguageCode" codeListValue="eng" xmlns:gmd="http://www.isotc211.org/2005/gmd">eng</gmd:LanguageCode>
+	</gmd:language>
+	<gmd:hierarchyLevel xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="dataset" xmlns:gmd="http://www.isotc211.org/2005/gmd">dataset</gmd:MD_ScopeCode>
+	</gmd:hierarchyLevel>
+	<gmd:contact xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:CI_ResponsibleParty xmlns:gmd="http://www.isotc211.org/2005/gmd">
+			<gmd:organisationName xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">European Commission, Eurostat (ESTAT), GISCO</gco:CharacterString>
+			</gmd:organisationName>
+			<gmd:contactInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:CI_Contact xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:address xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_Address xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:electronicMailAddress xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">estat-gisco@ec.europa.eu</gco:CharacterString>
+							</gmd:electronicMailAddress>
+						</gmd:CI_Address>
+					</gmd:address>
+				</gmd:CI_Contact>
+			</gmd:contactInfo>
+			<gmd:role xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+			</gmd:role>
+		</gmd:CI_ResponsibleParty>
+	</gmd:contact>
+	<gmd:dateStamp xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gco:Date xmlns:gco="http://www.isotc211.org/2005/gco">2014-01-13</gco:Date>
+	</gmd:dateStamp>
+	<gmd:metadataStandardName xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INSPIRE Metadata Commission Regulation (EC) No 1205/2008</gco:CharacterString>
+	</gmd:metadataStandardName>
+	<gmd:metadataStandardVersion xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">03.12.2008</gco:CharacterString>
+	</gmd:metadataStandardVersion>
+	<gmd:locale xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:PT_Locale id="eng" xmlns:gmd="http://www.isotc211.org/2005/gmd">
+			<gmd:languageCode xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:LanguageCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#LanguageCode" codeListValue="eng" xmlns:gmd="http://www.isotc211.org/2005/gmd">English</gmd:LanguageCode>
+			</gmd:languageCode>
+			<gmd:characterEncoding xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" xmlns:gmd="http://www.isotc211.org/2005/gmd">UTF-8</gmd:MD_CharacterSetCode>
+			</gmd:characterEncoding>
+		</gmd:PT_Locale>
+	</gmd:locale>
+	<gmd:identificationInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:MD_DataIdentification xmlns:gmd="http://www.isotc211.org/2005/gmd">
+			<gmd:citation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:CI_Citation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:title xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Countries, 2010 - Administrative Units - Dataset</gco:CharacterString>
+					</gmd:title>
+					
+					<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_Date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Date xmlns:gco="http://www.isotc211.org/2005/gco">2011-12-21</gco:Date>
+							</gmd:date>
+							<gmd:dateType xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+							</gmd:dateType>
+						</gmd:CI_Date>
+					</gmd:date>
+					
+					<gmd:identifier xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:MD_Identifier xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:code xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">{5C27B6C0-BC1C-4175-9B0B-783AEEBAAD61}</gco:CharacterString>
+							</gmd:code>
+						</gmd:MD_Identifier>
+					</gmd:identifier>
+				</gmd:CI_Citation>
+			</gmd:citation>
+			<gmd:abstract xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">This data set contains the administrative boundaries at country level of the world and is based on the geometry from EBM v5.0. of EuroGeographics for the members of Eurogeographics, the Global Administrative Units Layer (2008) from FAO (UN) and geometry from the Turkish National Statistical Office. This dataset consists of 2 feature classes (regions, boundaries) per scale level and there are 6 different scale levels (100K, 1M, 3M, 10M, 20M and 60M). The public data set (1M - 60M) is available under the &amp;quot;Download link&amp;quot; indicated below. The full data set (100K - 60M) &amp;quot;GISCO.CNTR_2010&amp;quot; is available via the &amp;quot;EC restricted download link&amp;quot;.</gco:CharacterString>
+			</gmd:abstract>
+			<gmd:pointOfContact xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:CI_ResponsibleParty xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:organisationName xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">European Commission, Eurostat (ESTAT), GISCO</gco:CharacterString>
+					</gmd:organisationName>
+					<gmd:contactInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_Contact xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:address xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_Address xmlns:gmd="http://www.isotc211.org/2005/gmd">
+									<gmd:electronicMailAddress xmlns:gmd="http://www.isotc211.org/2005/gmd">
+										<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">estat-gisco@ec.europa.eu</gco:CharacterString>
+									</gmd:electronicMailAddress>
+								</gmd:CI_Address>
+							</gmd:address>
+						</gmd:CI_Contact>
+					</gmd:contactInfo>
+					<gmd:role xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian" xmlns:gmd="http://www.isotc211.org/2005/gmd">custodian</gmd:CI_RoleCode>
+					</gmd:role>
+				</gmd:CI_ResponsibleParty>
+			</gmd:pointOfContact>
+			
+			<gmd:descriptiveKeywords xlink:title="inspire-data-theme-keywords" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<gmd:MD_Keywords xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:keyword xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Administrative units</gco:CharacterString>
+					</gmd:keyword>
+					<gmd:thesaurusName xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_Citation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:title xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">GEMET - INSPIRE themes, version 1.0</gco:CharacterString>
+							</gmd:title>
+							<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_Date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+									<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+										<gco:Date xmlns:gco="http://www.isotc211.org/2005/gco">2008-06-01</gco:Date>
+									</gmd:date>
+									<gmd:dateType xmlns:gmd="http://www.isotc211.org/2005/gmd">
+										<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" xmlns:gmd="http://www.isotc211.org/2005/gmd">publication</gmd:CI_DateTypeCode>
+									</gmd:dateType>
+								</gmd:CI_Date>
+							</gmd:date>
+						</gmd:CI_Citation>
+					</gmd:thesaurusName>
+				</gmd:MD_Keywords>
+			</gmd:descriptiveKeywords>
+			<gmd:descriptiveKeywords xlink:title="custom-keywords" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<gmd:MD_Keywords xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:keyword xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Countries</gco:CharacterString>
+					</gmd:keyword>
+<gmd:keyword xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INSPIREGEOPORTAL</gco:CharacterString>
+					</gmd:keyword>
+					
+				</gmd:MD_Keywords>
+			</gmd:descriptiveKeywords>
+			
+			<gmd:resourceConstraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_Constraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:useLimitation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">This data set should be referred to as &amp;quot;Countries, 2010 - European Commission, Eurostat/GISCO&amp;quot; An overview of the use conditions is given below. The detailed use conditions are available here: https://circabc.europa.eu/d/d/workspace/SpacesStore/6f5186f3-908b-413a-8687-191604976751/EuroGeographics%20Use%20Conditions%20-%20From%20Contract.pdf Access to the detailed data is restricted to the personnel of the European Commission, the Executive Agencies and contractors, due to intellectual property rights. The contractors can access the data after signing an agreement form. The agreement form can be requested by the responsible service from European Commission - Eurostat/GISCO (ESTAT-GISCO@ec.europa.eu). Once the form has been signed, access will be provided by European Commission - Eurostat/GISCO. Data can be published in the form of electronic images, statistical tables and on paper. Subsets of this data can be made available to the general public for non commercial use, only if the data covered either has a spatial resolution of 1:1.000.000 or smaller, or less than 20% of the original EuroGeographics data is shown for the selected extent. The source and intellectual property have always to be acknowledged. To this end, an acknowledgement as specified below must be visible on any printed or electronic publication using the data. Acknowledgement notice, depending on the language used in the publication: English: Administrative boundaries: © EuroGeographics, © FAO (UN), © TurkStat Source: European Commission – Eurostat/GISCO French: Limites administratives: © EuroGeographics, © FAO (UN), © TurkStat Source: Commission européenne – Eurostat/GISCO German: Verwaltungsgrenzen: © EuroGeographics, © FAO (UN), © TurkStat Quelle: Europäische Kommission - Eurostat/GISCO For publications in languages other than English, French or German, the translation of the acknowledgement notice in the language of the publication must be used.</gco:CharacterString>
+					</gmd:useLimitation>
+				</gmd:MD_Constraints>
+			</gmd:resourceConstraints>
+			<gmd:resourceConstraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_LegalConstraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:accessConstraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:MD_RestrictionCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions" xmlns:gmd="http://www.isotc211.org/2005/gmd">otherRestrictions</gmd:MD_RestrictionCode>
+					</gmd:accessConstraints>
+					<gmd:otherConstraints xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">(e) intellectual property rights</gco:CharacterString>
+					</gmd:otherConstraints>
+				</gmd:MD_LegalConstraints>
+			</gmd:resourceConstraints>
+			<gmd:spatialResolution xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_Resolution xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:equivalentScale xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:MD_RepresentativeFraction xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:denominator xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Integer xmlns:gco="http://www.isotc211.org/2005/gco">100000</gco:Integer>
+							</gmd:denominator>
+						</gmd:MD_RepresentativeFraction>
+					</gmd:equivalentScale>
+				</gmd:MD_Resolution>
+			</gmd:spatialResolution>
+			<gmd:spatialResolution xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_Resolution xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:equivalentScale xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:MD_RepresentativeFraction xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:denominator xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Integer xmlns:gco="http://www.isotc211.org/2005/gco">60000000</gco:Integer>
+							</gmd:denominator>
+						</gmd:MD_RepresentativeFraction>
+					</gmd:equivalentScale>
+				</gmd:MD_Resolution>
+			</gmd:spatialResolution>
+			
+			
+			<gmd:language xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">eng</gco:CharacterString>
+			</gmd:language>
+			<gmd:topicCategory xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_TopicCategoryCode xmlns:gmd="http://www.isotc211.org/2005/gmd">boundaries</gmd:MD_TopicCategoryCode>
+			</gmd:topicCategory>
+			<gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:EX_Extent xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:geographicElement xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:EX_GeographicBoundingBox xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:westBoundLongitude xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Decimal xmlns:gco="http://www.isotc211.org/2005/gco">-180</gco:Decimal>
+							</gmd:westBoundLongitude>
+							<gmd:eastBoundLongitude xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Decimal xmlns:gco="http://www.isotc211.org/2005/gco">180</gco:Decimal>
+							</gmd:eastBoundLongitude>
+							<gmd:southBoundLatitude xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Decimal xmlns:gco="http://www.isotc211.org/2005/gco">-90</gco:Decimal>
+							</gmd:southBoundLatitude>
+							<gmd:northBoundLatitude xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:Decimal xmlns:gco="http://www.isotc211.org/2005/gco">90</gco:Decimal>
+							</gmd:northBoundLatitude>
+						</gmd:EX_GeographicBoundingBox>
+					</gmd:geographicElement>
+					
+				</gmd:EX_Extent>
+			</gmd:extent>
+		</gmd:MD_DataIdentification>
+	</gmd:identificationInfo>
+
+
+	<gmd:distributionInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:MD_Distribution xmlns:gmd="http://www.isotc211.org/2005/gmd">
+			
+			<gmd:transferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_DigitalTransferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:onLine xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_OnlineResource xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:linkage xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:URL xmlns:gmd="http://www.isotc211.org/2005/gmd">https://circabc.europa.eu/d/d/workspace/SpacesStore/475ee0bc-5a40-447f-97ab-94c8e1464d72/GISCO%20DB%20Manual%20v2.2.1.pdf</gmd:URL>
+							</gmd:linkage>
+							<gmd:function xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="information" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+							</gmd:function>
+						</gmd:CI_OnlineResource>
+					</gmd:onLine>
+				</gmd:MD_DigitalTransferOptions>
+			</gmd:transferOptions>
+			<gmd:transferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_DigitalTransferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:onLine xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_OnlineResource xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:linkage xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:URL xmlns:gmd="http://www.isotc211.org/2005/gmd">http://epp.eurostat.ec.europa.eu/portal/page/portal/gisco_Geographical_information_maps/popups/references/administrative_units_statistical_units_1</gmd:URL>
+							</gmd:linkage>
+							<gmd:function xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="download" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+							</gmd:function>
+						</gmd:CI_OnlineResource>
+					</gmd:onLine>
+				</gmd:MD_DigitalTransferOptions>
+			</gmd:transferOptions>
+			<gmd:transferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:MD_DigitalTransferOptions xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:onLine xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:CI_OnlineResource xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:linkage xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:URL xmlns:gmd="http://www.isotc211.org/2005/gmd">http://myintracomm.ec.europa.eu/dg/ESTAT/6-tools/GISCO/AccessGeographicalRef%20Database/Pages/AccessGeographicalRefDatabase.aspx</gmd:URL>
+							</gmd:linkage>
+							<gmd:function xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_OnLineFunctionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_OnLineFunctionCode" codeListValue="offlineAccess" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+							</gmd:function>
+						</gmd:CI_OnlineResource>
+					</gmd:onLine>
+				</gmd:MD_DigitalTransferOptions>
+			</gmd:transferOptions>
+			
+		</gmd:MD_Distribution>
+	</gmd:distributionInfo>
+
+	<gmd:dataQualityInfo xmlns:gmd="http://www.isotc211.org/2005/gmd">
+		<gmd:DQ_DataQuality xmlns:gmd="http://www.isotc211.org/2005/gmd">
+			<gmd:scope xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:DQ_Scope xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:level xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_ScopeCode" codeListValue="" xmlns:gmd="http://www.isotc211.org/2005/gmd"/>
+					</gmd:level>
+				</gmd:DQ_Scope>
+			</gmd:scope>
+			<gmd:report xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:DQ_DomainConsistency xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DQ_DomainConsistency_Type">
+					<gmd:measureIdentification xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:RS_Identifier xmlns:gmd="http://www.isotc211.org/2005/gmd">
+							<gmd:code xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Conformity_001</gco:CharacterString>
+							</gmd:code>
+							<gmd:codeSpace xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">INSPIRE</gco:CharacterString>
+							</gmd:codeSpace>
+						</gmd:RS_Identifier>
+					</gmd:measureIdentification>
+					<gmd:result xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gmd:DQ_ConformanceResult xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DQ_ConformanceResult_Type">
+							<gmd:specification xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gmd:CI_Citation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+									<gmd:title xmlns:gmd="http://www.isotc211.org/2005/gmd">
+										<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">Commission Regulation (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services</gco:CharacterString>
+									</gmd:title>
+									<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+										<gmd:CI_Date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+											<gmd:date xmlns:gmd="http://www.isotc211.org/2005/gmd">
+												<gco:Date xmlns:gco="http://www.isotc211.org/2005/gco">2010-11-23</gco:Date>
+											</gmd:date>
+											<gmd:dateType xmlns:gmd="http://www.isotc211.org/2005/gmd">
+												<gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation" xmlns:gmd="http://www.isotc211.org/2005/gmd">creation</gmd:CI_DateTypeCode>
+											</gmd:dateType>
+										</gmd:CI_Date>
+									</gmd:date>
+								</gmd:CI_Citation>
+							</gmd:specification>
+							<gmd:explanation xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">See the referenced specification</gco:CharacterString>
+							</gmd:explanation>
+							<gmd:pass xmlns:gmd="http://www.isotc211.org/2005/gmd">
+								
+							</gmd:pass>
+						</gmd:DQ_ConformanceResult>
+					</gmd:result>
+				</gmd:DQ_DomainConsistency>
+			</gmd:report>
+			
+			
+			<gmd:lineage xmlns:gmd="http://www.isotc211.org/2005/gmd">
+				<gmd:LI_Lineage xmlns:gmd="http://www.isotc211.org/2005/gmd">
+					<gmd:statement xmlns:gmd="http://www.isotc211.org/2005/gmd">
+						<gco:CharacterString xmlns:gco="http://www.isotc211.org/2005/gco">The dataset is based on the geometry from EBM v5.0. of EuroGeographics for the members of Eurogeographics, the Global Administrative Units Layer (2008) from FAO (UN) and geometry from the Turkish National Statistical Office. This resulted in a common repository of geometry of which the different datasets were derived. The different scale levels were derived of generalisations of the common repository on 100K scale. This means that within each scale level the feature classes of all these datasets: COMM_2010, NUTS_2010, CNTR_2010, EEZ_2010 and COAS_2010, are fully coherent and compliant. Each scale level in the CNTR_2010 dataset consists of 2 feature classes (regions and boundaries) The boundaries and regions are related to each other through a relationship table. In addition to the region and boundary feature classes there is also 1 label feature class which is scale independent. For each CNTR in the region feature class there is exactly 1 label. Further information on the validity and lineage is available in the database manual on the INSPIRE@EC group on CIRCABC. https://circabc.europa.eu/w/browse/bf8ae55b-a09b-4f24-a0b8-1f5784e0080c
+
+&amp;gt; “2014-01-10 - Errors in data resolved. Mayotte now an overseas department of France and therefore merged with the France polygon. Saint Barthélemy now an overseas collectivity of France and is removed from the France record and a new record with the ISO code BL is created.”</gco:CharacterString>
+					</gmd:statement>
+				</gmd:LI_Lineage>
+			</gmd:lineage>
+		</gmd:DQ_DataQuality>
+	</gmd:dataQualityInfo>
+</gmd:MD_Metadata>

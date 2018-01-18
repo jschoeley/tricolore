@@ -43,4 +43,4 @@ euro_sectors <-
   mutate(nuts2 = as.character(geo)) %>%
   select(year, nuts2, primary, secondary, tertiary)
 
-save(euro_sectors, file = './data-raw/euro_sectors.RData')
+save(euro_sectors, file = './data-raw/euro_sectors.RData', compress = 'xz')

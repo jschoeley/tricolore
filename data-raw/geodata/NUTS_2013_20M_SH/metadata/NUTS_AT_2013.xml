@@ -1,0 +1,187 @@
+﻿<gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <gmd:fileIdentifier>
+    <gco:CharacterString>fb05f48e-1680-46df-8018-6e51a5827f3a</gco:CharacterString>
+  </gmd:fileIdentifier>
+  <gmd:language>
+    <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng" codeSpace="ISO639-2">eng</gmd:LanguageCode>
+  </gmd:language>
+  <gmd:characterSet>
+    <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" codeSpace="ISOTC211/19115">utf8</gmd:MD_CharacterSetCode>
+  </gmd:characterSet>
+  <gmd:hierarchyLevel>
+    <gmd:MD_ScopeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_ScopeCode" codeListValue="nonGeographicDataset" codeSpace="ISOTC211/19115">nonGeographicDataset</gmd:MD_ScopeCode>
+  </gmd:hierarchyLevel>
+  <gmd:hierarchyLevelName>
+    <gco:CharacterString>dataset</gco:CharacterString>
+  </gmd:hierarchyLevelName>
+  <gmd:contact>
+    <gmd:CI_ResponsibleParty>
+      <gmd:organisationName>
+        <gco:CharacterString>European Commission, Eurostat (ESTAT), GISCO</gco:CharacterString>
+      </gmd:organisationName>
+      <gmd:contactInfo>
+        <gmd:CI_Contact>
+          <gmd:address>
+            <gmd:CI_Address>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString>estat-gisco@ec.europa.eu</gco:CharacterString>
+              </gmd:electronicMailAddress>
+            </gmd:CI_Address>
+          </gmd:address>
+        </gmd:CI_Contact>
+      </gmd:contactInfo>
+      <gmd:role>
+        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="pointOfContact" codeSpace="ISOTC211/19115">pointOfContact</gmd:CI_RoleCode>
+      </gmd:role>
+    </gmd:CI_ResponsibleParty>
+  </gmd:contact>
+  <gmd:dateStamp>
+    <gco:Date>2015-12-03</gco:Date>
+  </gmd:dateStamp>
+  <gmd:metadataStandardName>
+    <gco:CharacterString>INSPIRE Metadata Implementing Rules: Technical Guidelines based on EN ISO 19115 and EN ISO 19119</gco:CharacterString>
+  </gmd:metadataStandardName>
+  <gmd:metadataStandardVersion>
+    <gco:CharacterString>V. 1.2</gco:CharacterString>
+  </gmd:metadataStandardVersion>
+  <gmd:identificationInfo>
+    <gmd:MD_DataIdentification>
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title>
+            <gco:CharacterString>NUTS_AT_2013</gco:CharacterString>
+          </gmd:title>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
+                <gco:Date>2015-06-04</gco:Date>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="creation" codeSpace="ISOTC211/19115">creation</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
+                <gco:Date>2015-06-04</gco:Date>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" codeSpace="ISOTC211/19115">publication</gmd:CI_DateTypeCode>
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_PresentationFormCode" codeListValue="tableDigital" codeSpace="ISOTC211/19115">tableDigital</gmd:CI_PresentationFormCode>
+          </gmd:presentationForm>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract>
+        <gco:CharacterString>This data set represents the regions for level 1, 2 and 3 of the Nomenclature of Territorial Units for Statistics (NUTS) for 2013. The NUTS nomenclature is a hierarchical classification of statistical regions and subdivides the EU economic territory into regions of three different levels (NUTS 1, 2 and 3, respectively, moving from larger to smaller territorial units). NUTS 1 is the most aggregated level. The NUTS classification has been officially established through Regulation (EC) No 1059/2003 of the European Parliament and of the Council and amendments. A non official NUTS-like classification has been defined for the EFTA countries and candidate countries. An introduction to the NUTS classification is available here: http://ec.europa.eu/eurostat/web/nuts/overview This data set has been created mainly from the EuroBoundary Map v 8.0 and 8.2 (Eurogeographics), geographic information from TurkStat for Turkey, the Global Administrative Unit Layer from the Food and Agriculture Organization of the United Nations (FAO-UN) for Macedonia and a list of communes per statistical region provided by the countries. The public data set is available under the "Download link" indicated below. Available scales are 1M, 3M, 10M, 20M, 60M. The full data set is available via the "EC restricted download link" under "GISCO.NUTS_2013". Here six scale ranges (100K, 1M, 3M, 10M and 20M, 60M) are available. Note as 04/06/2015 only 100K and 01M are available. Other scales currently in production.This table can be joined to NUTS_RG and NUTS_LB by the NUTS_ID. It contains the followingNUTS_NAME: Name of the NUTS region in the national language -as defined by RAMON - http://ec.europa.eu/eurostat/ramon/index.cfm?TargetUrl=DSP_PUB_WELCNUTS_LATN: Name of NUTS region in Latin charactersNUTS_ASCII: Name of NUTS region in ASCII charactersNUTS_HTML: Name of NUTS region in HTML charactersCoverage is the economical territory of the EU, EFTA countries and candidate countries as in 2013. Official NUTS geometry has yet to be approved for Serbia and Albania.</gco:CharacterString>
+      </gmd:abstract>
+      <gmd:pointOfContact>
+        <gmd:CI_ResponsibleParty>
+          <gmd:organisationName>
+            <gco:CharacterString>European Commission, Eurostat (ESTAT), GISCO</gco:CharacterString>
+          </gmd:organisationName>
+          <gmd:contactInfo>
+            <gmd:CI_Contact>
+              <gmd:address>
+                <gmd:CI_Address>
+                  <gmd:electronicMailAddress>
+                    <gco:CharacterString>estat-gisco@ec.europa.eu</gco:CharacterString>
+                  </gmd:electronicMailAddress>
+                </gmd:CI_Address>
+              </gmd:address>
+            </gmd:CI_Contact>
+          </gmd:contactInfo>
+          <gmd:role>
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode" codeListValue="custodian" codeSpace="ISOTC211/19115">custodian</gmd:CI_RoleCode>
+          </gmd:role>
+        </gmd:CI_ResponsibleParty>
+      </gmd:pointOfContact>
+      <gmd:descriptiveKeywords>
+        <gmd:MD_Keywords>
+          <gmd:keyword>
+            <gco:CharacterString>Statistical units</gco:CharacterString>
+          </gmd:keyword>
+          <gmd:type>
+            <gmd:MD_KeywordTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_KeywordTypeCode" codeListValue="theme" codeSpace="ISOTC211/19115">theme</gmd:MD_KeywordTypeCode>
+          </gmd:type>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>GEMET - INSPIRE themes, version 1.0</gco:CharacterString>
+              </gmd:title>
+              <gmd:date>
+                <gmd:CI_Date>
+                  <gmd:date>
+                    <gco:Date>2008-01-06</gco:Date>
+                  </gmd:date>
+                  <gmd:dateType>
+                    <gmd:CI_DateTypeCode codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#CI_DateTypeCode" codeListValue="publication" codeSpace="ISOTC211/19115">publication</gmd:CI_DateTypeCode>
+                  </gmd:dateType>
+                </gmd:CI_Date>
+              </gmd:date>
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:resourceConstraints>
+        <gmd:MD_LegalConstraints>
+          <gmd:accessConstraints>
+            <gmd:MD_RestrictionCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_RestrictionCode" codeListValue="otherRestrictions" codeSpace="ISOTC211/19115">otherRestrictions</gmd:MD_RestrictionCode>
+          </gmd:accessConstraints>
+          <gmd:otherConstraints>
+            <gco:CharacterString>(e) intellectual property rights</gco:CharacterString>
+          </gmd:otherConstraints>
+        </gmd:MD_LegalConstraints>
+      </gmd:resourceConstraints>
+      <gmd:spatialRepresentationType>
+        <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_SpatialRepresentationTypeCode" codeListValue="textTable" codeSpace="ISOTC211/19115">textTable</gmd:MD_SpatialRepresentationTypeCode>
+      </gmd:spatialRepresentationType>
+      <gmd:language>
+        <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/php/code_list.php" codeListValue="eng" codeSpace="ISO639-2">eng</gmd:LanguageCode>
+      </gmd:language>
+      <gmd:characterSet>
+        <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode" codeListValue="utf8" codeSpace="ISOTC211/19115">utf8</gmd:MD_CharacterSetCode>
+      </gmd:characterSet>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>boundaries</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:environmentDescription>
+        <gco:CharacterString>Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; ESRI ArcGIS 10.0.5.4400</gco:CharacterString>
+      </gmd:environmentDescription>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+  <gmd:distributionInfo>
+    <gmd:MD_Distribution>
+      <gmd:distributionFormat>
+        <gmd:MD_Format>
+          <gmd:name>
+            <gco:CharacterString>File Geodatabase Table</gco:CharacterString>
+          </gmd:name>
+          <gmd:version gco:nilReason="missing" />
+        </gmd:MD_Format>
+      </gmd:distributionFormat>
+    </gmd:MD_Distribution>
+  </gmd:distributionInfo>
+  <gmd:dataQualityInfo>
+    <gmd:DQ_DataQuality>
+      <gmd:scope gco:nilReason="missing" />
+      <gmd:lineage>
+        <gmd:LI_Lineage>
+          <gmd:statement>
+            <gco:CharacterString>This dataset is based on: EuroBoundaryMap (EBM) v6.0 and 6.2. from EuroGeographics (scale of 1:100.000), Global Administrative Unit Layer (GAUL) 2013 country data from UN/FAO, data from the National Statistical Institute of Turkey (TurkStat), General Register Office for Scotland (GRO) (scale 1:100.000). The different scale levels were derived by generalisation of the 100K scale using ArcGIS toolbox Simplify Line command. This data set consists of 2 feature classes (region polygons and boundaries) per scale level (100k, 1M, 3M, 10M, 20M, 60M). In addition there is also a label feature class (scale independent). This label point feature class was created with a label inside each NUTS region at the 3 NUTS levels (1 - 3) and countries. Furthermore two line feature classes were created: one feature class for cartographic joiners to identify where NUTS areas have one or more enclaves and a second line feature class for cartographic separators, to identify where the NUTS limits are in the sea. The arcs of two latter feature classes are only useful for cartographic purposes and are not meant to identify actual administrative or statistical boundaries stretching into the sea or any other significance. The boundaries and regions are related to each other through a relationship table. Associated tables contain basic information such as the region's name. The 5 small scale feature classes should be used exclusively for cartographic purposes. This data set is consistent at all scales to a cluster tolerance of 0.000001 decimal degrees with the following data sets: "Communes 2013,  European Commission, Eurostat/GISCO", "Countries 2013, European Commission - Eurostat/GISCO", "Coastlines 2013, European Commission - Eurostat/GISCO", "Exclusive Economic Zones 2013, European Commission - Eurostat/GISCO" . Different tests were performed to ensure conceptual- , domain- and topological- consistency. A detailed description of these tests can be found in the GISCO data wiki.
+
+There a minor differences in total areas between NUTS levels of less than 10 square metres, this is believed to be due to rounding when data is dissolved and is within the tolerance specified and satisfies all topology rules. Exceptions exists in the data. The island of St Martin (NUTS3:FRA10) is not included at NUTS level 1 (NUTS1:FRA) due to a change in status of the island - For EU legislation it is an outermost region (TFEU 355(1), 349), and still part of France, and even Guadeloupe (FR91, FR910). So, data for France and Guadeloupe should include St.-Martin.
+
+Errors have been noted in some flags in the NUTS_BN data due to a line having multiple statuses e.g. Part of the line is Candidate country but part is not. These are being corrected currently.
+
+NUTS_LB - location of points may change as further scales are produced to find a point location that is appropriate for the data at all scales.</gco:CharacterString>
+          </gmd:statement>
+        </gmd:LI_Lineage>
+      </gmd:lineage>
+    </gmd:DQ_DataQuality>
+  </gmd:dataQualityInfo>
+</gmd:MD_Metadata>

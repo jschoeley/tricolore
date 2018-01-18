@@ -21,4 +21,4 @@ euro_basemap <-
   theme_void() +
   theme(panel.border = element_rect(fill = NA, color = 'grey90', size = 1))
 
-save(euro_basemap, file = './data-raw/euro_basemap.RData')
+save(euro_basemap, file = './data-raw/euro_basemap.RData', compress = 'xz')

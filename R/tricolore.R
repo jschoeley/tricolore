@@ -519,4 +519,55 @@ DemoTricolore <- function () {
 
 # Data --------------------------------------------------------------------
 
+#' Regional Labour Force Composition in Europe 2008 to 2016
+#'
+#' A dataset containing the relative share of workers by labour force sector
+#' in the European NUTS-2 regions from 2008 to 2016.
+#'
+#' @details
+#'   The original NACE (rev. 2) codes have been recoded into the three sectors
+#'   "primary" (A), "secondary" (B-E & F) and "tertiary" (all other NACE codes).
+#'
+#' @format
+#'   A data frame with 2,902 rows and 5 variables:
+#'   \describe{
+#'     \item{year}{Year.}
+#'     \item{nuts2}{NUTS-2 regional code.}
+#'     \item{primary}{Share of labour force in primary sector.}
+#'     \item{secondary}{Share of labour force in secondary sector.}
+#'     \item{tertiary}{Share of labour force in tertiary sector.}
+#'   }
+#'
+#' @source
+#'   Derived from Eurostats table "lfst_r_lfe2en2".
+'euro_sectors'
 
+#' NUTS-2 Level Polygons for Europe
+#'
+#' A dataset containing the NUTS-2 level polygons of Europes regions.
+#'
+#' @format
+#'   A data frame with 2,902 rows and 5 variables:
+#'   \describe{
+#'     \item{long}{Longitude.}
+#'     \item{lat}{Latitude.}
+#'     \item{order}{Drawing order of polygon path.}
+#'     \item{hole}{Features hole?}
+#'     \item{piece}{Piece id.}
+#'     \item{id}{NUTS-2 code.}
+#'     \item{group}{Drawing group.}
+#'   }
+#'
+#' @source
+#'   Derived from Eurostats European Geodata:
+#'   \url{'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_20M_SH.zip}
+'euro_geo_nuts2'
+
+#' Flat Map of European Continent
+#'
+#' A ggplot object rendering a flat background map of the European continent.
+#'
+#' @source
+#'   Derived from Eurostat World shapefile:
+#'   \url{http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/CNTR_2010_20M_SH.zip}
+'euro_basemap'
