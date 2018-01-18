@@ -58,39 +58,45 @@ tric$legend
 #' ## Case study: European labor force composition.
 #'
 #' We are interested in the regional distribution of labor force by sector in
-#' the European Union. The `eu_sectors` data contains the share of workers in
+#' the European Union. The `euro_sectors` data contains the share of workers in
 #' the three sectors for the year 2016 by NUTS-2 region.
 
-head(eu_sectors)
+euro_sectors <- subset(euro_sectors, year == 2016)
+head(euro_sectors)
+
 
 #' In order to prepare a map I've prepared a data frame with the outlines of
-#' the European NUTS-2 regions and neighboring countries, `eushp_nuts2`
+#' the European NUTS-2 regions and neighbouring countries, `euro_geo_nuts2`.
 
-head(eushp_nuts2)
+head(euro_geo_nuts2)
 
 #' Using tricolore, I color-code each regions labor force composition and merge
 #' the resulting vector of hexsrgb color codes with the map data.
 
-# generate colors based on compositions in `eu_sectors`, default options
-tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary')
+# generate colors based on compositions in `euro_sectors`, default options
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary')
 
 # merge vector of colors with with map data
-eu_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(eushp_nuts2, eu_sectors, by = c('id' = 'nuts2'))
+euro_sectors$srgb <- tricol$hexsrgb
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
 
 #' I use `ggplot2` to plot a map of Europe with each NUTS-2 region shaded
 #' according to its corresponding hexsrgb values (`scale_fill_identity()`). I
 #' merge the color-key returned by `tricolore` with the map using the
 #' `annotation_custom()` function.
 
-europe_map +
+euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
   scale_fill_identity() +
-  annotation_custom(ggplotGrob(tricol$legend),
-                    xmin = -7e5, xmax = 73e5, ymin = 42e5, ymax = 55e5)
+  annotation_custom(
+    ggplotGrob(
+      tricol$legend +
+        theme(plot.background = element_rect(fill = NA, color = NA))
+    ),
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
 #' *Labor force composition in EU regions. Default color scale options. Data by eurostat.*
-
+#'
 #' Europe's labor force predominantly works in the tertiary sector, as seen by a
 #' map colored in various shades of blue. Reddish and greenish hues in eastern
 #' Europe indicate a higher share of primary and secondary labor force
@@ -102,21 +108,24 @@ europe_map +
 #' the tertiary (services) sector in red. This is easily achieved by changing
 #' *hue* parameter of the color scale.
 
-tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33)
 
 #' *In the examples to follow I omit the whole mapping code. It is identical for
 #' all examples.*
 
 #+echo=FALSE
-eu_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(eushp_nuts2, eu_sectors, by = c('id' = 'nuts2'))
-europe_map +
+euro_sectors$srgb <- tricol$hexsrgb
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
   scale_fill_identity() +
-  annotation_custom(ggplotGrob(tricol$legend),
-                    xmin = -7e5, xmax = 73e5, ymin = 42e5, ymax = 55e5)
-
+  annotation_custom(
+    ggplotGrob(
+      tricol$legend +
+        theme(plot.background = element_rect(fill = NA, color = NA))
+    ),
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
 #' *Labor force composition in EU regions. Hue parameter set to 0.33. Data by eurostat.*
 #'
 #' Up until now I used continuous colors to show the regional labor force
@@ -126,17 +135,21 @@ europe_map +
 #' 3^2=9 colors. The discrete scale pronounces the east-west divide in
 #' labor force composition.
 
-tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
 
 #+echo=FALSE
-eu_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(eushp_nuts2, eu_sectors, by = c('id' = 'nuts2'))
-europe_map +
+euro_sectors$srgb <- tricol$hexsrgb
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
   scale_fill_identity() +
-  annotation_custom(ggplotGrob(tricol$legend),
-                    xmin = -7e5, xmax = 73e5, ymin = 42e5, ymax = 55e5)
+  annotation_custom(
+    ggplotGrob(
+      tricol$legend +
+        theme(plot.background = element_rect(fill = NA, color = NA))
+    ),
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
 #' *Labor force composition in EU regions. Discrete scale with 9 colors. Data by
 #' eurostat.*
 #'
@@ -154,15 +167,19 @@ europe_map +
 #' Europe, the south of Spain and Italy have a higher than average share of
 #' workers active in the primary sector.
 
-tricol <- Tricolore(eu_sectors, 'primary', 'secondary', 'tertiary',
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
                     hue = 0.33, center = NA)
 
 #+echo=FALSE
-eu_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(eushp_nuts2, eu_sectors, by = c('id' = 'nuts2'))
-europe_map +
+euro_sectors$srgb <- tricol$hexsrgb
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
   scale_fill_identity() +
-  annotation_custom(ggplotGrob(tricol$legend),
-                    xmin = -7e5, xmax = 73e5, ymin = 42e5, ymax = 55e5)
+  annotation_custom(
+    ggplotGrob(
+      tricol$legend +
+        theme(plot.background = element_rect(fill = NA, color = NA))
+    ),
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
