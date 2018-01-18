@@ -5,7 +5,7 @@
 \title{Ternary Balance Color Scale}
 \usage{
 Tricolore(df, p1, p2, p3, k = 100, hue = 0, chroma = 0.8,
-  lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), scale = 1,
+  lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), spread = 1,
   legend = TRUE, show_data = TRUE, show_center = TRUE,
   input_validation = TRUE)
 }
@@ -36,7 +36,7 @@ Values above 99 imply no discretization.}
 (default = 1/3,1/3,1/3).
 NA puts center over the compositional mean of the data.}
 
-\item{scale}{The scaling of the color scale. Choose values > 1 to focus the
+\item{spread}{The spread of the color scale. Choose values > 1 to focus the
 color scale on the center.}
 
 \item{legend}{Should a legend be returned along with the colors? (default=TRUE)}

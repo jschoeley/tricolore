@@ -277,7 +277,7 @@ TernaryNearest <- function (P, C) {
 #' @param l_ Lightness of mixed colours [0, 100].
 #' @param contrast Lightness contrast of the color scale [0, 1).
 #' @param center Ternary coordinates of the grey-point.
-#' @param scale Scaling factor > 0.
+#' @param spread Spread of the color scale around center > 0.
 #'
 #' @return An n row data frame giving, for each row of the input P, the input
 #' proportions (p1, p2, p3), parameters of the color mixture (h, c, l) and the
@@ -286,12 +286,12 @@ TernaryNearest <- function (P, C) {
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::ColorMap(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-#'                      center = TRUE, scale = 1)
+#'                      center = TRUE, spread = 1)
 #'
 #' @importFrom grDevices hcl hsv
 #'
 #' @keywords internal
-ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale) {
+ColorMap <- function (P, k, h_, c_, l_, contrast, center, spread) {
 
   # generate primary colours starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the colour wheel.
@@ -303,7 +303,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale) {
   # centering
   P <- Pertube(P, 1/center)
   # scaling
-  P <- PowerScale(P, scale = scale)
+  P <- PowerScale(P, spread)
 
   # discretize composition
   if (k < 100) {
@@ -351,7 +351,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale) {
 #'
 #' @examples
 #' tricolore:::ColorKey(k = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
-#'                      center = rep(1/3, 3), scale = 1)
+#'                      center = rep(1/3, 3), spread = 1)
 #'
 #' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
 #'   scale_fill_identity element_text element_blank
@@ -359,7 +359,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, scale) {
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @keywords internal
-ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
+ColorKey <- function (k, h_, c_, l_, contrast, center, spread) {
 
   # don't allow more than 100^2 different colors/regions in the legend
   if (k > 99) { k = 100 }
@@ -369,7 +369,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
   C <- TernaryMeshCentroids(k)
   V <- TernaryMeshVertices(C)
   rgbs <- ColorMap(P = C[,-1], k = 100, h_, c_, l_,
-                   contrast, center, scale)[['hexsrgb']]
+                   contrast, center, spread)[['hexsrgb']]
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
   # plot the legend
@@ -423,7 +423,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #' @param center Ternary coordinates of the color scale center.
 #'  (default = 1/3,1/3,1/3).
 #'  NA puts center over the compositional mean of the data.
-#' @param scale The scaling of the color scale. Choose values > 1 to focus the
+#' @param spread The spread of the color scale. Choose values > 1 to focus the
 #'  color scale on the center.
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
 #' @param show_data Should the data be shown on the legend? (default=TRUE)
@@ -445,7 +445,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, scale) {
 #' @export
 Tricolore <- function (df, p1, p2, p3,
                        k = 100, hue = 0, chroma = 0.8, lightness = 0.7,
-                       contrast = 0.4, center = rep(1/3, 3), scale = 1,
+                       contrast = 0.4, center = rep(1/3, 3), spread = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE,
                        input_validation = TRUE) {
 
@@ -466,13 +466,13 @@ Tricolore <- function (df, p1, p2, p3,
   # the magic numbers rescale the [0,1] color-specification to the
   # cylindrical-coordinates format required by ColorMap()
   mixture <- ColorMap(P, k, hue*360, chroma*200, lightness*100,
-                      contrast, center, scale)
+                      contrast, center, spread)
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
     lgnd <-
       ColorKey(k, hue*360, chroma*200, lightness*100,
-               contrast, center, scale) +
+               contrast, center, spread) +
       list(
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
@@ -499,8 +499,6 @@ Tricolore <- function (df, p1, p2, p3,
   return(result)
 }
 
-# Shiny app ---------------------------------------------------------------
-
 #' Interactive Tricolore Demonstration
 #'
 #' An interactive demonstration of the tricolore color scale inspired by the
@@ -521,4 +519,55 @@ DemoTricolore <- function () {
 
 # Data --------------------------------------------------------------------
 
+#' Regional Labour Force Composition in Europe 2008 to 2016
+#'
+#' A dataset containing the relative share of workers by labour force sector
+#' in the European NUTS-2 regions from 2008 to 2016.
+#'
+#' @details
+#'   The original NACE (rev. 2) codes have been recoded into the three sectors
+#'   "primary" (A), "secondary" (B-E & F) and "tertiary" (all other NACE codes).
+#'
+#' @format
+#'   A data frame with 2,902 rows and 5 variables:
+#'   \describe{
+#'     \item{year}{Year.}
+#'     \item{nuts2}{NUTS-2 regional code.}
+#'     \item{primary}{Share of labour force in primary sector.}
+#'     \item{secondary}{Share of labour force in secondary sector.}
+#'     \item{tertiary}{Share of labour force in tertiary sector.}
+#'   }
+#'
+#' @source
+#'   Derived from Eurostats table "lfst_r_lfe2en2".
+'euro_sectors'
 
+#' NUTS-2 Level Polygons for Europe
+#'
+#' A dataset containing the NUTS-2 level polygons of Europes regions.
+#'
+#' @format
+#'   A data frame with 2,902 rows and 5 variables:
+#'   \describe{
+#'     \item{long}{Longitude.}
+#'     \item{lat}{Latitude.}
+#'     \item{order}{Drawing order of polygon path.}
+#'     \item{hole}{Features hole?}
+#'     \item{piece}{Piece id.}
+#'     \item{id}{NUTS-2 code.}
+#'     \item{group}{Drawing group.}
+#'   }
+#'
+#' @source
+#'   Derived from Eurostats European Geodata:
+#'   \url{'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_20M_SH.zip}
+'euro_geo_nuts2'
+
+#' Flat Map of European Continent
+#'
+#' A ggplot object rendering a flat background map of the European continent.
+#'
+#' @source
+#'   Derived from Eurostat World shapefile:
+#'   \url{http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/CNTR_2010_20M_SH.zip}
+'euro_basemap'
