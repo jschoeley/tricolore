@@ -17,7 +17,7 @@ gghole <- function (fort) {
 
 ui <- fluidPage(
 
-  titlePanel(title = 'Tricolore: A balanced color scale for ternary compositions.'),
+  titlePanel(title = 'Tricolore: A flexible color scale for ternary compositions'),
 
   sidebarLayout(
 
@@ -52,10 +52,13 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  output$example <- renderPlot(width = 700, height = 700, {
+  euro_sectors <- filter(euro_sectors, year == 2016)
+
+  output$example <- renderPlot(width = 800, height = 700, {
+
 
     # mix color, generate legend
-    mixed <- Tricolore(eu_sectors,
+    mixed <- Tricolore(euro_sectors,
                        p1 = 'primary', p2 = 'secondary', p3 = 'tertiary',
                        k = input$k,
                        hue = input$hue, chroma = input$chroma,
@@ -66,33 +69,32 @@ server <- function(input, output) {
 
     # customize legend
     lgnd <- mixed[['legend']] +
-      labs(x = 'Pri', y = 'Sec', z = 'Ter') +
-      theme(plot.background = element_rect(color = 'grey90'))
+      labs(x = 'Primary', y = 'Secondary', z = 'Tertiary',
+           caption = 'Labor force composition in European regions 2016') +
+      theme(plot.background = element_rect(fill = NA, color = NA))
 
     # merge data and map
-    eu_sectors$rgb <- mixed[['hexsrgb']]
-    eu_nuts2_sectors <- gghole(dplyr::right_join(eushp_nuts2,
-                                                 eu_sectors,
-                                                 c('id' = 'nuts2')))
+    euro_sectors$rgb <- mixed[['hexsrgb']]
+    euro_nuts2_sectors <- gghole(dplyr::right_join(euro_geo_nuts2,
+                                                   euro_sectors,
+                                                   c('id' = 'nuts2')))
 
     # generate map
-    eumap <- europe_map +
+    euro_map <-
+      euro_basemap +
       geom_polygon(aes(fill = rgb), color = NA,
-                   data = eu_nuts2_sectors$poly) +
+                   data = euro_nuts2_sectors$poly) +
       geom_polygon(aes(fill = rgb), color = NA,
-                   data = eu_nuts2_sectors$hole) +
+                   data = euro_nuts2_sectors$hole) +
       annotation_custom(ggplotGrob(lgnd),
-                        xmin = -8.1e5, xmax = 73e5,
-                        ymin = 42e5, ymax = 55e5) +
+                        xmin = 55e5, xmax = Inf,
+                        ymin = 38e5, ymax = Inf) +
       scale_fill_identity() +
-      labs(caption = 'Labor force composition in EU regions. Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
+      labs(caption = 'Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
 
-    print(eumap)
+    print(euro_map)
   })
 
 }
 
 shinyApp(ui, server)
-
-# ggtitle(label = 'Labor force composition by sector in EU NUTS-2 regions.',
-#         subtitle = 'Data: eurostat. Source: jschoeley.github.io')
