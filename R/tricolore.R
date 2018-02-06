@@ -6,7 +6,19 @@ MaxIndex <- function (x) {
   if (length(y) > 1L) sample(y, 1L) else y
 }
 
-# validate main arguments of tricolore function
+#' Validate Main Arguments of tricolore Function
+#'
+#' @param df Data frame.
+#' @param p1 Column name for variable in df giving first proportion
+#'           of ternary composition (string).
+#' @param p2 Column name for variable in df giving second proportion
+#'           of ternary composition (string.
+#' @param p3 Column name for variable in df giving third proportion
+#'           of ternary composition (string).
+#'
+#' @importFrom assertthat assert_that is.string
+#'
+#' @keywords internal
 ValidateMainArguments <- function (df, p1, p2, p3) {
   # argument validation
   assert_that(!missing(df), !missing(p1), !missing(p2), !missing(p3),

@@ -1,0 +1,4 @@
+- make axis names on ternary legend smaller
+- add ternary zoom function
+- rename k to breaks
+- change geo column name to id in geo data sets

@@ -27,7 +27,7 @@ test_that('Pertube() works', {
 })
 
 test_that('TernaryMeshCentroids() works', {
-  k = sample(1:100, size = 1)
+  k = sample(2:100, size = 1)
   expect_equal(NROW(TernaryMeshCentroids(k)), k^2)
   expect_equal(TernaryMeshCentroids(k)[,'id'], 1:k^2)
   expect_equal(rowSums(TernaryMeshCentroids(k)[,2:4]), rep(1, k^2))
