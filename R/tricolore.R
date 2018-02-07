@@ -3,7 +3,7 @@
 # from nnet::which.is.max()
 MaxIndex <- function (x) {
   y <- seq_along(x)[x == max(x)]
-  if (length(y) > 1L) sample(y, 1L) else y
+  if (length(y) > 1L) { sample(y, 1L) } else { y }
 }
 
 #' Validate Main Arguments of tricolore Function
@@ -68,8 +68,7 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
 #'
 #' Calculate the centre of a compositional data set.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for
-#'          i=1,...,n.
+#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
 #'
 #' @return The centre of P as an m element numeric vector.
 #'
@@ -100,8 +99,7 @@ Centre <- function (P) {
 #'
 #' Pertube a compositional data set by a compositional vector.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for
-#'          i=1,...,n.
+#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
 #' @param c Compositional pertubation vector {c1, ..., cm}.
 #'
 #' @return n by m matrix of pertubed compositions.
@@ -130,8 +128,7 @@ Pertube <- function (P, c = rep(1/3, 3)) {
 #'
 #' Raise a compositional data-set to a given power.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for
-#'          i=1,...,n.
+#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
 #' @param scale Power scalar.
 #'
 #' @return n by m matrix of powered compositions.
@@ -427,16 +424,16 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' @param p3 Column name for variable in df giving third proportion
 #'           of ternary composition (string).
 #' @param breaks Number of per-axis breaks in the discrete color scale.
-#'  An integer >0. Values above 99 imply no discretization.
+#'               An integer >0. Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element [0, 1].
 #' @param chroma Maximum possible chroma of mixed colors [0, 1].
 #' @param lightness Lightness of mixed colours [0, 1].
 #' @param contrast Lightness contrast of the color scale [0, 1).
 #' @param center Ternary coordinates of the color scale center.
-#'  (default = 1/3,1/3,1/3).
-#'  NA puts center over the compositional mean of the data.
+#'               (default = 1/3,1/3,1/3). NA puts center over the compositional
+#'               mean of the data.
 #' @param spread The spread of the color scale. Choose values > 1 to focus the
-#'  color scale on the center.
+#'               color scale on the center.
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
 #' @param show_data Should the data be shown on the legend? (default=TRUE)
 #' @param show_center Should the center be shown on the legend? (default=TRUE)

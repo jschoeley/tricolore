@@ -33,8 +33,8 @@ An integer >0. Values above 99 imply no discretization.}
 \item{contrast}{Lightness contrast of the color scale [0, 1).}
 
 \item{center}{Ternary coordinates of the color scale center.
-(default = 1/3,1/3,1/3).
-NA puts center over the compositional mean of the data.}
+(default = 1/3,1/3,1/3). NA puts center over the compositional
+mean of the data.}
 
 \item{spread}{The spread of the color scale. Choose values > 1 to focus the
 color scale on the center.}
