@@ -282,8 +282,8 @@ TernaryNearest <- function (P, C) {
 #'
 #' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
 #'          i=1, ..., n.
-#' @param k Number of breaks in the discrete color scale. An integer >0.
-#'          Values above 99 imply no discretization.
+#' @param breaks Number of breaks in the discrete color scale. An integer >0.
+#'               Values above 99 imply no discretization.
 #' @param h_ Primary hue of the first ternary element in angular degrees [0, 360].
 #' @param c_ Maximum possible chroma of mixed colors [0, 200].
 #' @param l_ Lightness of mixed colours [0, 100].
@@ -297,13 +297,13 @@ TernaryNearest <- function (P, C) {
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
-#' tricolore:::ColorMap(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-#'                      center = TRUE, spread = 1)
+#' tricolore:::ColorMap(P, breaks = 5, h_ = 80, c_ = 170, l_ = 80,
+#'                      contrast = 0.6, center = TRUE, spread = 1)
 #'
 #' @importFrom grDevices hcl hsv
 #'
 #' @keywords internal
-ColorMap <- function (P, k, h_, c_, l_, contrast, center, spread) {
+ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 
   # generate primary colours starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the colour wheel.
@@ -318,8 +318,8 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, spread) {
   P <- PowerScale(P, spread)
 
   # discretize composition
-  if (k < 100) {
-    P <- TernaryNearest(P, TernaryMeshCentroids(k)[,-1])
+  if (breaks < 100) {
+    P <- TernaryNearest(P, TernaryMeshCentroids(breaks)[,-1])
   }
 
   # calculate the chroma matrix C by scaling the row proportions
@@ -362,7 +362,7 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, spread) {
 #' @inheritParams ColorMap
 #'
 #' @examples
-#' tricolore:::ColorKey(k = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
+#' tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
 #'                      center = rep(1/3, 3), spread = 1)
 #'
 #' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
@@ -371,21 +371,21 @@ ColorMap <- function (P, k, h_, c_, l_, contrast, center, spread) {
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @keywords internal
-ColorKey <- function (k, h_, c_, l_, contrast, center, spread) {
+ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 
   # don't allow more than 100^2 different colors/regions in the legend
-  if (k > 99) { k = 100 }
+  if (breaks > 99) { breaks = 100 }
 
   # partition the ternary legend into k^2 equilateral sub-triangles
   # calculate ternary vertex coordinates and fill color for each sub-triangle.
-  C <- TernaryMeshCentroids(k)
+  C <- TernaryMeshCentroids(breaks)
   V <- TernaryMeshVertices(C)
-  rgbs <- ColorMap(P = C[,-1], k = 100, h_, c_, l_,
+  rgbs <- ColorMap(P = C[,-1], breaks = 100, h_, c_, l_,
                    contrast, center, spread)[['hexsrgb']]
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
   # plot the legend
-  breaks = seq(0, 1, length.out = k+1); labs = round(breaks*100, 1)
+  brk = seq(0, 1, length.out = breaks+1); labs = round(brk*100, 1)
   legend <-
     # basic legend
     ggtern(legend_surface, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
@@ -398,13 +398,13 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, spread) {
     theme_classic() +
     theme(tern.axis.title.L = element_text(hjust = 0.2, vjust = 1, angle = -60),
           tern.axis.title.R = element_text(hjust = 0.8, vjust = 0.6, angle = 60)) +
-    # dynamic axis labels, for k < 10 label at the border of two regions
+    # dynamic axis labels, for breaks < 10 label at the border of two regions
     list(
-      if (k <= 10) {
+      if (breaks <= 10) {
         list(
-          scale_L_continuous(breaks = breaks, labels = labs),
-          scale_R_continuous(breaks = breaks, labels = labs),
-          scale_T_continuous(breaks = breaks, labels = labs)
+          scale_L_continuous(breaks = brk, labels = labs),
+          scale_R_continuous(breaks = brk, labels = labs),
+          scale_T_continuous(breaks = brk, labels = labs)
         )
       }
     )
@@ -426,8 +426,8 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, spread) {
 #'           of ternary composition (string.
 #' @param p3 Column name for variable in df giving third proportion
 #'           of ternary composition (string).
-#' @param k Number of breaks in the discrete color scale. An integer >0.
-#'          Values above 99 imply no discretization.
+#' @param breaks Number of per-axis breaks in the discrete color scale.
+#'  An integer >0. Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element [0, 1].
 #' @param chroma Maximum possible chroma of mixed colors [0, 1].
 #' @param lightness Lightness of mixed colours [0, 1].
@@ -456,7 +456,7 @@ ColorKey <- function (k, h_, c_, l_, contrast, center, spread) {
 #'
 #' @export
 Tricolore <- function (df, p1, p2, p3,
-                       k = 100, hue = 0, chroma = 0.8, lightness = 0.7,
+                       breaks = 100, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), spread = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE,
                        input_validation = TRUE) {
@@ -470,20 +470,20 @@ Tricolore <- function (df, p1, p2, p3,
   P <- prop.table(P, 1)
 
   # use continuous colors for off-center color scales
-  if (!identical(center, rep(1/3, 3))) { k = 100 }
+  if (!identical(center, rep(1/3, 3))) { breaks = 100 }
   # center color-scale over data's centre if center==NA
   if ( is.na(center[1]) ) { center = Centre(P) }
 
   # derive the color mixture
   # the magic numbers rescale the [0,1] color-specification to the
   # cylindrical-coordinates format required by ColorMap()
-  mixture <- ColorMap(P, k, hue*360, chroma*200, lightness*100,
+  mixture <- ColorMap(P, breaks, hue*360, chroma*200, lightness*100,
                       contrast, center, spread)
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
     lgnd <-
-      ColorKey(k, hue*360, chroma*200, lightness*100,
+      ColorKey(breaks, hue*360, chroma*200, lightness*100,
                contrast, center, spread) +
       list(
         # labels take names from input variables

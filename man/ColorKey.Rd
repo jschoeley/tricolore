@@ -4,10 +4,10 @@
 \alias{ColorKey}
 \title{Ternary Balance Scheme Legend}
 \usage{
-ColorKey(k, h_, c_, l_, contrast, center, spread)
+ColorKey(breaks, h_, c_, l_, contrast, center, spread)
 }
 \arguments{
-\item{k}{Number of breaks in the discrete color scale. An integer >0.
+\item{breaks}{Number of breaks in the discrete color scale. An integer >0.
 Values above 99 imply no discretization.}
 
 \item{h_}{Primary hue of the first ternary element in angular degrees [0, 360].}
@@ -26,7 +26,7 @@ Values above 99 imply no discretization.}
 Plot a ternary balance scheme legend.
 }
 \examples{
-tricolore:::ColorKey(k = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
+tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
                      center = rep(1/3, 3), spread = 1)
 
 }

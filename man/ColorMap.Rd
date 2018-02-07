@@ -4,13 +4,13 @@
 \alias{ColorMap}
 \title{RGB Mixture of Ternary Composition}
 \usage{
-ColorMap(P, k, h_, c_, l_, contrast, center, spread)
+ColorMap(P, breaks, h_, c_, l_, contrast, center, spread)
 }
 \arguments{
 \item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
 i=1, ..., n.}
 
-\item{k}{Number of breaks in the discrete color scale. An integer >0.
+\item{breaks}{Number of breaks in the discrete color scale. An integer >0.
 Values above 99 imply no discretization.}
 
 \item{h_}{Primary hue of the first ternary element in angular degrees [0, 360].}
@@ -35,8 +35,8 @@ Return the ternary balance scheme colors for a matrix of ternary compositions.
 }
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
-tricolore:::ColorMap(P, k = 5, h_ = 80, c_ = 170, l_ = 80, contrast = 0.6,
-                     center = TRUE, spread = 1)
+tricolore:::ColorMap(P, breaks = 5, h_ = 80, c_ = 170, l_ = 80,
+                     contrast = 0.6, center = TRUE, spread = 1)
 
 }
 \keyword{internal}

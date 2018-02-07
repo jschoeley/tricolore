@@ -33,7 +33,7 @@ ui <- fluidPage(
                              min = 0, max = 1, step = 0.1, value = 0.6),
                  sliderInput(inputId = 'spread', label = 'Spread',
                              min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE),
-                 sliderInput(inputId = 'k', label = 'Discretization', ticks = FALSE,
+                 sliderInput(inputId = 'breaks', label = 'Discretization', ticks = FALSE,
                              min = 2, max = 20, step = 1, value = 5),
                  radioButtons(inputId = 'center', label = 'Mean centering',
                               choices = list(No = 'No', Yes = 'Yes'),
@@ -60,7 +60,7 @@ server <- function(input, output) {
     # mix color, generate legend
     mixed <- Tricolore(euro_sectors,
                        p1 = 'primary', p2 = 'secondary', p3 = 'tertiary',
-                       k = input$k,
+                       breaks = input$breaks,
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
                        center = switch(input$center, No = rep(1/3,3), Yes = NA),
@@ -75,9 +75,9 @@ server <- function(input, output) {
 
     # merge data and map
     euro_sectors$rgb <- mixed[['hexsrgb']]
-    euro_nuts2_sectors <- gghole(dplyr::right_join(euro_geo_nuts2,
-                                                   euro_sectors,
-                                                   c('id' = 'nuts2')))
+    euro_nuts2_sectors <- gghole(right_join(euro_geo_nuts2,
+                                            euro_sectors,
+                                            c('id' = 'nuts2')))
 
     # generate map
     euro_map <-
