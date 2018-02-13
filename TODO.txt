@@ -1,3 +1,5 @@
+- replace base map with complete basemaps
+- change geo column name to id in geo data sets
 - make axis names on ternary legend smaller
 - add ternary zoom function
-- change geo column name to id in geo data sets
+- re-write readme

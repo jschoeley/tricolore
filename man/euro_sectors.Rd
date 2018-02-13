@@ -7,7 +7,7 @@
 \format{A data frame with 2,902 rows and 5 variables:
   \describe{
     \item{year}{Year.}
-    \item{nuts2}{NUTS-2 regional code.}
+    \item{id}{NUTS-2 regional code.}
     \item{primary}{Share of labour force in primary sector.}
     \item{secondary}{Share of labour force in secondary sector.}
     \item{tertiary}{Share of labour force in tertiary sector.}

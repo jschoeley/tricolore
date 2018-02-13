@@ -9,7 +9,7 @@ gghole <- function (fort) {
   poly <- fort[fort$id %in% fort[fort$hole, ]$id, ]
   hole <- fort[!fort$id %in% fort[fort$hole, ]$id, ]
   out <- list(poly, hole)
-  names(out) <- c("poly", "hole")
+  names(out) <- c('poly', 'hole')
   return(out)
 }
 
@@ -65,7 +65,8 @@ server <- function(input, output) {
                        lightness = input$lightness, contrast = input$contrast,
                        center = switch(input$center, No = rep(1/3,3), Yes = NA),
                        spread = input$spread, show_data = input$show_data,
-                       show_center = FALSE, legend = TRUE)
+                       show_center = switch(input$center, No = FALSE, Yes = TRUE),
+                       legend = TRUE)
 
     # customize legend
     lgnd <- mixed[['legend']] +
@@ -75,9 +76,7 @@ server <- function(input, output) {
 
     # merge data and map
     euro_sectors$rgb <- mixed[['hexsrgb']]
-    euro_nuts2_sectors <- gghole(right_join(euro_geo_nuts2,
-                                            euro_sectors,
-                                            c('id' = 'nuts2')))
+    euro_nuts2_sectors <- gghole(right_join(euro_geo_nuts2, euro_sectors, 'id'))
 
     # generate map
     euro_map <-

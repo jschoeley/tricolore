@@ -40,7 +40,7 @@ euro_sectors <-
   spread(sector, N) %>%
   mutate_at(vars(primary, secondary, tertiary), .funs = funs(./TOTAL)) %>%
   # simplify
-  mutate(nuts2 = as.character(geo)) %>%
-  select(year, nuts2, primary, secondary, tertiary)
+  mutate(id = as.character(geo)) %>%
+  select(year, id, primary, secondary, tertiary)
 
 save(euro_sectors, file = './data-raw/euro_sectors.RData', compress = 'xz')
