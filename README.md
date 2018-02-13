@@ -1,12 +1,13 @@
 Tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley
-Tue Feb 13 15:17:22 2018
 
 -   [What is 'tricolore'?](#what-is-tricolore)
 -   [Install](#install)
 -   [Getting Started](#getting-started)
 -   [Case study: European labor force composition.](#case-study-european-labor-force-composition.)
+
+[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis](https://img.shields.io/travis/tricolore/tricolore.svg?style=flat-square)]() [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
 What is 'tricolore'?
 --------------------
@@ -46,7 +47,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#769100FF" "#4489BDFF" "#74656EFF" "#AD6BB3FF" "#706566FF" "#A96899FF"
+    ## [1] "#6A6C7FFF" "#627CA4FF" "#8A7944FF" "#847D40FF" "#846D96FF" "#6083BCFF"
 
 ``` r
 tric$legend

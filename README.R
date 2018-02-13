@@ -1,6 +1,7 @@
 #' ---
 #' title: Tricolore. A flexible color scale for ternary compositions
 #' author: Jonas Schöley
+#' date:
 #' output:
 #'   github_document:
 #'     toc: true
@@ -10,6 +11,10 @@
 knitr::opts_chunk$set(warning=FALSE, message=FALSE,
                       fig.width = 12, fig.height = 12)
 
+#' [![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]()
+#' [![Travis](https://img.shields.io/travis/tricolore/tricolore.svg?style=flat-square)]()
+#' [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
+#'
 #'## What is 'tricolore'?
 #'
 #' Tricolore is a flexible color scale for three-part (ternary) compositions
