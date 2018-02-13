@@ -2,34 +2,28 @@ Tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley
 
--   [What is 'tricolore'?](#what-is-tricolore)
--   [Install](#install)
--   [Getting Started](#getting-started)
--   [Case study: European labor force composition.](#case-study-european-labor-force-composition.)
-
 [![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis](https://img.shields.io/travis/tricolore/tricolore.svg?style=flat-square)]() [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
-What is 'tricolore'?
+What is *tricolore*?
 --------------------
 
-Tricolore is a flexible color scale for three-part (ternary) compositions allowing you to color code any ternary composition and draw a corresponding color key. Tricolore flexibly adapts to many different visualization challenges via
+`tricolore` is an R library providing a flexible color scale for the visualization of three-part/ternary compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colours and to draw a suitable color-key. `tricolore` flexibly adapts to different visualisation challenges via
 
--   discrete and continuous colors
+-   discrete and continuous color support
 -   support for unbalanced compositional data or data with very narrow range via centering and scaling of the color scale
 -   hue, chroma and lightness options
 
 ![](README_files/teaser.png)
 
-Install
--------
+Getting Started
+---------------
+
+You can install `tricolore` by running the following code from within an R session:
 
 ``` r
 devtools::install_github('jschoeley/tricolore')
 library(tricolore); DemoTricolore()
 ```
-
-Getting Started
----------------
 
 The `Tricolore()` function takes a data-frame of three-part compositions, color-codes them and returns a list with elements `hexsrgb` and `legend`. The first list element is a vector of rgb codes for the color-coded compositions, the latter element gives a plot of the color key.
 
@@ -47,7 +41,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#6A6C7FFF" "#627CA4FF" "#8A7944FF" "#847D40FF" "#846D96FF" "#6083BCFF"
+    ## [1] "#968415FF" "#6E7455FF" "#A0688CFF" "#D46C6FFF" "#779200FF" "#606D62FF"
 
 ``` r
 tric$legend
@@ -59,8 +53,8 @@ tric$legend
 
 You can familiarize yourself with the various options of `tricolore` by running `DemoTricolore()`.
 
-Case study: European labor force composition.
----------------------------------------------
+Case study: European labor force composition
+--------------------------------------------
 
 We are interested in the regional distribution of labor force by sector in the European Union. The `euro_sectors` data contains the share of workers in the three sectors for the year 2016 by NUTS-2 region.
 
