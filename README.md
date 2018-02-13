@@ -1,7 +1,12 @@
 Tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley
-Thu Jan 18 16:56:35 2018
+Tue Feb 13 15:17:22 2018
+
+-   [What is 'tricolore'?](#what-is-tricolore)
+-   [Install](#install)
+-   [Getting Started](#getting-started)
+-   [Case study: European labor force composition.](#case-study-european-labor-force-composition.)
 
 What is 'tricolore'?
 --------------------
@@ -41,7 +46,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#3487A6FF" "#776B86FF" "#B3678EFF" "#A26D64FF" "#5F696BFF" "#7D7055FF"
+    ## [1] "#769100FF" "#4489BDFF" "#74656EFF" "#AD6BB3FF" "#706566FF" "#A96899FF"
 
 ``` r
 tric$legend
@@ -64,7 +69,7 @@ head(euro_sectors)
 ```
 
     ## # A tibble: 6 x 5
-    ##    year nuts2 primary secondary tertiary
+    ##    year id    primary secondary tertiary
     ##   <int> <chr>   <dbl>     <dbl>    <dbl>
     ## 1  2016 AT11  0.0442      0.268    0.682
     ## 2  2016 AT12  0.0562      0.244    0.700
@@ -79,13 +84,13 @@ In order to prepare a map I've prepared a data frame with the outlines of the Eu
 head(euro_geo_nuts2)
 ```
 
-    ##      long     lat order  hole piece id group
-    ## 1 4832035 2857837     1 FALSE     1 AT  AT.1
-    ## 2 4833566 2848881     2 FALSE     1 AT  AT.1
-    ## 3 4827292 2837438     3 FALSE     1 AT  AT.1
-    ## 4 4827506 2827929     4 FALSE     1 AT  AT.1
-    ## 5 4836894 2818773     5 FALSE     1 AT  AT.1
-    ## 6 4839233 2808803     6 FALSE     1 AT  AT.1
+    ##      long     lat order  hole piece   id  group
+    ## 1 4786948 2658725     1 FALSE     1 AT11 AT11.1
+    ## 2 4778299 2654263     2 FALSE     1 AT11 AT11.1
+    ## 3 4786401 2720388     3 FALSE     1 AT11 AT11.1
+    ## 4 4805178 2780047     4 FALSE     1 AT11 AT11.1
+    ## 5 4846490 2803511     5 FALSE     1 AT11 AT11.1
+    ## 6 4854633 2791782     6 FALSE     1 AT11 AT11.1
 
 Using tricolore, I color-code each regions labor force composition and merge the resulting vector of hexsrgb color codes with the map data.
 
@@ -95,7 +100,7 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary')
 
 # merge vector of colors with with map data
 euro_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = 'id')
 ```
 
 I use `ggplot2` to plot a map of Europe with each NUTS-2 region shaded according to its corresponding hexsrgb values (`scale_fill_identity()`). I merge the color-key returned by `tricolore` with the map using the `annotation_custom()` function.
@@ -131,10 +136,10 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33
 
 *Labor force composition in EU regions. Hue parameter set to 0.33. Data by eurostat.*
 
-Up until now I used continuous colors to show the regional labor force composition. A discrete color scale introduces sharp contours which sometimes pronounce interesting patterns in the data. The `k` parameter determines the number of colors for the color scale. A value of 3 gives a discrete scale of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor force composition.
+Up until now I used continuous colors to show the regional labor force composition. A discrete color scale introduces sharp contours which sometimes pronounce interesting patterns in the data. The `breaks` parameter determines the number of colors for the color scale. A value of 3 gives a discrete scale of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor force composition.
 
 ``` r
-tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, breaks = 3)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)

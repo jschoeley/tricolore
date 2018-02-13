@@ -2,7 +2,8 @@
 #' title: Tricolore. A flexible color scale for ternary compositions
 #' author: Jonas Schöley
 #' output:
-#'   github_document
+#'   github_document:
+#'     toc: true
 #' ---
 
 #+echo=FALSE
@@ -78,7 +79,7 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary')
 
 # merge vector of colors with with map data
 euro_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = 'id')
 
 #' I use `ggplot2` to plot a map of Europe with each NUTS-2 region shaded
 #' according to its corresponding hexsrgb values (`scale_fill_identity()`). I
@@ -115,7 +116,7 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33
 
 #+echo=FALSE
 euro_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = 'id')
 euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
@@ -130,16 +131,16 @@ euro_basemap +
 #'
 #' Up until now I used continuous colors to show the regional labor force
 #' composition. A discrete color scale introduces sharp contours which sometimes
-#' pronounce interesting patterns in the data. The `k` parameter determines the
-#' number of colors for the color scale. A value of 3 gives a discrete scale of
-#' 3^2=9 colors. The discrete scale pronounces the east-west divide in
-#' labor force composition.
+#' pronounce interesting patterns in the data. The `breaks` parameter determines
+#' the number of colors for the color scale. A value of 3 gives a discrete scale
+#' of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor
+#' force composition.
 
-tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, k = 3)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, breaks = 3)
 
 #+echo=FALSE
 euro_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = 'id')
 euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
@@ -172,7 +173,7 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
 
 #+echo=FALSE
 euro_sectors$srgb <- tricol$hexsrgb
-map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = c('id' = 'nuts2'))
+map_data <- dplyr::left_join(euro_geo_nuts2, euro_sectors, by = 'id')
 euro_basemap +
   geom_polygon(aes(long, lat, group = group, fill = srgb),
                data = map_data) +
