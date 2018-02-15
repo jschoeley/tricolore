@@ -36,7 +36,7 @@ Return the ternary balance scheme colors for a matrix of ternary compositions.
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::ColorMap(P, breaks = 5, h_ = 80, c_ = 170, l_ = 80,
-                     contrast = 0.6, center = TRUE, spread = 1)
+                     contrast = 0.6, center = rep(1/3, 3), spread = 1)
 
 }
 \keyword{internal}

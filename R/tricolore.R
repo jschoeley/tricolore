@@ -6,9 +6,11 @@ MaxIndex <- function (x) {
   if (length(y) > 1L) { sample(y, 1L) } else { y }
 }
 
-#' Validate Main Arguments of tricolore Function
+#' Main Argument Validation
 #'
-#' @param df Data frame.
+#' Validate main arguments of tricolore function.
+#'
+#' @param df Data frame of compositions.
 #' @param p1 Column name for variable in df giving first proportion
 #'           of ternary composition (string).
 #' @param p2 Column name for variable in df giving second proportion
@@ -20,17 +22,23 @@ MaxIndex <- function (x) {
 #'
 #' @keywords internal
 ValidateMainArguments <- function (df, p1, p2, p3) {
-  # argument validation
+
+  # missing arguments
   assert_that(!missing(df), !missing(p1), !missing(p2), !missing(p3),
               msg = 'main argument missing')
+  # compositional data is data frame
   assert_that(is.data.frame(df))
+  # variable names as strings
   assert_that(is.string(p1), is.string(p2), is.string(p3))
+  # missing variables in data frame
   assert_that(p1 %in% names(df), msg = paste('variable', p1 ,'not found in df'))
   assert_that(p2 %in% names(df), msg = paste('variable', p2 ,'not found in df'))
   assert_that(p3 %in% names(df), msg = paste('variable', p3 ,'not found in df'))
+  # compositional data is numeric
   assert_that(is.numeric(df[[p1]]), msg = paste('variable', p1 ,'is not numeric'))
   assert_that(is.numeric(df[[p2]]), msg = paste('variable', p2 ,'is not numeric'))
   assert_that(is.numeric(df[[p3]]), msg = paste('variable', p3 ,'is not numeric'))
+  # compositional data is not negative
   assert_that(!any(df[[p1]] < 0, na.rm = TRUE),
               msg = paste('variable', p1 ,'contains negative values'))
   assert_that(!any(df[[p2]] < 0, na.rm = TRUE),
@@ -38,6 +46,7 @@ ValidateMainArguments <- function (df, p1, p2, p3) {
   assert_that(!any(df[[p3]] < 0, na.rm = TRUE),
               msg = paste('variable', p3 ,'contains negative values'))
   # NA, Inf, NaN are allowed and are expected to return NA as color
+
 }
 
 # Compositional Data Analysis ---------------------------------------------
@@ -295,7 +304,7 @@ TernaryNearest <- function (P, C) {
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::ColorMap(P, breaks = 5, h_ = 80, c_ = 170, l_ = 80,
-#'                      contrast = 0.6, center = TRUE, spread = 1)
+#'                      contrast = 0.6, center = rep(1/3, 3), spread = 1)
 #'
 #' @importFrom grDevices hcl hsv
 #'
@@ -416,19 +425,19 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' Color-code three-part compositions with a ternary balance color scale and
 #' return a color key.
 #'
-#' @param df Data frame.
+#' @param df Data frame of compositional data.
 #' @param p1 Column name for variable in df giving first proportion
 #'           of ternary composition (string).
 #' @param p2 Column name for variable in df giving second proportion
-#'           of ternary composition (string.
+#'           of ternary composition (string).
 #' @param p3 Column name for variable in df giving third proportion
 #'           of ternary composition (string).
 #' @param breaks Number of per-axis breaks in the discrete color scale.
 #'               An integer >0. Values above 99 imply no discretization.
-#' @param hue Primary hue of the first ternary element [0, 1].
-#' @param chroma Maximum possible chroma of mixed colors [0, 1].
-#' @param lightness Lightness of mixed colours [0, 1].
-#' @param contrast Lightness contrast of the color scale [0, 1).
+#' @param hue Primary hue of the first ternary element (0 to 1).
+#' @param chroma Maximum possible chroma of mixed colors (0 to 1).
+#' @param lightness Lightness of mixed colours (0 to 1).
+#' @param contrast Lightness contrast of the color scale (0 to 1).
 #' @param center Ternary coordinates of the color scale center.
 #'               (default = 1/3,1/3,1/3). NA puts center over the compositional
 #'               mean of the data.
@@ -439,9 +448,10 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' @param show_center Should the center be shown on the legend? (default=TRUE)
 #' @param input_validation Should the function arguments be validated? (default=TRUE)
 #'
-#' @return legend=FALSE: A vector of rgbs hex-codes representing the ternary
-#'         balance scheme colors. legend=TRUE: A list with elements "hexsrgb"
-#'         and "legend".
+#' @return
+#' * legend=FALSE: A vector of rgbs hex-codes representing the ternary balance
+#'                 scheme colors.
+#' * legend=TRUE: A list with elements "hexsrgb" and "legend".
 #'
 #' @examples
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
@@ -450,6 +460,8 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' @importFrom ggplot2 aes_string geom_point labs
 #' @importFrom ggtern geom_Lline geom_Tline geom_Rline
 #' @importFrom assertthat assert_that is.string
+#'
+#' @md
 #'
 #' @export
 Tricolore <- function (df, p1, p2, p3,
@@ -556,7 +568,7 @@ DemoTricolore <- function () {
 #' A dataset containing the NUTS-2 level polygons of Europes regions.
 #'
 #' @format
-#'   A data frame with 2,902 rows and 5 variables:
+#'   A data frame with 4,206 rows and 7 variables:
 #'   \describe{
 #'     \item{long}{Longitude.}
 #'     \item{lat}{Latitude.}

@@ -2,7 +2,7 @@ Tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley
 
-[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis](https://img.shields.io/travis/tricolore/tricolore.svg?style=flat-square)]() [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
 What is *tricolore*?
 --------------------
@@ -41,7 +41,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#968415FF" "#6E7455FF" "#A0688CFF" "#D46C6FFF" "#779200FF" "#606D62FF"
+    ## [1] "#7B666CFF" "#3F7F88FF" "#7E6670FF" "#527680FF" "#4D7F65FF" "#48885DFF"
 
 ``` r
 tric$legend

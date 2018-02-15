@@ -4,7 +4,7 @@
 \name{euro_geo_nuts2}
 \alias{euro_geo_nuts2}
 \title{NUTS-2 Level Polygons for Europe}
-\format{A data frame with 2,902 rows and 5 variables:
+\format{A data frame with 4,206 rows and 7 variables:
   \describe{
     \item{long}{Longitude.}
     \item{lat}{Latitude.}

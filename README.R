@@ -11,7 +11,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
                       fig.width = 12, fig.height = 12)
 
 #' [![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]()
-#' [![Travis](https://img.shields.io/travis/tricolore/tricolore.svg?style=flat-square)]()
+#' [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore)
 #' [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 #'
 #'## What is *tricolore*?

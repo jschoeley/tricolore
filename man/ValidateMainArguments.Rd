@@ -2,12 +2,12 @@
 % Please edit documentation in R/tricolore.R
 \name{ValidateMainArguments}
 \alias{ValidateMainArguments}
-\title{Validate Main Arguments of tricolore Function}
+\title{Main Argument Validation}
 \usage{
 ValidateMainArguments(df, p1, p2, p3)
 }
 \arguments{
-\item{df}{Data frame.}
+\item{df}{Data frame of compositions.}
 
 \item{p1}{Column name for variable in df giving first proportion
 of ternary composition (string).}
@@ -19,6 +19,6 @@ of ternary composition (string.}
 of ternary composition (string).}
 }
 \description{
-Validate Main Arguments of tricolore Function
+Validate main arguments of tricolore function.
 }
 \keyword{internal}

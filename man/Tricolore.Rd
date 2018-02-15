@@ -10,13 +10,13 @@ Tricolore(df, p1, p2, p3, breaks = 100, hue = 0, chroma = 0.8,
   input_validation = TRUE)
 }
 \arguments{
-\item{df}{Data frame.}
+\item{df}{Data frame of compositional data.}
 
 \item{p1}{Column name for variable in df giving first proportion
 of ternary composition (string).}
 
 \item{p2}{Column name for variable in df giving second proportion
-of ternary composition (string.}
+of ternary composition (string).}
 
 \item{p3}{Column name for variable in df giving third proportion
 of ternary composition (string).}
@@ -24,13 +24,13 @@ of ternary composition (string).}
 \item{breaks}{Number of per-axis breaks in the discrete color scale.
 An integer >0. Values above 99 imply no discretization.}
 
-\item{hue}{Primary hue of the first ternary element [0, 1].}
+\item{hue}{Primary hue of the first ternary element (0 to 1).}
 
-\item{chroma}{Maximum possible chroma of mixed colors [0, 1].}
+\item{chroma}{Maximum possible chroma of mixed colors (0 to 1).}
 
-\item{lightness}{Lightness of mixed colours [0, 1].}
+\item{lightness}{Lightness of mixed colours (0 to 1).}
 
-\item{contrast}{Lightness contrast of the color scale [0, 1).}
+\item{contrast}{Lightness contrast of the color scale (0 to 1).}
 
 \item{center}{Ternary coordinates of the color scale center.
 (default = 1/3,1/3,1/3). NA puts center over the compositional
@@ -48,9 +48,11 @@ color scale on the center.}
 \item{input_validation}{Should the function arguments be validated? (default=TRUE)}
 }
 \value{
-legend=FALSE: A vector of rgbs hex-codes representing the ternary
-        balance scheme colors. legend=TRUE: A list with elements "hexsrgb"
-        and "legend".
+\itemize{
+\item legend=FALSE: A vector of rgbs hex-codes representing the ternary balance
+scheme colors.
+\item legend=TRUE: A list with elements "hexsrgb" and "legend".
+}
 }
 \description{
 Color-code three-part compositions with a ternary balance color scale and
