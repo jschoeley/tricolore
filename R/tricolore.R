@@ -6,7 +6,7 @@ MaxIndex <- function (x) {
   if (length(y) > 1L) { sample(y, 1L) } else { y }
 }
 
-#' Main Argument Validation
+#' Validate Main Arguments
 #'
 #' Validate main arguments of tricolore function.
 #'
@@ -46,6 +46,46 @@ ValidateMainArguments <- function (df, p1, p2, p3) {
   assert_that(!any(df[[p3]] < 0, na.rm = TRUE),
               msg = paste('variable', p3 ,'contains negative values'))
   # NA, Inf, NaN are allowed and are expected to return NA as color
+
+}
+
+#' Validate Parameters
+#'
+#' Validate parameters of tricolore function.
+#'
+#' @param pars List of parameters.
+#'
+#' @importFrom assertthat assert_that is.number is.scalar is.flag
+#'
+#' @keywords internal
+ValidateParameters <- function (pars) {
+
+  with(pars, {
+    # breaks is positive scalar
+    # I don't check for integer because I want to allow `Inf` as value
+    assert_that(is.number(breaks), breaks > 0)
+    # hue is numeric scalar in range [0, 1]
+    assert_that(is.number(hue), hue >= 0 && hue <= 1)
+    # chroma is numeric scalar in range [0, 1]
+    assert_that(is.number(chroma), chroma >= 0 && chroma <= 1)
+    # lightness is numeric scalar in range [0, 1]
+    assert_that(is.number(lightness), lightness >= 0 && lightness <= 1)
+    # contrast is numeric scalar in range [0, 1]
+    assert_that(is.number(contrast), contrast >= 0 && contrast <= 1)
+    # center either NA or three element numeric vector
+    # with sum 1 and elements > 0
+    assert_that((is.scalar(center) && is.na(center)) ||
+                  (length(center) == 3L &&
+                     all(is.numeric(center)) &&
+                     sum(center) == 1 &&
+                     all(center != 0)),
+                msg = 'center must be either NA or a three element numeric vector with sum == 1 and all element > 0.')
+    # spread is positive numeric scalar
+    assert_that(is.number(spread), spread > 0, is.finite(spread))
+    # flags
+    assert_that(is.flag(legend), is.flag(show_data),
+                is.flag(show_center))
+  })
 
 }
 
@@ -471,7 +511,13 @@ Tricolore <- function (df, p1, p2, p3,
                        input_validation = TRUE) {
 
   # validation of main input arguments
-  if (input_validation) { ValidateMainArguments(df, p1, p2, p3) }
+  if (input_validation) {
+    ValidateMainArguments(df, p1, p2, p3)
+    ValidateParameters(list(breaks = breaks, hue = hue, chroma = chroma,
+                            lightness = lightness, contrast = contrast,
+                            center = center, spread = spread, legend = legend,
+                            show_data = show_data, show_center = show_center))
+    }
 
   # construct 3 column matrix of proportions
   P <- cbind(df[[p1]], df[[p2]], df[[p3]])

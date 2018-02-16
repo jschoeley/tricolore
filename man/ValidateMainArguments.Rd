@@ -2,7 +2,7 @@
 % Please edit documentation in R/tricolore.R
 \name{ValidateMainArguments}
 \alias{ValidateMainArguments}
-\title{Main Argument Validation}
+\title{Validate Main Arguments}
 \usage{
 ValidateMainArguments(df, p1, p2, p3)
 }
