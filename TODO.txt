@@ -1,4 +1,1 @@
-- make axis names on ternary legend smaller
 - add ternary zoom function
-- add input checks for parameters
-- add complete travis support
