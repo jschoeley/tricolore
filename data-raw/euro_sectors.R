@@ -18,10 +18,11 @@ euro_sectors <-
   lf %>%
   # recode time as year
   mutate(year = as.integer(lubridate::year(time))) %>%
-  # subset to total age and NUTS-2 regions
+  # subset to total age, year 2016 and NUTS-2 regions
   filter(
     age == 'Y_GE15',
-    str_length(geo) == 4
+    str_length(geo) == 4,
+    year == 2016
   ) %>%
   # recode into three sectors
   mutate(
@@ -41,6 +42,6 @@ euro_sectors <-
   mutate_at(vars(primary, secondary, tertiary), .funs = funs(./TOTAL)) %>%
   # simplify
   mutate(id = as.character(geo)) %>%
-  select(year, id, primary, secondary, tertiary)
+  select(id, primary, secondary, tertiary)
 
 save(euro_sectors, file = './data-raw/euro_sectors.RData', compress = 'xz')

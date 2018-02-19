@@ -3,10 +3,9 @@
 \docType{data}
 \name{euro_sectors}
 \alias{euro_sectors}
-\title{Regional Labour Force Composition in Europe 2008 to 2016}
-\format{A data frame with 2,902 rows and 5 variables:
+\title{Regional Labour Force Composition in Europe 2016}
+\format{A data frame with 325 rows and 4 variables:
   \describe{
-    \item{year}{Year.}
     \item{id}{NUTS-2 regional code.}
     \item{primary}{Share of labour force in primary sector.}
     \item{secondary}{Share of labour force in secondary sector.}
@@ -20,7 +19,7 @@ euro_sectors
 }
 \description{
 A dataset containing the relative share of workers by labour force sector
-in the European NUTS-2 regions from 2008 to 2016.
+in the European NUTS-2 regions 2016.
 }
 \details{
 The original NACE (rev. 2) codes have been recoded into the three sectors
