@@ -1,0 +1,120 @@
+---
+title: "European differences in educational attainment"
+author: "Jonas Schöley"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{European differences in educational attainment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  tidy = FALSE,
+  comment = "#>",
+  fig.width = 6, fig.height = 6
+)
+```
+
+Here I demonstrate how to use the `tricolore` library to color-code a choropleth map of Europe according to the regional distribution of educational attainment.
+
+```{r}
+library(tricolore)
+euro_education
+```
+
+The data set `euro_education` contains the relative share of population by educational attainment in the European regions 2016. The variable `id` gives the [NUTS-2](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics) geocodes for the European regions, the variables `ed0_2`, `ed3_4`, `ed5_8` give the proportion of population by highest educational attainment classified via the [ISCED](https://en.wikipedia.org/wiki/International_Standard_Classification_of_Education) system.
+
+Take the first row of the data set as an example: in the Austrian region of "Burgenland" (`id` = `AT11`) 16.5% of the population aged 25--64 had attained an education of "Lower secondary or less" (`ed0_2`), 55.7% attained "upper secondary" education (`ed3_4`), and 27.9% attained "tertiary" education.
+
+The education composition is *ternary*, i.e. made up from three elements, and therefore can be color-coded as the weighted mixture of three primary colors, each primary mapped to one of the three elements. Such a color scale is called a *ternary balance scheme*^[See for example Dorling (2012) and Brewer (1994).]. This is what `tricolore` does.
+
+It takes three steps to transform the compositional data and the geodata of Europe into a ternary color-coded map:
+
+**1. Using the `Tricolore()` function, color-code each composition in the `euro_education` data set and add the resulting vector of hex-srgb colors as a new variable to the data frame. Store the color key seperately.**
+
+```{r}
+# color-code the data set and generate a color-key
+tric <- Tricolore(euro_education, p1 = 'ed0_2', p2 = 'ed3_4', p3 = 'ed5_8',
+                  breaks = 4)
+```
+
+`tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`).
+
+```{r}
+# add the vector of colors to the `euro_education` data
+euro_education$rgb <- tric$hexsrgb
+euro_education
+```
+
+**2. Join the color-coded `euro_education` data frame with a data frame holding the geodata of the European NUTS-2 regions.**
+
+`tricolore` comes with low resolution geodata of the European NUTS-2 regions (`euro_geo_nuts2`) which I'm gonna use for this map.
+
+```{r}
+# merge the geodata with the color-coded compositional data
+euro_educ_map <- dplyr::left_join(euro_education, euro_geo_nuts2, by = 'id')
+```
+
+**3. Using `ggplot2` and the joined color-coded education data and geodata, plot a ternary choropleth map of education attainment in the European regions. Add the color key to the map.**
+
+The secret ingredient is `scale_fill_identity()` to make sure that each region is colored according to the value in the `rgb` variable of `euro_educ_map`.
+
+```{r}
+library(ggplot2)
+
+plot_educ <-
+  # using data `euro_educ_map`...
+  ggplot(euro_educ_map) +
+  # ...draw a polygon for each `group` along `long` and `lat`...
+  geom_polygon(aes(x = long, y = lat, group = group, fill = rgb)) +
+  # ...and color each region according to the color code in the variable `rgb`
+  scale_fill_identity()
+
+plot_educ 
+```
+
+Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](http://www.ggtern.com/) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
+
+```{r}
+library(ggtern)
+
+plot_educ +
+  annotation_custom(
+    ggplotGrob(tric$legend),
+    xmin = 55e5, xmax = Inf, ymin = 35e5, ymax = Inf
+  )
+```
+
+Because the color key behaves just like a `ggplot2` plot we can change it to our liking.
+
+```{r}
+plot_educ <-
+  plot_educ +
+  annotation_custom(
+    ggplotGrob(tric$legend +
+                 theme(plot.background = element_rect(fill = NA, color = NA)) +
+                 labs(L = '0-2', T = '3-4', R = '5-8')),
+    xmin = 55e5, xmax = Inf, ymin = 35e5, ymax = Inf
+  )
+plot_educ
+```
+
+Some final touches...^[In these maps some cities are colored wrong. The problem and a solution are described [here](https://stackoverflow.com/questions/21748852/choropleth-map-in-ggplot-with-polygons-that-have-holes/32186989#32186989). I've omitted the fix here for reasons of brevity.]
+
+```{r}
+plot_educ +
+  theme_void() +
+  labs(title = 'European inequalities in educational attainment',
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
+       caption = 'Data by eurostat (edat_lfse_04).')
+```
+
+Literature
+----------
+
+Brewer, C. A. (1994). Color Use Guidelines for Mapping and Visualization. In A. M. MacEachren & D. R. F. Taylor (Eds.), Visualization in Modern Cartography (pp. 123–147). Oxford, UK: Pergamon.
+
+Dorling, D. (2012). The Visualization of Spatial Social Structure. Chichester, UK: Wiley. Retrieved from https://sasi.group.shef.ac.uk/thesis/prints.html
