@@ -608,6 +608,27 @@ DemoTricolore <- function () {
 #'   Derived from Eurostats table "lfst_r_lfe2en2".
 'euro_sectors'
 
+#' Regional Composition of Educational Attainment in Europe 2016
+#'
+#' A dataset containing the relative share of population by educational
+#' attainment in the European NUTS-2 regions 2016.
+#'
+#' @details
+#'   Covers ages 25 to 64.
+#'
+#' @format
+#'   A data frame with 324 rows and 4 variables:
+#'   \describe{
+#'     \item{id}{NUTS-2 regional code.}
+#'     \item{ed0_2}{Share of population with highest attained education "lower secondary or less".}
+#'     \item{ed3_4}{Share of population with highest attained education "upper secondary".}
+#'     \item{ed5_8}{Share of population with highest attained education "tertiary".}
+#'   }
+#'
+#' @source
+#'   Derived from Eurostats table "edat_lfse_04".
+'euro_education'
+
 #' NUTS-2 Level Polygons for Europe
 #'
 #' A dataset containing the NUTS-2 level polygons of Europes regions.
