@@ -15,8 +15,9 @@
     \item{group}{Drawing group.}
   }}
 \source{
-Derived from Eurostats European Geodata:
-  \url{'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_20M_SH.zip}
+Derived from Eurostats European Geodata.
+  (c) EuroGeographics for the administrative boundaries.
+  \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 }
 \usage{
 euro_geo_nuts2

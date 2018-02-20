@@ -332,7 +332,7 @@ TernaryNearest <- function (P, C) {
 #'               Values above 99 imply no discretization.
 #' @param h_ Primary hue of the first ternary element in angular degrees [0, 360].
 #' @param c_ Maximum possible chroma of mixed colors [0, 200].
-#' @param l_ Lightness of mixed colours [0, 100].
+#' @param l_ Lightness of mixed colors [0, 100].
 #' @param contrast Lightness contrast of the color scale [0, 1).
 #' @param center Ternary coordinates of the grey-point.
 #' @param spread Spread of the color scale around center > 0.
@@ -351,8 +351,8 @@ TernaryNearest <- function (P, C) {
 #' @keywords internal
 ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 
-  # generate primary colours starting with a hue value in [0, 360) and then
-  # picking two equidistant points on the circumference of the colour wheel.
+  # generate primary colors starting with a hue value in [0, 360) and then
+  # picking two equidistant points on the circumference of the color wheel.
   # input hue in degrees, all further calculations in radians.
   phi <- (h_*0.0174 + c(0, 2.09, 4.19)) %% 6.28
 
@@ -476,7 +476,7 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #'               An integer >0. Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element (0 to 1).
 #' @param chroma Maximum possible chroma of mixed colors (0 to 1).
-#' @param lightness Lightness of mixed colours (0 to 1).
+#' @param lightness Lightness of mixed colors (0 to 1).
 #' @param contrast Lightness contrast of the color scale (0 to 1).
 #' @param center Ternary coordinates of the color scale center.
 #'               (default = 1/3,1/3,1/3). NA puts center over the compositional
@@ -646,8 +646,9 @@ DemoTricolore <- function () {
 #'   }
 #'
 #' @source
-#'   Derived from Eurostats European Geodata:
-#'   \url{'http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/NUTS_2013_20M_SH.zip}
+#'   Derived from Eurostats European Geodata.
+#'   (c) EuroGeographics for the administrative boundaries.
+#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 'euro_geo_nuts2'
 
 #' Flat Map of European Continent
@@ -655,6 +656,7 @@ DemoTricolore <- function () {
 #' A ggplot object rendering a flat background map of the European continent.
 #'
 #' @source
-#'   Derived from Eurostat World shapefile:
-#'   \url{http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/CNTR_2010_20M_SH.zip}
+#'   Derived from Eurostats European Geodata.
+#'   (c) EuroGeographics for the administrative boundaries.
+#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 'euro_basemap'

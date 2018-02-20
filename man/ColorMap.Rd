@@ -17,7 +17,7 @@ Values above 99 imply no discretization.}
 
 \item{c_}{Maximum possible chroma of mixed colors [0, 200].}
 
-\item{l_}{Lightness of mixed colours [0, 100].}
+\item{l_}{Lightness of mixed colors [0, 100].}
 
 \item{contrast}{Lightness contrast of the color scale [0, 1).}
 

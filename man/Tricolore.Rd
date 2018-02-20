@@ -28,7 +28,7 @@ An integer >0. Values above 99 imply no discretization.}
 
 \item{chroma}{Maximum possible chroma of mixed colors (0 to 1).}
 
-\item{lightness}{Lightness of mixed colours (0 to 1).}
+\item{lightness}{Lightness of mixed colors (0 to 1).}
 
 \item{contrast}{Lightness contrast of the color scale (0 to 1).}
 

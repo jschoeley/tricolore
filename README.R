@@ -23,8 +23,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #' visualisation challenges via
 #'
 #'   - discrete and continuous color support
-#'   - support for unbalanced compositional data or data with very narrow range
-#'     via centering and scaling of the color scale
+#'   - support for unbalanced compositional data via centering
+#'   - support for data with very narrow range via scaling
 #'   - hue, chroma and lightness options
 #'
 #' ![](README_files/teaser.png)

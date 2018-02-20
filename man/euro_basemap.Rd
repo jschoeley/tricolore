@@ -6,8 +6,9 @@
 \title{Flat Map of European Continent}
 \format{An object of class \code{gg} (inherits from \code{ggplot}) of length 9.}
 \source{
-Derived from Eurostat World shapefile:
-  \url{http://ec.europa.eu/eurostat/cache/GISCO/geodatafiles/CNTR_2010_20M_SH.zip}
+Derived from Eurostats European Geodata.
+  (c) EuroGeographics for the administrative boundaries.
+  \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 }
 \usage{
 euro_basemap
