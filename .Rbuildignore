@@ -8,3 +8,4 @@ data-raw
 TODO.txt
 travis.yml
 examples
+^cran-comments\.md$
