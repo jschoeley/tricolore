@@ -38,13 +38,16 @@ ui <- fluidPage(
                  radioButtons(inputId = 'center', label = 'Mean centering',
                               choices = list(No = 'No', Yes = 'Yes'),
                               selected = 'No'),
+                 radioButtons(inputId = 'show_center', label = 'Show center',
+                              choices = list(No = 'No', Yes = 'Yes'),
+                              selected = 'No'),
                  radioButtons(inputId = 'show_data', label = 'Show data',
-                              choices = list(No = FALSE, Yes = TRUE),
-                              selected = 'FALSE')
+                              choices = list(No = 'No', Yes = 'Yes'),
+                              selected = 'No')
     ),
 
     # OUTPUT
-    mainPanel(plotOutput(outputId = 'example'))
+    mainPanel(verbatimTextOutput(outputId = 'call'), plotOutput(outputId = 'example'))
   )
 )
 
@@ -52,10 +55,23 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  euro_sectors <- filter(euro_sectors, year == 2016)
+  output$call <- renderText({
+    paste0(
+      "Tricolore(euro_sectors, p1 = 'primary', p2 = 'secondary', p3 = 'tertiary'",
+      ', breaks = ', input$breaks,
+      ', hue = ', input$hue,
+      ', chroma = ', input$chroma,
+      ', lightness = ', input$lightness,
+      ', contrast = ', input$contrast,
+      ', center = ', switch(input$center, No = 'rep(1/3,3)', Yes = 'NA'),
+      ', spread = ', input$spread,
+      ', show_data = ', switch(input$show_data, No = FALSE, Yes = TRUE),
+      ', show_center = ', switch(input$show_center, No = FALSE, Yes = TRUE),
+      ', legend = TRUE)'
+    )
+  })
 
   output$example <- renderPlot(width = 800, height = 700, {
-
 
     # mix color, generate legend
     mixed <- Tricolore(euro_sectors,
@@ -64,14 +80,17 @@ server <- function(input, output) {
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
                        center = switch(input$center, No = rep(1/3,3), Yes = NA),
-                       spread = input$spread, show_data = input$show_data,
-                       show_center = switch(input$center, No = FALSE, Yes = TRUE),
+                       spread = input$spread,
+                       show_data = switch(input$show_data, No = FALSE, Yes = TRUE),
+                       show_center = switch(input$show_center, No = FALSE, Yes = TRUE),
                        legend = TRUE)
 
     # customize legend
     lgnd <- mixed[['legend']] +
       labs(x = 'Primary', y = 'Secondary', z = 'Tertiary',
-           caption = 'Labor force composition in European regions 2016') +
+           caption = paste0('Labor force composition in European regions 2016\n',
+                            switch(input$center, No = 'Colors show deviations from balanced composition',
+                                   input$center, Yes = 'Colors show deviation from average composition'))) +
       theme(plot.background = element_rect(fill = NA, color = NA))
 
     # merge data and map

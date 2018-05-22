@@ -191,3 +191,5 @@ euro_basemap +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
     xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
+#' *Labor force composition in EU regions compared to the average region. Data by
+#' eurostat.*
