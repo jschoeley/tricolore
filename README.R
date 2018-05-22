@@ -23,8 +23,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #' visualisation challenges via
 #'
 #'   - discrete and continuous color support
-#'   - support for unbalanced compositional data via centering
-#'   - support for data with very narrow range via scaling
+#'   - support for unbalanced compositional data via *centering*
+#'   - support for data with very narrow range via *scaling*
 #'   - hue, chroma and lightness options
 #'
 #' ![](README_files/teaser.png)
@@ -69,7 +69,6 @@ tric$legend
 #' the European Union. The `euro_sectors` data contains the share of workers in
 #' the three sectors for the year 2016 by NUTS-2 region.
 
-euro_sectors <- subset(euro_sectors, year == 2016)
 head(euro_sectors)
 
 
@@ -102,9 +101,9 @@ euro_basemap +
       tricol$legend +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
-    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
-#' *Labor force composition in EU regions. Default color scale options. Data by eurostat.*
-#'
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf) +
+  labs(title = 'Labor force composition in EU regions. Default color scale options. Data by eurostat.')
+
 #' Europe's labor force predominantly works in the tertiary sector, as seen by a
 #' map colored in various shades of blue. Reddish and greenish hues in eastern
 #' Europe indicate a higher share of primary and secondary labor force
@@ -133,9 +132,9 @@ euro_basemap +
       tricol$legend +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
-    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
-#' *Labor force composition in EU regions. Hue parameter set to 0.33. Data by eurostat.*
-#'
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf) +
+  labs(title = 'Labor force composition in EU regions. Hue parameter set to 0.33. Data by eurostat.')
+
 #' Up until now I used continuous colors to show the regional labor force
 #' composition. A discrete color scale introduces sharp contours which sometimes
 #' pronounce interesting patterns in the data. The `breaks` parameter determines
@@ -157,10 +156,9 @@ euro_basemap +
       tricol$legend +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
-    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
-#' *Labor force composition in EU regions. Discrete scale with 9 colors. Data by
-#' eurostat.*
-#'
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf) +
+  labs(title = 'Labor force composition in EU regions. Discrete scale with 9 colors. Data by eurostat.')
+
 #' A technique I've adopted from compositional data analysis is *ternary
 #' centering*. Centering shifts the center of the color scale (the greypoint) to
 #' the center of the data and thereby shows deviations from the average
@@ -190,6 +188,5 @@ euro_basemap +
       tricol$legend +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
-    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
-#' *Labor force composition in EU regions compared to the average region. Data by
-#' eurostat.*
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf) +
+  labs(title = 'Labor force composition in EU regions compared to the average region. Data by eurostat.')

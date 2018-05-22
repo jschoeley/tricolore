@@ -10,7 +10,8 @@ What is *tricolore*?
 `tricolore` is an R library providing a flexible color scale for the visualization of three-part/ternary compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colours and to draw a suitable color-key. `tricolore` flexibly adapts to different visualisation challenges via
 
 -   discrete and continuous color support
--   support for unbalanced compositional data or data with very narrow range via centering and scaling of the color scale
+-   support for unbalanced compositional data via *centering*
+-   support for data with very narrow range via *scaling*
 -   hue, chroma and lightness options
 
 ![](README_files/teaser.png)
@@ -41,7 +42,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#7B666CFF" "#3F7F88FF" "#7E6670FF" "#527680FF" "#4D7F65FF" "#48885DFF"
+    ## [1] "#738241FF" "#666974FF" "#00907FFF" "#619A00FF" "#6C6773FF" "#677BA9FF"
 
 ``` r
 tric$legend
@@ -59,19 +60,18 @@ Case study: European labor force composition
 We are interested in the regional distribution of labor force by sector in the European Union. The `euro_sectors` data contains the share of workers in the three sectors for the year 2016 by NUTS-2 region.
 
 ``` r
-euro_sectors <- subset(euro_sectors, year == 2016)
 head(euro_sectors)
 ```
 
-    ## # A tibble: 6 x 5
-    ##    year id    primary secondary tertiary
-    ##   <int> <chr>   <dbl>     <dbl>    <dbl>
-    ## 1  2016 AT11  0.0442      0.268    0.682
-    ## 2  2016 AT12  0.0562      0.244    0.700
-    ## 3  2016 AT13  0.00518     0.143    0.852
-    ## 4  2016 AT21  0.0566      0.265    0.671
-    ## 5  2016 AT22  0.0610      0.292    0.647
-    ## 6  2016 AT31  0.0623      0.331    0.606
+    ## # A tibble: 6 x 4
+    ##   id    primary secondary tertiary
+    ##   <chr>   <dbl>     <dbl>    <dbl>
+    ## 1 AT11  0.0442      0.268    0.682
+    ## 2 AT12  0.0562      0.244    0.700
+    ## 3 AT13  0.00518     0.143    0.852
+    ## 4 AT21  0.0566      0.265    0.671
+    ## 5 AT22  0.0610      0.292    0.647
+    ## 6 AT31  0.0623      0.331    0.606
 
 In order to prepare a map I've prepared a data frame with the outlines of the European NUTS-2 regions and neighbouring countries, `euro_geo_nuts2`.
 
@@ -110,12 +110,11 @@ euro_basemap +
       tricol$legend +
         theme(plot.background = element_rect(fill = NA, color = NA))
     ),
-    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf)
+    xmin = 53e5, xmax = Inf, ymin = 35e5, ymax = Inf) +
+  labs(title = 'Labor force composition in EU regions. Default color scale options. Data by eurostat.')
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
-
-*Labor force composition in EU regions. Default color scale options. Data by eurostat.*
 
 Europe's labor force predominantly works in the tertiary sector, as seen by a map colored in various shades of blue. Reddish and greenish hues in eastern Europe indicate a higher share of primary and secondary labor force respectively.
 
@@ -129,8 +128,6 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
-*Labor force composition in EU regions. Hue parameter set to 0.33. Data by eurostat.*
-
 Up until now I used continuous colors to show the regional labor force composition. A discrete color scale introduces sharp contours which sometimes pronounce interesting patterns in the data. The `breaks` parameter determines the number of colors for the color scale. A value of 3 gives a discrete scale of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor force composition.
 
 ``` r
@@ -138,8 +135,6 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
-
-*Labor force composition in EU regions. Discrete scale with 9 colors. Data by eurostat.*
 
 A technique I've adopted from compositional data analysis is *ternary centering*. Centering shifts the center of the color scale (the greypoint) to the center of the data and thereby shows deviations from the average composition. It's the ternary equivalent to a divergent color-scale with the average value at the midpoint.
 
