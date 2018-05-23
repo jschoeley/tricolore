@@ -146,12 +146,12 @@ Centre <- function (P) {
 
 #' Compositional Pertubation
 #'
-#' Pertube a compositional data set by a compositional vector.
+#' Pertubate a compositional data set by a compositional vector.
 #'
 #' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
 #' @param c Compositional pertubation vector {c1, ..., cm}.
 #'
-#' @return n by m matrix of pertubed compositions.
+#' @return n by m matrix of pertubated compositions.
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
@@ -393,7 +393,7 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
   hexsrgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
                  alpha = 1, fixup = TRUE)
 
-  # (centered) compositions, hcl values of mixtures and hexsrgb code
+  # non-transformed compositions, hcl values of mixtures and hexsrgb code
   result <- data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
                        row.names = NULL, check.rows = FALSE,
                        check.names = FALSE, stringsAsFactors = FALSE)

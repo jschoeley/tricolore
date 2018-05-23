@@ -12,10 +12,10 @@ Pertube(P, c = rep(1/3, 3))
 \item{c}{Compositional pertubation vector {c1, ..., cm}.}
 }
 \value{
-n by m matrix of pertubed compositions.
+n by m matrix of pertubated compositions.
 }
 \description{
-Pertube a compositional data set by a compositional vector.
+Pertubate a compositional data set by a compositional vector.
 }
 \examples{
 P <- prop.table(matrix(runif(12), 4), margin = 1)

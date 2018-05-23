@@ -1,3 +1,3 @@
-# tricolore 1.0.2
+# tricolore 1.0.3
 
-* Initial release
+* Initial CRAN release

@@ -2,8 +2,8 @@ This is a new release.
 
 ## Test environments
 
-* local ubuntu 18.04, R 3.4.4
-* ubuntu 14.04 (on travis-ci), R 3.4.4
+* local ubuntu 18.04, R 3.5.0
+* ubuntu 14.04 (on travis-ci), R 3.5.0
 
 ## R CMD check results
 
