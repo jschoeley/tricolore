@@ -1,2 +1,3 @@
 - add ternary zoom function
 - deal with NAs in euro_sectors
+- breaks > 1 not > 0

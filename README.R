@@ -31,11 +31,14 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #'
 #'## Getting Started
 #'
-#' You can install `tricolore` by running the following code from within
-#' an R session:
+#' As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please
+#' revert to ggplot 2.2.1 to use `tricolore`.
 #'
 #+eval=FALSE
-devtools::install_github('jschoeley/tricolore')
+install.packages("devtools")
+devtools::install_version("ggplot2", version = "2.2.1")
+devtools::install_version("ggtern", version = "2.2.1")
+install.packages('tricolore')
 library(tricolore); DemoTricolore()
 #'
 #'
