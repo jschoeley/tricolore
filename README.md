@@ -19,10 +19,13 @@ What is *tricolore*?
 Getting Started
 ---------------
 
-You can install `tricolore` by running the following code from within an R session:
+**As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please revert to ggplot 2.2.1 to use `tricolore`.**
 
 ``` r
-devtools::install_github('jschoeley/tricolore')
+install.packages("devtools")
+devtools::install_version("ggplot2", version = "2.2.1")
+devtools::install_version("ggtern", version = "2.2.1")
+install.packages('tricolore')
 library(tricolore); DemoTricolore()
 ```
 
@@ -42,7 +45,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#738241FF" "#666974FF" "#00907FFF" "#619A00FF" "#6C6773FF" "#677BA9FF"
+    ## [1] "#A1793EFF" "#0098D6FF" "#827351FF" "#A56E61FF" "#9C688AFF" "#0091A8FF"
 
 ``` r
 tric$legend

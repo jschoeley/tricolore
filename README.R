@@ -31,8 +31,8 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #'
 #'## Getting Started
 #'
-#' As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please
-#' revert to ggplot 2.2.1 to use `tricolore`.
+#' **As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please
+#' revert to ggplot 2.2.1 to use `tricolore`.**
 #'
 #+eval=FALSE
 install.packages("devtools")
