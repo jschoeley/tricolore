@@ -1,8 +1,8 @@
-This is a new release.
+This is a critical update establishing compatability with ggplot/ggtern 3.0.0.
 
 ## Test environments
 
-* local ubuntu 18.04, R 3.5.0
+* local debian 9.5, R 3.5.0
 * ubuntu 14.04 (on travis-ci), R 3.5.0
 
 ## R CMD check results
@@ -11,4 +11,4 @@ This is a new release.
 
 ## Reverse dependencies
 
-This is a new release, so there are no reverse dependencies.
+None.

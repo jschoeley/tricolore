@@ -1,6 +1,6 @@
 Tricolore. A flexible color scale for ternary compositions
 ================
-Jonas Schöley
+Jonas Schöley, Ilya Kashnitsky
 
 [![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -19,12 +19,7 @@ What is *tricolore*?
 Getting Started
 ---------------
 
-**As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please revert to ggplot 2.2.1 to use `tricolore`.**
-
 ``` r
-install.packages("devtools")
-devtools::install_version("ggplot2", version = "2.2.1")
-devtools::install_version("ggtern", version = "2.2.1")
 install.packages('tricolore')
 library(tricolore); DemoTricolore()
 ```
@@ -45,7 +40,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#A1793EFF" "#0098D6FF" "#827351FF" "#A56E61FF" "#9C688AFF" "#0091A8FF"
+    ## [1] "#6F6671FF" "#447D78FF" "#008C82FF" "#7E6C5BFF" "#B9678BFF" "#AD6791FF"
 
 ``` r
 tric$legend

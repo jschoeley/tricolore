@@ -79,8 +79,6 @@ plot_educ
 Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](http://www.ggtern.com/) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
 
 ```{r}
-library(ggtern)
-
 plot_educ +
   annotation_custom(
     ggplotGrob(tric$legend),

@@ -1,8 +1,8 @@
 Package: tricolore
 Type: Package
 Title: A Flexible Color Scale for Ternary Compositions
-Version: 1.0.3
-Author: Jonas Schöley
+Version: 1.0.4.0001
+Author: Jonas Schöley, Ilya Kashnitsky
 Maintainer: Jonas Schöley <jschoeley@gmail.com>
 Description: A flexible color scale for ternary compositions with options for
   discretization, centering and scaling.
@@ -10,8 +10,8 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports: grDevices, ggplot2, ggtern, dplyr, shiny, assertthat
-RoxygenNote: 6.0.1
+Imports: grDevices, ggplot2 (>= 3.0.0), ggtern (>= 3.0.0), dplyr, shiny, assertthat
+RoxygenNote: 6.1.0
 Suggests:
     testthat,
     knitr,

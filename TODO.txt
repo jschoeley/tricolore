@@ -1,3 +1,6 @@
-- add ternary zoom function
-- deal with NAs in euro_sectors
-- breaks > 1 not > 0
+x add ternary zoom function
+x deal with NAs in euro_sectors
+x breaks > 1 not > 0
+x use sf object for map
+v change dependencies to ggtern 3.0.0
+v add Ilya as author

@@ -1,7 +1,7 @@
 #'---
 #' title: A map of European neighbours
 #' author: Ilya Kashnitsky, Jonas Schöley
-#' date: 2018-01-18
+#' date: 2018-08-25
 #'---
 
 library(tidyverse)

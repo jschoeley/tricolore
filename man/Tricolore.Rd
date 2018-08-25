@@ -5,8 +5,8 @@
 \title{Ternary Balance Color Scale}
 \usage{
 Tricolore(df, p1, p2, p3, breaks = 100, hue = 0, chroma = 0.8,
-  lightness = 0.7, contrast = 0.4, center = rep(1/3, 3), spread = 1,
-  legend = TRUE, show_data = TRUE, show_center = TRUE,
+  lightness = 0.7, contrast = 0.4, center = rep(1/3, 3),
+  spread = 1, legend = TRUE, show_data = TRUE, show_center = TRUE,
   input_validation = TRUE)
 }
 \arguments{

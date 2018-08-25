@@ -1,6 +1,6 @@
 #' ---
 #' title: Tricolore. A flexible color scale for ternary compositions
-#' author: Jonas Schöley
+#' author: Jonas Schöley, Ilya Kashnitsky
 #' date:
 #' output:
 #'   github_document
@@ -31,16 +31,9 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE,
 #'
 #'## Getting Started
 #'
-#' **As of July 2018 `tricolore` does not yet work with ggplot 3.0.0. Please
-#' revert to ggplot 2.2.1 to use `tricolore`.**
-#'
 #+eval=FALSE
-install.packages("devtools")
-devtools::install_version("ggplot2", version = "2.2.1")
-devtools::install_version("ggtern", version = "2.2.1")
 install.packages('tricolore')
 library(tricolore); DemoTricolore()
-#'
 #'
 #' The `Tricolore()` function takes a data-frame of three-part compositions,
 #' color-codes them and returns a list with elements `hexsrgb` and `legend`. The
