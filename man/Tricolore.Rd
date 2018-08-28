@@ -7,7 +7,7 @@
 Tricolore(df, p1, p2, p3, breaks = 100, hue = 0, chroma = 0.8,
   lightness = 0.7, contrast = 0.4, center = rep(1/3, 3),
   spread = 1, legend = TRUE, show_data = TRUE, show_center = TRUE,
-  input_validation = TRUE)
+  label_as = "pct", input_validation = TRUE)
 }
 \arguments{
 \item{df}{Data frame of compositional data.}
@@ -22,7 +22,7 @@ of ternary composition (string).}
 of ternary composition (string).}
 
 \item{breaks}{Number of per-axis breaks in the discrete color scale.
-An integer >0. Values above 99 imply no discretization.}
+An integer >1. Values above 99 imply no discretization.}
 
 \item{hue}{Primary hue of the first ternary element (0 to 1).}
 
@@ -44,6 +44,9 @@ color scale on the center.}
 \item{show_data}{Should the data be shown on the legend? (default=TRUE)}
 
 \item{show_center}{Should the center be shown on the legend? (default=TRUE)}
+
+\item{label_as}{"pct" for percent-share labels or "pct_diff" for
+percent-point-difference from center labels. (default="pct")}
 
 \item{input_validation}{Should the function arguments be validated? (default=TRUE)}
 }

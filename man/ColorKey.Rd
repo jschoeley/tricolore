@@ -4,10 +4,10 @@
 \alias{ColorKey}
 \title{Ternary Balance Scheme Legend}
 \usage{
-ColorKey(breaks, h_, c_, l_, contrast, center, spread)
+ColorKey(breaks, h_, c_, l_, contrast, center, spread, label_as)
 }
 \arguments{
-\item{breaks}{Number of breaks in the discrete color scale. An integer >0.
+\item{breaks}{Number of breaks in the discrete color scale. An integer >1.
 Values above 99 imply no discretization.}
 
 \item{h_}{Primary hue of the first ternary element in angular degrees [0, 360].}
@@ -21,13 +21,17 @@ Values above 99 imply no discretization.}
 \item{center}{Ternary coordinates of the grey-point.}
 
 \item{spread}{Spread of the color scale around center > 0.}
+
+\item{label_as}{"pct" for percent-share labels or "pct_diff" for
+percent-point-difference from center labels.}
 }
 \description{
 Plot a ternary balance scheme legend.
 }
 \examples{
-tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
-                     center = rep(1/3, 3), spread = 1)
+tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70,
+                     contrast = 0.5, center = rep(1/3, 3),
+                     spread = 1, label_as = "pct")
 
 }
 \keyword{internal}

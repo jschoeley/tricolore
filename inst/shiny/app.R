@@ -43,7 +43,11 @@ ui <- fluidPage(
                               selected = 'No'),
                  radioButtons(inputId = 'show_data', label = 'Show data',
                               choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'No')
+                              selected = 'No'),
+                 radioButtons(inputId = 'label_as', label = 'Label as',
+                              choices = list('percent-share' = 'pct',
+                                             'percent-point-difference\nfrom center point' = 'pct_diff'),
+                              selected = 'pct')
     ),
 
     # OUTPUT
@@ -67,6 +71,7 @@ server <- function(input, output) {
       ', spread = ', input$spread,
       ', show_data = ', switch(input$show_data, No = FALSE, Yes = TRUE),
       ', show_center = ', switch(input$show_center, No = FALSE, Yes = TRUE),
+      ', label_as = ', input$label_as,
       ', legend = TRUE)'
     )
   })
@@ -83,6 +88,7 @@ server <- function(input, output) {
                        spread = input$spread,
                        show_data = switch(input$show_data, No = FALSE, Yes = TRUE),
                        show_center = switch(input$show_center, No = FALSE, Yes = TRUE),
+                       label_as = input$label_as,
                        legend = TRUE)
 
     # customize legend

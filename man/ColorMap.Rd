@@ -10,7 +10,7 @@ ColorMap(P, breaks, h_, c_, l_, contrast, center, spread)
 \item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
 i=1, ..., n.}
 
-\item{breaks}{Number of breaks in the discrete color scale. An integer >0.
+\item{breaks}{Number of breaks in the discrete color scale. An integer >1.
 Values above 99 imply no discretization.}
 
 \item{h_}{Primary hue of the first ternary element in angular degrees [0, 360].}

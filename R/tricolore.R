@@ -60,10 +60,19 @@ ValidateMainArguments <- function (df, p1, p2, p3) {
 #' @keywords internal
 ValidateParameters <- function (pars) {
 
+  # a modified version of assertthat::is.count that regards
+  # infinite values as counts
+  is.count2 <- function (x) {
+    if (length(x) != 1) return(FALSE)
+    integerish <- is.integer(x) || (is.numeric(x) && (x == trunc(x)))
+    if (!integerish) return(FALSE)
+    x > 0
+  }
+
   with(pars, {
-    # breaks is positive scalar
-    # I don't check for integer because I want to allow `Inf` as value
-    assert_that(is.number(breaks), breaks > 0)
+    # breaks is count scalar > 1 (can't use is.count() because
+    # it throws an error when encountering infinite values)
+    assert_that(is.scalar(breaks), is.count2(breaks), breaks > 1)
     # hue is numeric scalar in range [0, 1]
     assert_that(is.number(hue), hue >= 0 && hue <= 1)
     # chroma is numeric scalar in range [0, 1]
@@ -85,6 +94,11 @@ ValidateParameters <- function (pars) {
     # flags
     assert_that(is.flag(legend), is.flag(show_data),
                 is.flag(show_center))
+    # character options
+    assert_that(is.scalar(label_as),
+                is.character(label_as),
+                label_as %in% c('pct', 'pct_diff'),
+                msg = 'label_as must be either "pct" or "pct_diff".')
   })
 
 }
@@ -320,6 +334,52 @@ TernaryNearest <- function (P, C) {
   return(C[id,])
 }
 
+#' Return Ternary Gridlines Centered Around Some Composition
+#'
+#' @param center The center of the grid.
+#'   A vector of ternary coordinates {p1, p2, p3}.
+#' @param spacing The spacing of the grid in percent-point increments.
+#'   A numeric > 0.
+#'
+#' @return A list of lists.
+#'
+#' @examples
+#' tricolore:::TernaryCenterGrid(c(1/6, 2/6, 3/6), 10)
+#'
+#' @keywords internal
+TernaryCenterGrid <- function (center, spacing) {
+
+  # -1 to 1 by spacing/100 with 0 point
+  div_seq <- seq(0, 1, spacing/100)
+  div_seq <- c(-rev(div_seq), div_seq[-1])
+
+  # proportion difference from center for all three ternary axes.
+  # keep only possible values
+  div_seq <- list(
+    p1 = div_seq[div_seq >= -center[1] & div_seq <= 1-center[1]],
+    p2 = div_seq[div_seq >= -center[2] & div_seq <= 1-center[2]],
+    p3 = div_seq[div_seq >= -center[3] & div_seq <= 1-center[3]]
+  )
+
+  # percent-point difference from center composition
+  labels <- lapply(div_seq, function(x) formatC(x*100, flag = '+'))
+  # label center point as percent share
+  center_pct <- paste0(formatC(center*100, digits = 1, format = 'f'), '%')
+  labels[['p1']][labels[['p1']] == '-0'] <- center_pct[1]
+  labels[['p2']][labels[['p2']] == '-0'] <- center_pct[2]
+  labels[['p3']][labels[['p3']] == '-0'] <- center_pct[3]
+
+
+  # breaks in ternary coordinates
+  breaks <- list(
+    p1 = div_seq[['p1']] + center[1],
+    p2 = div_seq[['p2']] + center[2],
+    p3 = div_seq[['p3']] + center[3]
+  )
+
+  return(list(breaks = breaks, labels = labels))
+}
+
 # Ternary Color Scale -----------------------------------------------------
 
 #' RGB Mixture of Ternary Composition
@@ -328,7 +388,7 @@ TernaryNearest <- function (P, C) {
 #'
 #' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
 #'          i=1, ..., n.
-#' @param breaks Number of breaks in the discrete color scale. An integer >0.
+#' @param breaks Number of breaks in the discrete color scale. An integer >1.
 #'               Values above 99 imply no discretization.
 #' @param h_ Primary hue of the first ternary element in angular degrees [0, 360].
 #' @param c_ Maximum possible chroma of mixed colors [0, 200].
@@ -365,6 +425,9 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 
   # discretize composition
   if (breaks < 100) {
+    # don't discretize if breaks > 99
+    # to avoid expensive calculations which don't make
+    # much of a difference in output
     P <- TernaryNearest(P, TernaryMeshCentroids(breaks)[,-1])
   }
 
@@ -406,10 +469,13 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 #' Plot a ternary balance scheme legend.
 #'
 #' @inheritParams ColorMap
+#' @param label_as "pct" for percent-share labels or "pct_diff" for
+#'   percent-point-difference from center labels.
 #'
 #' @examples
-#' tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70, contrast = 0.5,
-#'                      center = rep(1/3, 3), spread = 1)
+#' tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70,
+#'                      contrast = 0.5, center = rep(1/3, 3),
+#'                      spread = 1, label_as = "pct")
 #'
 #' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
 #'   scale_fill_identity element_text element_blank
@@ -417,9 +483,9 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @keywords internal
-ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
+ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as) {
 
-  # don't allow more than 100^2 different colors/regions in the legend
+  # don't allow more than 99^2 different colors/regions in the legend
   if (breaks > 99) { breaks = 100 }
 
   # partition the ternary legend into k^2 equilateral sub-triangles
@@ -430,8 +496,12 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
                    contrast, center, spread)[['hexsrgb']]
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
-  # plot the legend
-  brk = seq(0, 1, length.out = breaks+1); labs = round(brk*100, 1)
+  # legend grid (percent share or percent point difference from center)
+  pct_grid <- list(breaks = seq(0, 1, length.out = breaks+1),
+                   labels = round(seq(0, 1, length.out = breaks+1)*100, 1))
+  pct_diff_grid <- TernaryCenterGrid(center = center, spacing = 10)
+
+  # plot legend
   legend <-
     # basic legend
     ggtern(legend_surface, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
@@ -444,13 +514,29 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
     theme_classic() +
     theme(tern.axis.title.L = element_text(hjust = 0.2, vjust = 1, angle = -60),
           tern.axis.title.R = element_text(hjust = 0.8, vjust = 0.6, angle = 60)) +
-    # dynamic axis labels, for breaks < 10 label at the border of two regions
+    # grid and labels
     list(
-      if (breaks <= 10) {
+      # proportion labels
+      if (label_as == 'pct' && breaks <= 10) {
         list(
-          scale_L_continuous(breaks = brk, labels = labs),
-          scale_R_continuous(breaks = brk, labels = labs),
-          scale_T_continuous(breaks = brk, labels = labs)
+          # dynamic axis labels, for breaks < 10 label
+          # at the border of two regions
+          scale_L_continuous(breaks = pct_grid[['breaks']],
+                             labels = pct_grid[['labels']]),
+          scale_T_continuous(breaks = pct_grid[['breaks']],
+                             labels = pct_grid[['labels']]),
+          scale_R_continuous(breaks = pct_grid[['breaks']],
+                             labels = pct_grid[['labels']])
+        )
+      },
+      if (label_as == 'pct_diff') {
+        list(
+          scale_L_continuous(breaks = pct_diff_grid[['breaks']][['p1']],
+                             labels = pct_diff_grid[['labels']][['p1']]),
+          scale_T_continuous(breaks = pct_diff_grid[['breaks']][['p2']],
+                             labels = pct_diff_grid[['labels']][['p2']]),
+          scale_R_continuous(breaks = pct_diff_grid[['breaks']][['p3']],
+                             labels = pct_diff_grid[['labels']][['p3']])
         )
       }
     )
@@ -473,7 +559,7 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' @param p3 Column name for variable in df giving third proportion
 #'           of ternary composition (string).
 #' @param breaks Number of per-axis breaks in the discrete color scale.
-#'               An integer >0. Values above 99 imply no discretization.
+#'               An integer >1. Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element (0 to 1).
 #' @param chroma Maximum possible chroma of mixed colors (0 to 1).
 #' @param lightness Lightness of mixed colors (0 to 1).
@@ -486,6 +572,8 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread) {
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
 #' @param show_data Should the data be shown on the legend? (default=TRUE)
 #' @param show_center Should the center be shown on the legend? (default=TRUE)
+#' @param label_as "pct" for percent-share labels or "pct_diff" for
+#'   percent-point-difference from center labels. (default="pct")
 #' @param input_validation Should the function arguments be validated? (default=TRUE)
 #'
 #' @return
@@ -508,7 +596,7 @@ Tricolore <- function (df, p1, p2, p3,
                        breaks = 100, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), spread = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE,
-                       input_validation = TRUE) {
+                       label_as = 'pct', input_validation = TRUE) {
 
   # validation of main input arguments
   if (input_validation) {
@@ -516,7 +604,8 @@ Tricolore <- function (df, p1, p2, p3,
     ValidateParameters(list(breaks = breaks, hue = hue, chroma = chroma,
                             lightness = lightness, contrast = contrast,
                             center = center, spread = spread, legend = legend,
-                            show_data = show_data, show_center = show_center))
+                            show_data = show_data, show_center = show_center,
+                            label_as = label_as))
     }
 
   # construct 3 column matrix of proportions
@@ -525,7 +614,12 @@ Tricolore <- function (df, p1, p2, p3,
   P <- prop.table(P, 1)
 
   # use continuous colors for off-center color scales
-  if (!identical(center, rep(1/3, 3))) { breaks = 100 }
+  if (!identical(center, rep(1/3, 3))) {
+    if (breaks < 100) {
+      message('Discrete colors not supported for center != c(1/3, 1/3, 1/3). Reverting to continuous.')
+    }
+    breaks = 100
+  }
   # center color-scale over data's centre if center==NA
   if ( is.na(center[1]) ) { center = Centre(P) }
 
@@ -539,7 +633,7 @@ Tricolore <- function (df, p1, p2, p3,
   if (legend) {
     lgnd <-
       ColorKey(breaks, hue*360, chroma*200, lightness*100,
-               contrast, center, spread) +
+               contrast, center, spread, label_as) +
       list(
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),

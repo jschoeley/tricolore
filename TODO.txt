@@ -1,6 +1,5 @@
 x add ternary zoom function
 x deal with NAs in euro_sectors
-x breaks > 1 not > 0
+v breaks > 1 not > 0
+v validate that breaks is count or Inf
 x use sf object for map
-v change dependencies to ggtern 3.0.0
-v add Ilya as author
