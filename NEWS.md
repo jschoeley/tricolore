@@ -1,11 +1,11 @@
 # tricolore 1.0.5
 
-* 
-* test for positive scalar count breaks argument
+* add option for percent-point difference labeling in ternary legend
+* add tests
 
 # tricolore 1.0.4
 
-* establish compatability with ggplot/ggtern 3.0.0
+* establish compatibility with ggplot/ggtern 3.0.0
 
 # tricolore 1.0.3
 

@@ -138,7 +138,8 @@ euro_basemap +
 #' of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor
 #' force composition.
 
-tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, breaks = 3)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
+                    hue = 0.33, breaks = 3)
 
 #+echo=FALSE
 euro_sectors$srgb <- tricol$hexsrgb
@@ -170,7 +171,7 @@ euro_basemap +
 #' workers active in the primary sector.
 
 tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
-                    hue = 0.33, center = NA)
+                    hue = 0.33, center = NA, label_as = 'pct_diff')
 
 #+echo=FALSE
 euro_sectors$srgb <- tricol$hexsrgb

@@ -1,5 +1,4 @@
 x add ternary zoom function
 x deal with NAs in euro_sectors
-v breaks > 1 not > 0
-v validate that breaks is count or Inf
 x use sf object for map
+x add regional age structures at a glance vignette

@@ -40,7 +40,7 @@ tric <- Tricolore(P, 'V1', 'V2', 'V3')
 head(tric$hexsrgb)
 ```
 
-    ## [1] "#6F6671FF" "#447D78FF" "#008C82FF" "#7E6C5BFF" "#B9678BFF" "#AD6791FF"
+    ## [1] "#687A53FF" "#887154FF" "#53756BFF" "#A36977FF" "#797198FF" "#6A82C3FF"
 
 ``` r
 tric$legend
@@ -129,7 +129,8 @@ tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33
 Up until now I used continuous colors to show the regional labor force composition. A discrete color scale introduces sharp contours which sometimes pronounce interesting patterns in the data. The `breaks` parameter determines the number of colors for the color scale. A value of 3 gives a discrete scale of 3^2=9 colors. The discrete scale pronounces the east-west divide in labor force composition.
 
 ``` r
-tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary', hue = 0.33, breaks = 3)
+tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
+                    hue = 0.33, breaks = 3)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
@@ -140,7 +141,7 @@ Centering the color scale over the labor-force composition of the average Europe
 
 ``` r
 tricol <- Tricolore(euro_sectors, 'primary', 'secondary', 'tertiary',
-                    hue = 0.33, center = NA)
+                    hue = 0.33, center = NA, label_as = 'pct_diff')
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
