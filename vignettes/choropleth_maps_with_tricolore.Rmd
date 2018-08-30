@@ -7,6 +7,7 @@ vignette: >
   %\VignetteIndexEntry{Choropleth maps with tricolore}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{shiny, sf, leaflet, tricolore, dplyr, ggplot2, ggtern, httpuv}
 ---
 
 ```{r setup, include = FALSE}
