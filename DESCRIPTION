@@ -1,7 +1,7 @@
 Package: tricolore
 Type: Package
 Title: A Flexible Color Scale for Ternary Compositions
-Version: 1.0.7.0001
+Version: 1.0.7
 Author: Jonas Schöley, Ilya Kashnitsky
 Maintainer: Jonas Schöley <jschoeley@gmail.com>
 Description: A flexible color scale for ternary compositions with options for
