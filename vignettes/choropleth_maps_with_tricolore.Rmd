@@ -1,0 +1,220 @@
+---
+title: "Choropleth maps with tricolore"
+author: "Jonas Schöley"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Choropleth maps with tricolore}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  tidy = FALSE,
+  comment = "#>",
+  fig.width = 6, fig.height = 6
+)
+```
+
+Here I demonstrate how to use the `tricolore` library to generate ternary choropleth maps using both `ggplot2` and `leaflet`.
+
+The data
+--------
+
+```{r}
+library(tricolore)
+library(dplyr)
+
+as_tibble(euro_example)
+```
+
+The data set `euro_example` contains the administrative boundaries for the European NUTS-2 regions in the column `geometry`. This data can be used to plot a choropleth map of Europe using the `sf` package. Each region is represented by a single row. The name of a region is given by the variable `name` while the respective [NUTS-2](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics) geocode is given by the variable `id`. For each region some compositional statistics are available: Variables starting with `ed` refer to the relative share of population ages 25 to 64 by educational attainment in 2016 and variables starting with `lf` refer to the relative share of workers by labor-force sector in the European NUTS-2 regions 2016.
+
+Take the first row of the data set as an example: in the Austrian region of "Burgenland" (`id` = `AT11`) 16.5% of the population aged 25--64 had attained an education of "Lower secondary or less" (`ed0_2`), 55.7% attained "upper secondary" education (`ed3_4`), and 27.9% attained "tertiary" education. In the very same region 4.4% of the labor-force works in the primary sector, 26.8% in the secondary and 68.2% in the tertiary sector.
+
+The education and labor-force compositions are *ternary*, i.e. made up from three elements, and therefore can be color-coded as the weighted mixture of three primary colors, each primary mapped to one of the three elements. Such a color scale is called a *ternary balance scheme*^[See for example Dorling (2012) and Brewer (1994).]. This is what `tricolore` does.
+
+`ggplot2` for ternary choropleth maps
+-------------------------------------
+
+Here I show how to create a choropleth map of the regional distribution of education attainment in Europe 2016 using `ggplot2`.
+
+**1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the data frame. Store the color key seperately.**
+
+```{r}
+# color-code the data set and generate a color-key
+tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
+                  breaks = 4, show_center = FALSE)
+```
+
+`tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`). We add the vector of colors to the map-data.
+
+```{r}
+# add the vector of colors to the `euro_example` data
+euro_example$rgb <- tric$hexsrgb
+```
+
+**2. Using `ggplot2` and the joined color-coded education data and geodata, plot a ternary choropleth map of education attainment in the European regions. Add the color key to the map.**
+
+The secret ingredient is `scale_fill_identity()` to make sure that each region is colored according to the value in the `rgb` variable of `euro_educ_map`.
+
+```{r}
+library(ggplot2)
+
+plot_educ <-
+  # using data `euro_educ_map`...
+  ggplot(euro_example) +
+  # ...draw a polygon for each `group` along `long` and `lat`...
+  geom_sf(aes(fill = rgb), size = 0.1) +
+  # ...and color each region according to the color code in the variable `rgb`
+  scale_fill_identity()
+
+plot_educ 
+```
+
+Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](http://www.ggtern.com/) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
+
+```{r}
+library(ggtern)
+plot_educ +
+  annotation_custom(
+    ggplotGrob(tric$legend),
+    xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
+  )
+```
+
+Because the color key behaves just like a `ggplot2` plot we can change it to our liking.
+
+```{r}
+plot_educ <-
+  plot_educ +
+  annotation_custom(
+    ggplotGrob(tric$legend +
+                 theme(plot.background = element_rect(fill = NA, color = NA)) +
+                 labs(L = '0-2', T = '3-4', R = '5-8')),
+    xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
+  )
+plot_educ
+```
+
+Some final touches...
+
+```{r}
+plot_educ +
+  theme_void() +
+  coord_sf(datum = NA) +
+  labs(title = 'European inequalities in educational attainment',
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
+       caption = 'Data by eurostat (edat_lfse_04).')
+```
+
+`leaflet` for ternary choropleth maps
+-------------------------------------
+
+The `ggplot2` example above is easily adapted to `leaflet`. This time I use a continuous color scale.
+
+```{r}
+# color-code the data set and generate a color-key
+tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
+                  breaks = Inf, show_center = FALSE)
+
+# add the vector of colors to the `euro_example` data
+euro_example$rgb <- tric$hexsrgb
+```
+
+`leaflet` requires geodata in spherical coordinates (longitude-latitude format). Therefore I reproject the data to a [suitable crs](http://spatialreference.org/ref/epsg/wgs-84/) using the `sf` package.
+
+```{r}
+library(sf)
+library(leaflet)
+
+euro_example %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addPolygons(smoothFactor = 0.1, weight = 0,
+              fillColor = substr(euro_example$rgb, 1, 7),
+              fillOpacity = 1)
+```
+
+Adding a background map gives geographical context to the map. I also add a mouse pop-up of the actual data.
+
+```{r}
+euro_example %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$Esri.WorldTerrain) %>%
+  addPolygons(smoothFactor = 0.1, weight = 0,
+              fillColor = substr(euro_example$rgb, 1, 7),
+              fillOpacity = 1,
+              popup =
+                paste0(
+                  '<b>', euro_example$name, '</b></br>',
+                  'Primary: ',
+                  formatC(euro_example$ed_0to2*100,
+                          digits = 1, format = 'f'), '%</br>',
+                  'Secondary: ',
+                  formatC(euro_example$ed_3to4*100,
+                          digits = 1, format = 'f'), '%</br>',
+                  'Tertiary: ',
+                  formatC(euro_example$ed_5to8*100,
+                          digits = 1, format = 'f'), '%</br>'
+                )
+  )
+```
+
+Adding the legend to the leaflet map requires a bit of a [hack](https://github.com/rstudio/leaflet/issues/51#issuecomment-213108125).
+
+```{r}
+makePlotURI <- function(expr, width, height, ...) {
+  pngFile <- shiny::plotPNG(function() { expr }, width = width, height = height, ...)
+  on.exit(unlink(pngFile))
+
+  base64 <- httpuv::rawToBase64(readBin(pngFile, raw(1), file.size(pngFile)))
+  paste0("data:image/png;base64,", base64)
+}
+
+legend_symbol <- makePlotURI({
+  print(tric$legend +
+          theme(plot.background = element_rect(fill = NA, color = NA)) +
+          labs(L = '0-2', T = '3-4', R = '5-8'))
+}, 200, 200, bg = "transparent")
+
+df <- data.frame(
+  lng = 30,
+  lat = 70,
+  plot = legend_symbol,
+  stringsAsFactors = FALSE
+)
+
+euro_example %>%
+  st_transform(crs = 4326) %>%
+  leaflet() %>%
+  addProviderTiles(providers$Esri.WorldTerrain) %>%
+  addPolygons(smoothFactor = 0.1, weight = 0,
+              fillColor = substr(euro_example$rgb, 1, 7),
+              fillOpacity = 1,
+              popup =
+                paste0(
+                  '<b>', euro_example$name, '</b></br>',
+                  'Primary: ',
+                  formatC(euro_example$ed_0to2*100,
+                          digits = 1, format = 'f'), '%</br>',
+                  'Secondary: ',
+                  formatC(euro_example$ed_3to4*100,
+                          digits = 1, format = 'f'), '%</br>',
+                  'Tertiary: ',
+                  formatC(euro_example$ed_5to8*100,
+                          digits = 1, format = 'f'), '%</br>'
+                )
+  ) %>%
+  addMarkers(data = df, icon = ~icons(plot))
+```
+
+Literature
+----------
+
+Brewer, C. A. (1994). Color Use Guidelines for Mapping and Visualization. In A. M. MacEachren & D. R. F. Taylor (Eds.), Visualization in Modern Cartography (pp. 123–147). Oxford, UK: Pergamon.
+
+Dorling, D. (2012). The Visualization of Spatial Social Structure. Chichester, UK: Wiley. Retrieved from https://sasi.group.shef.ac.uk/thesis/prints.html

@@ -3,16 +3,6 @@ library(dplyr)
 library(ggtern)
 library(tricolore)
 
-# Functions ---------------------------------------------------------------
-
-gghole <- function (fort) {
-  poly <- fort[fort$id %in% fort[fort$hole, ]$id, ]
-  hole <- fort[!fort$id %in% fort[fort$hole, ]$id, ]
-  out <- list(poly, hole)
-  names(out) <- c('poly', 'hole')
-  return(out)
-}
-
 # UI ----------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -61,7 +51,7 @@ server <- function(input, output) {
 
   output$call <- renderText({
     paste0(
-      "Tricolore(euro_sectors, p1 = 'primary', p2 = 'secondary', p3 = 'tertiary'",
+      "Tricolore(euro_sectors, p1 = 'lf_pri', p2 = 'lf_sec', p3 = 'lf_ter'",
       ', breaks = ', input$breaks,
       ', hue = ', input$hue,
       ', chroma = ', input$chroma,
@@ -71,16 +61,16 @@ server <- function(input, output) {
       ', spread = ', input$spread,
       ', show_data = ', switch(input$show_data, No = FALSE, Yes = TRUE),
       ', show_center = ', switch(input$show_center, No = FALSE, Yes = TRUE),
-      ', label_as = ', input$label_as,
+      ', label_as = "', input$label_as, '"',
       ', legend = TRUE)'
     )
   })
 
-  output$example <- renderPlot(width = 800, height = 700, {
+  output$example <- renderPlot(res = 100, width = 800, height = 700, {
 
     # mix color, generate legend
-    mixed <- Tricolore(euro_sectors,
-                       p1 = 'primary', p2 = 'secondary', p3 = 'tertiary',
+    mixed <- Tricolore(euro_example,
+                       p1 = 'lf_pri', p2 = 'lf_sec', p3 = 'lf_ter',
                        breaks = input$breaks,
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
@@ -100,20 +90,18 @@ server <- function(input, output) {
       theme(plot.background = element_rect(fill = NA, color = NA))
 
     # merge data and map
-    euro_sectors$rgb <- mixed[['hexsrgb']]
-    euro_nuts2_sectors <- gghole(right_join(euro_geo_nuts2, euro_sectors, 'id'))
+    euro_example$rgb <- mixed[['hexsrgb']]
 
     # generate map
     euro_map <-
       euro_basemap +
-      geom_polygon(aes(fill = rgb), color = NA,
-                   data = euro_nuts2_sectors$poly) +
-      geom_polygon(aes(fill = rgb), color = NA,
-                   data = euro_nuts2_sectors$hole) +
+      geom_sf(aes(fill = rgb), color = NA,
+              data = euro_example) +
       annotation_custom(ggplotGrob(lgnd),
-                        xmin = 55e5, xmax = Inf,
-                        ymin = 38e5, ymax = Inf) +
+                        xmin = 55e5, xmax = 75e5,
+                        ymin = 8e5, ymax = 80e5) +
       scale_fill_identity() +
+      coord_sf(expand = FALSE, datum = NA) +
       labs(caption = 'Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
 
     print(euro_map)

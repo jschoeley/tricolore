@@ -1,4 +1,6 @@
 x add ternary zoom function
-x deal with NAs in euro_sectors
-x use sf object for map
+v deal with NAs in euro_sectors
+v use sf object for map
 x add regional age structures at a glance vignette
+x use leaflet for shiny
+v use leaflet for vignette

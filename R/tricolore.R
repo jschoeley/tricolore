@@ -680,71 +680,6 @@ DemoTricolore <- function () {
 
 # Data --------------------------------------------------------------------
 
-#' Regional Labour Force Composition in Europe 2016
-#'
-#' A dataset containing the relative share of workers by labour force sector
-#' in the European NUTS-2 regions 2016.
-#'
-#' @details
-#'   The original NACE (rev. 2) codes have been recoded into the three sectors
-#'   "primary" (A), "secondary" (B-E & F) and "tertiary" (all other NACE codes).
-#'
-#' @format
-#'   A data frame with 325 rows and 4 variables:
-#'   \describe{
-#'     \item{id}{NUTS-2 regional code.}
-#'     \item{primary}{Share of labour force in primary sector.}
-#'     \item{secondary}{Share of labour force in secondary sector.}
-#'     \item{tertiary}{Share of labour force in tertiary sector.}
-#'   }
-#'
-#' @source
-#'   Derived from Eurostats table "lfst_r_lfe2en2".
-'euro_sectors'
-
-#' Regional Composition of Educational Attainment in Europe 2016
-#'
-#' A dataset containing the relative share of population by educational
-#' attainment in the European NUTS-2 regions 2016.
-#'
-#' @details
-#'   Covers ages 25 to 64.
-#'
-#' @format
-#'   A data frame with 324 rows and 4 variables:
-#'   \describe{
-#'     \item{id}{NUTS-2 regional code.}
-#'     \item{ed0_2}{Share of population with highest attained education "lower secondary or less".}
-#'     \item{ed3_4}{Share of population with highest attained education "upper secondary".}
-#'     \item{ed5_8}{Share of population with highest attained education "tertiary".}
-#'   }
-#'
-#' @source
-#'   Derived from Eurostats table "edat_lfse_04".
-'euro_education'
-
-#' NUTS-2 Level Polygons for Europe
-#'
-#' A dataset containing the NUTS-2 level polygons of Europes regions.
-#'
-#' @format
-#'   A data frame with 4,206 rows and 7 variables:
-#'   \describe{
-#'     \item{long}{Longitude.}
-#'     \item{lat}{Latitude.}
-#'     \item{order}{Drawing order of polygon path.}
-#'     \item{hole}{Features hole?}
-#'     \item{piece}{Piece id.}
-#'     \item{id}{NUTS-2 code.}
-#'     \item{group}{Drawing group.}
-#'   }
-#'
-#' @source
-#'   Derived from Eurostats European Geodata.
-#'   (c) EuroGeographics for the administrative boundaries.
-#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
-'euro_geo_nuts2'
-
 #' Flat Map of European Continent
 #'
 #' A ggplot object rendering a flat background map of the European continent.
@@ -754,3 +689,41 @@ DemoTricolore <- function () {
 #'   (c) EuroGeographics for the administrative boundaries.
 #'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 'euro_basemap'
+
+#' NUTS-2 Level Geodata and Compositional Data for Europe
+#'
+#' A simple-features dataframe containing the NUTS-2 level polygons of European
+#' regions along with regional compositional data on education and labor-force.
+#'
+#' @format
+#'   A data frame with 312 rows and 9 variables:
+#'   \describe{
+#'     \item{id}{NUTS-2 code.}
+#'     \item{name}{Name of NUTS-2 region.}
+#'     \item{ed_0to2}{Share of population with highest attained education "lower secondary or less".}
+#'     \item{ed_3to4}{Share of population with highest attained education "upper secondary".}
+#'     \item{ed_5to8}{Share of population with highest attained education "tertiary".}
+#'     \item{lf_pri}{Share of labor-force in primary sector.}
+#'     \item{lf_sec}{Share of labor-force in secondary sector.}
+#'     \item{lf_ter}{Share of labor-force in tertiary sector.}
+#'     \item{geometry}{Polygon outlines for regions in sf package format.}
+#'   }
+#'
+#' @details
+#'   Variables starting with "ed" refer to the relative share of population ages
+#'   25 to 64 by educational attainment in the European NUTS-2 regions 2016.
+#'
+#'   Variables starting with "lf" refer to the relative share of workers by
+#'   labor-force sector in the European NUTS-2 regions 2016. The original NACE
+#'   (rev. 2) codes have been recoded into the three sectors "primary" (A),
+#'   "secondary" (B-E & F) and "tertiary" (all other NACE codes).
+#'
+#' @source
+#'   Derived from Eurostats European Geodata.
+#'   (c) EuroGeographics for the administrative boundaries.
+#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+#'
+#'   Education data derived from Eurostats table "edat_lfse_04".
+#'
+#'   Labor-force data derived from Eurostats table "lfst_r_lfe2en2".
+'euro_example'

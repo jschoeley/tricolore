@@ -1,23 +1,28 @@
 #'---
-#' title: A map of European neighbours
-#' author: Ilya Kashnitsky, Jonas Schöley
-#' date: 2018-08-25
+#' title: A flat and simplified map of Europe
+#' author: Jonas Schöley
+#' date: 2018-08-28
 #'---
 
 library(tidyverse)
+library(sf)
+library(rnaturalearth)
 
-# European neighbour countries geodata
-# prepared by Ilya Kashnitsky:
-# https://ikashnitsky.github.io/2017/subplots-in-maps/
-load('./data-raw/euro_region_geo.RData')
+eura_sf <-
+  # download geospatial data for European, Asian and African countries
+  ne_countries(continent = c('europe', 'asia', 'africa'), returnclass = 'sf',
+               scale = 50) %>%
+  # project to crs 3035
+  st_transform(crs = 3035) %>%
+  # merge into single polygon
+  st_union(by_feature = FALSE) %>%
+  st_crop(xmin = 25e5, xmax = 75e5, ymin = 13.5e5, ymax = 54.5e5)
 
 # draw a basemap of Europe
 euro_basemap <-
-  ggplot(euro_region_geo, aes(x = long, y = lat, group = group)) +
-  geom_polygon(color = NA, fill = 'grey90') +
-  coord_equal(ylim = c(1350000, 5450000),
-              xlim = c(2500000, 7500000),
-              expand = FALSE) +
+  ggplot(eura_sf) +
+  geom_sf(color = NA, fill = 'grey90') +
+  coord_sf(expand = FALSE, datum = NA) +
   theme_void() +
   theme(panel.border = element_rect(fill = NA, color = 'grey90', size = 1))
 
