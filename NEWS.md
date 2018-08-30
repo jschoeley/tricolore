@@ -1,3 +1,7 @@
+# tricolore 1.0.7
+
+* add dependencies to travis recipe
+
 # tricolore 1.0.6
 
 * provide example data as sf data frame
