@@ -1,3 +1,7 @@
+# tricolore 1.0.8
+
+* update README
+
 # tricolore 1.0.7
 
 * add dependencies to travis recipe

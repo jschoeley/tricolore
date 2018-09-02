@@ -1,25 +1,36 @@
-Tricolore. A flexible color scale for ternary compositions
-================
-Jonas Schöley & Ilya Kashnitsky
+---
+title: "Tricolore. A flexible color scale for ternary compositions"
+author: "Jonas Schöley & Ilya Kashnitsky"
+output: github_document
+---
 
-[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
+```{r echo=FALSE}
+knitr::opts_chunk$set(warning=FALSE,
+                      message=FALSE,
+                      fig.width = 12,
+                      fig.height = 12)
+```
+
+[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]()
+[![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 
 What is *tricolore*?
 --------------------
 
 `tricolore` is an R library providing a flexible color scale for the visualization of three-part (ternary) compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colours and to draw a suitable color-key. `tricolore` flexibly adapts to different visualization challenges via
 
--   discrete and continuous color support,
--   support for unbalanced compositional data via *centering*,
--   support for data with very narrow range via *scaling*,
--   hue, chroma and lightness options.
+- discrete and continuous color support,
+- support for unbalanced compositional data via *centering*,
+- support for data with very narrow range via *scaling*,
+- hue, chroma and lightness options.
 
 ![](README_files/teaser.png)
 
 Getting Started
 ---------------
 
-``` r
+```{r eval=FALSE}
 install.packages('tricolore')
 library(tricolore); DemoTricolore()
 ```
@@ -28,7 +39,7 @@ The `Tricolore()` function expects a dataframe of three-part compositions, color
 
 Here's a minimal example using simulated data.
 
-``` r
+```{r message=FALSE, fig.cap='A ternary color key with the color-coded compositional data visible as points.'}
 library(tricolore)
 
 # simulate 243 ternary compositions
@@ -37,15 +48,8 @@ P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 # the color-coded compositions
 head(colors_and_legend$hexsrgb)
-```
-
-    ## [1] "#507B92FF" "#7781CDFF" "#766764FF" "#527888FF" "#796667FF" "#7E666FFF"
-
-``` r
 colors_and_legend$legend
 ```
-
-![A ternary color key with the color-coded compositional data visible as points.](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
 
 You can familiarize yourself with the various options of `tricolore` by running `DemoTricolore()`.
 
@@ -58,7 +62,7 @@ The data set `euro_example` contains the administrative boundaries for the Europ
 
 **1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the dataframe. Store the color key seperately.**
 
-``` r
+```{r}
 # color-code the data set and generate a color-key
 tric_educ <- Tricolore(euro_example,
                        p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
@@ -67,7 +71,7 @@ tric_educ <- Tricolore(euro_example,
 
 `tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`). We add the vector of colors to the map-data.
 
-``` r
+```{r}
 # add the vector of colors to the `euro_example` data
 euro_example$educ_rgb <- tric_educ$hexsrgb
 ```
@@ -76,7 +80,7 @@ euro_example$educ_rgb <- tric_educ$hexsrgb
 
 The secret ingredient is `scale_fill_identity()` to make sure that each region is colored according to the value in the `educ_rgb` variable of `euro_example`.
 
-``` r
+```{r}
 library(ggplot2)
 
 plot_educ <-
@@ -90,11 +94,9 @@ plot_educ <-
 plot_educ 
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
-
 Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](http://www.ggtern.com/) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
 
-``` r
+```{r}
 library(ggtern)
 plot_educ +
   annotation_custom(
@@ -103,11 +105,9 @@ plot_educ +
   )
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
-
 Because the color key behaves just like a `ggplot2` plot we can change it to our liking.
 
-``` r
+```{r}
 plot_educ <-
   plot_educ +
   annotation_custom(
@@ -120,11 +120,9 @@ plot_educ <-
 plot_educ
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
-
 Some final touches...
 
-``` r
+```{r}
 plot_educ +
   theme_void() +
   coord_sf(datum = NA) +
@@ -133,14 +131,12 @@ plot_educ +
        caption = 'Data by eurostat (edat_lfse_04).')
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
-
 Continuous vs. discrete colors
 ------------------------------
 
-By default `tricolore` uses a continuous colors scale. This can be changed via the `breaks` parameter. A value of 4 gives a discrete scale of 4<sup>2</sup> = 16 colors.
+By default `tricolore` uses a continuous colors scale. This can be changed via the `breaks` parameter. A value of 4 gives a discrete scale of $4^2=16$ colors.
 
-``` r
+```{r}
 # color-code the data set and generate a color-key
 tric_educ_disc <- Tricolore(euro_example,
                             p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
@@ -167,14 +163,12 @@ ggplot(euro_example) +
        caption = 'Data by eurostat (edat_lfse_04).')
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
-
 Ternary centering
 -----------------
 
 While the ternary balance scheme allows for dense yet clear visualizations of *well spread out* ternary compositions the technique is less informative when used with highly *unbalanced data*. The map below shows the regional labor force composition in Europe as of 2016 in nearly monochromatic colors, the different shades of blue signifying a working population which is concentrated in the tertiary (services) sector. Regions in Turkey and Eastern Europe show a somewhat higher concentration of workers in the primary (production) sector but overall the data shows little variation with regards to the *visual reference point*, i.e. the greypoint marking perfectly balanced proportions.
 
-``` r
+```{r}
 tric_lf_non_centered <-
   Tricolore(euro_example, 'lf_pri', 'lf_sec', 'lf_ter', show_center = FALSE)
 
@@ -196,15 +190,14 @@ ggplot(euro_example) +
   labs(title = 'European inequalities in labor force composition',
        subtitle = 'Regional distribution of labor force across the three sectors in 2016.',
        caption = 'Data by eurostat (lfst_r_lfe2en2).')
-```
 
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+```
 
 A remedy for analyzing data which shows little variation in relation to some reference point is to *change the point of reference*. The map below yet again shows the European regional labor force composition in 2016 but the color scale has been altered so that its greypoint -- the visual point of reference -- is positioned at the European annual average. Consequently the colors now show direction and magnitude of the deviation from the European average labor force composition. Pink, Green and Blue hues show a higher than average share of workers in the primary, secondary and tertiary sector respectively. The saturation of the colors show the magnitude of that deviation with perfect grey marking a region that has a labor force composition equal to the European average, i.e. the reference point.
 
 Centering the color scale over the labor-force composition of the average European NUTS-2 region shows various patterns of deviations from the average. Metropolitan regions (Hamburg, Stockholm, Paris, Madrid) have a higher than average share of tertiary workers. Large parts of France are quite grey, indicating a labor-force composition close to the average, while Eastern Europe, the south of Spain and Italy have a higher than average share of workers active in the primary sector.
 
-``` r
+```{r}
 tric_lf_centered <-
   Tricolore(euro_example,
             'lf_pri', 'lf_sec', 'lf_ter',
@@ -231,4 +224,3 @@ ggplot(euro_example) +
        caption = 'Data by eurostat (lfst_r_lfe2en2).')
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
