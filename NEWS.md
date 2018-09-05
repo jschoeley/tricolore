@@ -1,6 +1,8 @@
 # tricolore 1.0.8
 
+* add legend crop option
 * update README
+* add dependencies to travis recipe
 
 # tricolore 1.0.7
 

@@ -93,7 +93,7 @@ ValidateParameters <- function (pars) {
     assert_that(is.number(spread), spread > 0, is.finite(spread))
     # flags
     assert_that(is.flag(legend), is.flag(show_data),
-                is.flag(show_center))
+                is.flag(show_center), is.flag(crop))
     # character options
     assert_that(is.scalar(label_as),
                 is.character(label_as),
@@ -380,6 +380,28 @@ TernaryCenterGrid <- function (center, spacing) {
   return(list(breaks = breaks, labels = labels))
 }
 
+#' Return the Limits of Ternary Coordinates
+#'
+#' @param P n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+#'          i=1,...,n.
+#' @param na.rm Should NAs be removed? (default=TRUE)
+#'
+#' @return A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
+#'
+#' @examples
+#' P <- prop.table(matrix(runif(9), ncol = 3), 1)
+#' tricolore:::TernaryLimits(P)
+TernaryLimits <- function (P, na.rm = TRUE) {
+  limits <- matrix(NA, nrow = 2, ncol = 3,
+                   dimnames = list(c('lower', 'upper'),
+                                   c('p1', 'p2', 'p3')))
+  limits[1,] <- apply(P, 2, min, na.rm = na.rm)
+  limits[2,] <- c(1 - (limits[1,2] + limits[1,3]),
+                  1 - (limits[1,1] + limits[1,3]),
+                  1 - (limits[1,1] + limits[1,2]))
+  return(limits)
+}
+
 # Ternary Color Scale -----------------------------------------------------
 
 #' RGB Mixture of Ternary Composition
@@ -471,6 +493,7 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 #' @inheritParams ColorMap
 #' @param label_as "pct" for percent-share labels or "pct_diff" for
 #'   percent-point-difference from center labels.
+#' @param limits A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
 #'
 #' @examples
 #' tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70,
@@ -483,7 +506,8 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'
 #' @keywords internal
-ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as) {
+ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
+                      limits = matrix(0:1, nrow = 2, ncol = 3)) {
 
   # don't allow more than 99^2 different colors/regions in the legend
   if (breaks > 99) { breaks = 100 }
@@ -516,27 +540,53 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as) {
           tern.axis.title.R = element_text(hjust = 0.8, vjust = 0.6, angle = 60)) +
     # grid and labels
     list(
-      # proportion labels
+      # dynamic axis labels, for breaks < 10 label
+      # at the border of two regions
       if (label_as == 'pct' && breaks <= 10) {
         list(
-          # dynamic axis labels, for breaks < 10 label
-          # at the border of two regions
-          scale_L_continuous(breaks = pct_grid[['breaks']],
-                             labels = pct_grid[['labels']]),
-          scale_T_continuous(breaks = pct_grid[['breaks']],
-                             labels = pct_grid[['labels']]),
-          scale_R_continuous(breaks = pct_grid[['breaks']],
-                             labels = pct_grid[['labels']])
+          scale_L_continuous(
+            limits = limits[,1],
+            breaks = pct_grid[['breaks']],
+            labels = pct_grid[['labels']]
+          ),
+          scale_T_continuous(
+            limits = limits[,2],
+            breaks = pct_grid[['breaks']],
+            labels = pct_grid[['labels']]
+          ),
+          scale_R_continuous(
+            limits = limits[,3],
+            breaks = pct_grid[['breaks']],
+            labels = pct_grid[['labels']]
+          )
         )
       },
+      # automatic proportion labels for breaks > 10
+      if (label_as == 'pct' && breaks > 10) {
+        list(
+          scale_L_continuous(limits = limits[,1]),
+          scale_T_continuous(limits = limits[,2]),
+          scale_R_continuous(limits = limits[,3])
+        )
+      },
+      # percent-difference labels
       if (label_as == 'pct_diff') {
         list(
-          scale_L_continuous(breaks = pct_diff_grid[['breaks']][['p1']],
-                             labels = pct_diff_grid[['labels']][['p1']]),
-          scale_T_continuous(breaks = pct_diff_grid[['breaks']][['p2']],
-                             labels = pct_diff_grid[['labels']][['p2']]),
-          scale_R_continuous(breaks = pct_diff_grid[['breaks']][['p3']],
-                             labels = pct_diff_grid[['labels']][['p3']])
+          scale_L_continuous(
+            limits = limits[,1],
+            breaks = pct_diff_grid[['breaks']][['p1']],
+            labels = pct_diff_grid[['labels']][['p1']]
+          ),
+          scale_T_continuous(
+            limits = limits[,2],
+            breaks = pct_diff_grid[['breaks']][['p2']],
+            labels = pct_diff_grid[['labels']][['p2']]
+          ),
+          scale_R_continuous(
+            limits = limits[,3],
+            breaks = pct_diff_grid[['breaks']][['p3']],
+            labels = pct_diff_grid[['labels']][['p3']]
+          )
         )
       }
     )
@@ -574,6 +624,7 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as) {
 #' @param show_center Should the center be shown on the legend? (default=TRUE)
 #' @param label_as "pct" for percent-share labels or "pct_diff" for
 #'   percent-point-difference from center labels. (default="pct")
+#' @param crop Should the legend be cropped to the data? (default=FALSE)
 #' @param input_validation Should the function arguments be validated? (default=TRUE)
 #'
 #' @return
@@ -596,7 +647,7 @@ Tricolore <- function (df, p1, p2, p3,
                        breaks = 100, hue = 0, chroma = 0.8, lightness = 0.7,
                        contrast = 0.4, center = rep(1/3, 3), spread = 1,
                        legend = TRUE, show_data = TRUE, show_center = TRUE,
-                       label_as = 'pct', input_validation = TRUE) {
+                       label_as = 'pct', crop = FALSE, input_validation = TRUE) {
 
   # validation of main input arguments
   if (input_validation) {
@@ -605,7 +656,7 @@ Tricolore <- function (df, p1, p2, p3,
                             lightness = lightness, contrast = contrast,
                             center = center, spread = spread, legend = legend,
                             show_data = show_data, show_center = show_center,
-                            label_as = label_as))
+                            label_as = label_as, crop = crop))
     }
 
   # construct 3 column matrix of proportions
@@ -631,9 +682,18 @@ Tricolore <- function (df, p1, p2, p3,
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
+
+    # crop legend to to data range if crop==TRUE
+    if (crop) {
+      limits <- TernaryLimits(P, na.rm = TRUE)
+    # else use full range
+    } else {
+      limits <- matrix(0:1, nrow = 2, ncol = 3)
+    }
+
     lgnd <-
       ColorKey(breaks, hue*360, chroma*200, lightness*100,
-               contrast, center, spread, label_as) +
+               contrast, center, spread, label_as, limits = limits) +
       list(
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),

@@ -1,4 +1,4 @@
-x add ternary zoom function
+v add ternary zoom function
 v deal with NAs in euro_sectors
 v use sf object for map
 x add regional age structures at a glance vignette

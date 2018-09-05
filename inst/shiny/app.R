@@ -33,11 +33,14 @@ ui <- fluidPage(
                               selected = 'No'),
                  radioButtons(inputId = 'show_data', label = 'Show data',
                               choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'No'),
+                              selected = 'Yes'),
                  radioButtons(inputId = 'label_as', label = 'Label as',
                               choices = list('percent-share' = 'pct',
                                              'percent-point-difference\nfrom center point' = 'pct_diff'),
-                              selected = 'pct')
+                              selected = 'pct'),
+                 radioButtons(inputId = 'crop', label = 'Crop legend',
+                              choices = list(No = 'No', Yes = 'Yes'),
+                              selected = 'No')
     ),
 
     # OUTPUT
@@ -62,11 +65,12 @@ server <- function(input, output) {
       ', show_data = ', switch(input$show_data, No = FALSE, Yes = TRUE),
       ', show_center = ', switch(input$show_center, No = FALSE, Yes = TRUE),
       ', label_as = "', input$label_as, '"',
+      ', crop = ', switch(input$show_center, No = FALSE, Yes = TRUE),
       ', legend = TRUE)'
     )
   })
 
-  output$example <- renderPlot(res = 100, width = 800, height = 700, {
+  output$example <- renderPlot(res = 120, width = 1000, height = 800, {
 
     # mix color, generate legend
     mixed <- Tricolore(euro_example,
@@ -79,6 +83,7 @@ server <- function(input, output) {
                        show_data = switch(input$show_data, No = FALSE, Yes = TRUE),
                        show_center = switch(input$show_center, No = FALSE, Yes = TRUE),
                        label_as = input$label_as,
+                       crop = switch(input$crop, No = FALSE, Yes = TRUE),
                        legend = TRUE)
 
     # customize legend
@@ -87,7 +92,7 @@ server <- function(input, output) {
            caption = paste0('Labor force composition in European regions 2016\n',
                             switch(input$center, No = 'Colors show deviations from balanced composition',
                                    input$center, Yes = 'Colors show deviation from average composition'))) +
-      theme(plot.background = element_rect(fill = NA, color = NA))
+      theme(plot.background = element_rect(fill = 'grey95', color = 'grey50'))
 
     # merge data and map
     euro_example$rgb <- mixed[['hexsrgb']]
@@ -98,7 +103,7 @@ server <- function(input, output) {
       geom_sf(aes(fill = rgb), color = NA,
               data = euro_example) +
       annotation_custom(ggplotGrob(lgnd),
-                        xmin = 55e5, xmax = 75e5,
+                        xmin = 54e5, xmax = 74e5,
                         ymin = 8e5, ymax = 80e5) +
       scale_fill_identity() +
       coord_sf(expand = FALSE, datum = NA) +

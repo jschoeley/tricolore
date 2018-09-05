@@ -4,7 +4,8 @@
 \alias{ColorKey}
 \title{Ternary Balance Scheme Legend}
 \usage{
-ColorKey(breaks, h_, c_, l_, contrast, center, spread, label_as)
+ColorKey(breaks, h_, c_, l_, contrast, center, spread, label_as,
+  limits = matrix(0:1, nrow = 2, ncol = 3))
 }
 \arguments{
 \item{breaks}{Number of breaks in the discrete color scale. An integer >1.
@@ -24,6 +25,8 @@ Values above 99 imply no discretization.}
 
 \item{label_as}{"pct" for percent-share labels or "pct_diff" for
 percent-point-difference from center labels.}
+
+\item{limits}{A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.}
 }
 \description{
 Plot a ternary balance scheme legend.
