@@ -1,3 +1,9 @@
+# tricolore 1.1.0
+
+* change defaults
+* make defaults dynamic
+* remove alpha part from rgb codes
+
 # tricolore 1.0.8
 
 * add legend crop option

@@ -477,6 +477,8 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
   # hex-srgb representation via the hcl (CIE-Luv) color space
   hexsrgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
                  alpha = 1, fixup = TRUE)
+  # remove alpha information
+  hexsrgb <- substr(hexsrgb, 1, 7)
 
   # non-transformed compositions, hcl values of mixtures and hexsrgb code
   result <- data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
@@ -518,6 +520,7 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
   V <- TernaryMeshVertices(C)
   rgbs <- ColorMap(P = C[,-1], breaks = 100, h_, c_, l_,
                    contrast, center, spread)[['hexsrgb']]
+
   legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
 
   # legend grid (percent share or percent point difference from center)

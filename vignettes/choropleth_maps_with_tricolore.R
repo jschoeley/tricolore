@@ -14,8 +14,7 @@ as_tibble(euro_example)
 
 ## ------------------------------------------------------------------------
 # color-code the data set and generate a color-key
-tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                  breaks = 4, show_center = FALSE)
+tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 
 ## ------------------------------------------------------------------------
 # add the vector of colors to the `euro_example` data
@@ -25,9 +24,9 @@ euro_example$rgb <- tric$hexsrgb
 library(ggplot2)
 
 plot_educ <-
-  # using data `euro_educ_map`...
+  # using sf dataframe `euro_example`...
   ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
+  # ...draw a polygon for each region...
   geom_sf(aes(fill = rgb), size = 0.1) +
   # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity()
@@ -64,7 +63,7 @@ plot_educ +
 ## ------------------------------------------------------------------------
 # color-code the data set and generate a color-key
 tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                  breaks = Inf, show_center = FALSE)
+                  breaks = Inf)
 
 # add the vector of colors to the `euro_example` data
 euro_example$rgb <- tric$hexsrgb
@@ -77,7 +76,7 @@ euro_example %>%
   st_transform(crs = 4326) %>%
   leaflet() %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1)
 
 ## ------------------------------------------------------------------------
@@ -86,7 +85,7 @@ euro_example %>%
   leaflet() %>%
   addProviderTiles(providers$Esri.WorldTerrain) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1,
               popup =
                 paste0(
@@ -130,7 +129,7 @@ euro_example %>%
   leaflet() %>%
   addProviderTiles(providers$Esri.WorldTerrain) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1,
               popup =
                 paste0(

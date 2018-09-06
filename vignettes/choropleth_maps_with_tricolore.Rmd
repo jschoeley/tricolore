@@ -134,7 +134,7 @@ euro_example %>%
   st_transform(crs = 4326) %>%
   leaflet() %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1)
 ```
 
@@ -146,7 +146,7 @@ euro_example %>%
   leaflet() %>%
   addProviderTiles(providers$Esri.WorldTerrain) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1,
               popup =
                 paste0(
@@ -193,7 +193,7 @@ euro_example %>%
   leaflet() %>%
   addProviderTiles(providers$Esri.WorldTerrain) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
-              fillColor = substr(euro_example$rgb, 1, 7),
+              fillColor = euro_example$rgb,
               fillOpacity = 1,
               popup =
                 paste0(

@@ -3,4 +3,4 @@ v deal with NAs in euro_sectors
 v use sf object for map
 x add regional age structures at a glance vignette
 v use leaflet for vignette
-x remove alpha part from rgb codes
+v remove alpha part from rgb codes
