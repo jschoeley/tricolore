@@ -4,10 +4,12 @@
 \alias{Tricolore}
 \title{Ternary Balance Color Scale}
 \usage{
-Tricolore(df, p1, p2, p3, breaks = 100, hue = 0, chroma = 0.8,
-  lightness = 0.7, contrast = 0.4, center = rep(1/3, 3),
-  spread = 1, legend = TRUE, show_data = TRUE, show_center = TRUE,
-  label_as = "pct", crop = FALSE, input_validation = TRUE)
+Tricolore(df, p1, p2, p3, breaks = 4, hue = 0.2, chroma = 0.7,
+  lightness = 0.8, contrast = 0.4, center = rep(1/3, 3),
+  spread = 1, legend = TRUE, show_data = TRUE,
+  show_center = ifelse(identical(center, rep(1/3, 3)), FALSE, TRUE),
+  label_as = ifelse(identical(center, rep(1/3, 3)), "pct", "pct_diff"),
+  crop = FALSE, input_validation = TRUE)
 }
 \arguments{
 \item{df}{Data frame of compositional data.}
@@ -43,10 +45,12 @@ color scale on the center.}
 
 \item{show_data}{Should the data be shown on the legend? (default=TRUE)}
 
-\item{show_center}{Should the center be shown on the legend? (default=TRUE)}
+\item{show_center}{Should the center be shown on the legend?
+(default=FALSE if center is at c(1/3, 1/3, 1/3), otherwise TRUE)}
 
 \item{label_as}{"pct" for percent-share labels or "pct_diff" for
-percent-point-difference from center labels. (default="pct")}
+percent-point-difference from center labels.
+(default='pct' if center is at c(1/3, 1/3, 1/3), otherwise 'pct_diff')}
 
 \item{crop}{Should the legend be cropped to the data? (default=FALSE)}
 

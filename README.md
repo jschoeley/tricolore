@@ -9,10 +9,10 @@ What is *tricolore*?
 
 `tricolore` is an R library providing a flexible color scale for the visualization of three-part (ternary) compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colours and to draw a suitable color-key. `tricolore` flexibly adapts to different visualization challenges via
 
--   discrete and continuous color support,
+-   *discrete* and *continuous* color support,
 -   support for unbalanced compositional data via *centering*,
 -   support for data with very narrow range via *scaling*,
--   hue, chroma and lightness options.
+-   *hue*, *chroma* and *lightness* options.
 
 ![](README_files/teaser.png)
 
@@ -39,7 +39,7 @@ colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 head(colors_and_legend$hexsrgb)
 ```
 
-    ## [1] "#507B92FF" "#7781CDFF" "#766764FF" "#527888FF" "#796667FF" "#7E666FFF"
+    ## [1] "#BC8C67FF" "#A37D7DFF" "#7A86A1FF" "#7A86A1FF" "#4AA0BBFF" "#727272FF"
 
 ``` r
 colors_and_legend$legend
@@ -61,8 +61,7 @@ The data set `euro_example` contains the administrative boundaries for the Europ
 ``` r
 # color-code the data set and generate a color-key
 tric_educ <- Tricolore(euro_example,
-                       p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                       show_center = FALSE)
+                       p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 ```
 
 `tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`). We add the vector of colors to the map-data.
@@ -80,11 +79,12 @@ The secret ingredient is `scale_fill_identity()` to make sure that each region i
 library(ggplot2)
 
 plot_educ <-
-  # using data `euro_educ_map`...
+  # using data sf data `euro_example`...
   ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
+  # ...draw a choropleth map
   geom_sf(aes(fill = educ_rgb), size = 0.1) +
-  # ...and color each region according to the color code in the variable `rgb`
+  # ...and color each region according to the color-code
+  # in the variable `educ_rgb`
   scale_fill_identity()
 
 plot_educ 
@@ -113,7 +113,6 @@ plot_educ <-
   annotation_custom(
     ggplotGrob(
       tric_educ$legend +
-        theme(plot.background = element_rect(fill = NA, color = NA)) +
         labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   )
@@ -138,25 +137,21 @@ plot_educ +
 Continuous vs. discrete colors
 ------------------------------
 
-By default `tricolore` uses a continuous colors scale. This can be changed via the `breaks` parameter. A value of 4 gives a discrete scale of 4<sup>2</sup> = 16 colors.
+By default `tricolore` uses a discrete colors scale with 16 colors. This can be changed via the `breaks` parameter. A value of `Inf` gives a continuous color scale...
 
 ``` r
 # color-code the data set and generate a color-key
 tric_educ_disc <- Tricolore(euro_example,
                             p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                    breaks = 4, show_center = FALSE)
+                            breaks = Inf)
 euro_example$educ_rgb_disc <- tric_educ_disc$hexsrgb
 
-# using data `euro_educ_map`...
 ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
   geom_sf(aes(fill = educ_rgb_disc), size = 0.1) +
-  # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(
       tric_educ_disc$legend +
-        theme(plot.background = element_rect(fill = NA, color = NA)) +
         labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -169,25 +164,48 @@ ggplot(euro_example) +
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
+...and a `breaks = 2` gives a discrete color scale with 2<sup>2</sup> = 9 colors.
+
+``` r
+# color-code the data set and generate a color-key
+tric_educ_disc <- Tricolore(euro_example,
+                            p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
+                            breaks = 2)
+euro_example$educ_rgb_disc <- tric_educ_disc$hexsrgb
+
+ggplot(euro_example) +
+  geom_sf(aes(fill = educ_rgb_disc), size = 0.1) +
+  scale_fill_identity() +
+  annotation_custom(
+    ggplotGrob(
+      tric_educ_disc$legend +
+        labs(L = '0-2', T = '3-4', R = '5-8')),
+    xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
+  ) +
+  theme_void() +
+  coord_sf(datum = NA) +
+  labs(title = 'European inequalities in educational attainment',
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
+       caption = 'Data by eurostat (edat_lfse_04).')
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
 Ternary centering
 -----------------
 
 While the ternary balance scheme allows for dense yet clear visualizations of *well spread out* ternary compositions the technique is less informative when used with highly *unbalanced data*. The map below shows the regional labor force composition in Europe as of 2016 in nearly monochromatic colors, the different shades of blue signifying a working population which is concentrated in the tertiary (services) sector. Regions in Turkey and Eastern Europe show a somewhat higher concentration of workers in the primary (production) sector but overall the data shows little variation with regards to the *visual reference point*, i.e. the greypoint marking perfectly balanced proportions.
 
 ``` r
-tric_lf_non_centered <-
-  Tricolore(euro_example, 'lf_pri', 'lf_sec', 'lf_ter', show_center = FALSE)
+tric_lf_non_centered <- Tricolore(euro_example, 'lf_pri', 'lf_sec', 'lf_ter')
 
 euro_example$rgb_lf_non_centered <- tric_lf_non_centered$hexsrgb
 
 ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
   geom_sf(aes(fill = rgb_lf_non_centered), size = 0.1) +
-  # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(tric_lf_non_centered$legend +
-                 theme(plot.background = element_rect(fill = NA, color = NA)) +
                  labs(L = '% Primary', T = '% Secondary', R = '% Tertiary')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -198,7 +216,7 @@ ggplot(euro_example) +
        caption = 'Data by eurostat (lfst_r_lfe2en2).')
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
 A remedy for analyzing data which shows little variation in relation to some reference point is to *change the point of reference*. The map below yet again shows the European regional labor force composition in 2016 but the color scale has been altered so that its greypoint -- the visual point of reference -- is positioned at the European annual average. Consequently the colors now show direction and magnitude of the deviation from the European average labor force composition. Pink, Green and Blue hues show a higher than average share of workers in the primary, secondary and tertiary sector respectively. The saturation of the colors show the magnitude of that deviation with perfect grey marking a region that has a labor force composition equal to the European average, i.e. the reference point.
 
@@ -208,19 +226,16 @@ Centering the color scale over the labor-force composition of the average Europe
 tric_lf_centered <-
   Tricolore(euro_example,
             'lf_pri', 'lf_sec', 'lf_ter',
-            center = NA, show_center = TRUE, label_as = 'pct_diff')
+            center = NA, crop = TRUE)
 
 euro_example$rgb_lf_centered <- tric_lf_centered$hexsrgb
 
 ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
   geom_sf(aes(fill = rgb_lf_centered), size = 0.1) +
-  # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(
       tric_lf_centered$legend +
-        theme(plot.background = element_rect(fill = NA, color = NA)) +
         labs(L = '% Primary', T = '% Secondary', R = '% Tertiary')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -231,4 +246,4 @@ ggplot(euro_example) +
        caption = 'Data by eurostat (lfst_r_lfe2en2).')
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-12-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)

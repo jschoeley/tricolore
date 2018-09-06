@@ -14,33 +14,29 @@ ui <- fluidPage(
     # INPUT
     sidebarPanel(width = 3,
                  sliderInput(inputId = 'hue', label = 'Hue', ticks = FALSE,
-                             min = 0, max = 1, step = 0.1, value = 0.3),
+                             min = 0, max = 1, step = 0.1, value = 0.2),
                  sliderInput(inputId = 'chroma', label = 'Chroma', ticks = FALSE,
-                             min = 0, max = 1, step = 0.1, value = 0.9),
+                             min = 0, max = 1, step = 0.1, value = 0.7),
                  sliderInput(inputId = 'lightness', label = 'Lightness', ticks = FALSE,
                              min = 0, max = 1, step = 0.1, value = 0.8),
                  sliderInput(inputId = 'contrast', label = 'Contrast', ticks = FALSE,
-                             min = 0, max = 1, step = 0.1, value = 0.6),
+                             min = 0, max = 1, step = 0.1, value = 0.4),
                  sliderInput(inputId = 'spread', label = 'Spread',
                              min = 0.5, max = 2, step = 0.1, value = 1, ticks = FALSE),
                  sliderInput(inputId = 'breaks', label = 'Discretization', ticks = FALSE,
-                             min = 2, max = 20, step = 1, value = 5),
-                 radioButtons(inputId = 'center', label = 'Mean centering',
-                              choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'No'),
-                 radioButtons(inputId = 'show_center', label = 'Show center',
-                              choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'No'),
-                 radioButtons(inputId = 'show_data', label = 'Show data',
-                              choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'Yes'),
+                             min = 2, max = 20, step = 1, value = 4),
+                 checkboxInput(inputId = 'center', label = 'Mean centering',
+                               value = FALSE),
+                 checkboxInput(inputId = 'show_center', label = 'Show center',
+                               value = FALSE),
+                 checkboxInput(inputId = 'show_data', label = 'Show data',
+                               value = TRUE),
+                 checkboxInput(inputId = 'crop', label = 'Crop legend',
+                               value = FALSE),
                  radioButtons(inputId = 'label_as', label = 'Label as',
                               choices = list('percent-share' = 'pct',
-                                             'percent-point-difference\nfrom center point' = 'pct_diff'),
-                              selected = 'pct'),
-                 radioButtons(inputId = 'crop', label = 'Crop legend',
-                              choices = list(No = 'No', Yes = 'Yes'),
-                              selected = 'No')
+                                             'pct-pt. difference' = 'pct_diff'),
+                              selected = 'pct')
     ),
 
     # OUTPUT
@@ -60,12 +56,12 @@ server <- function(input, output) {
       ', chroma = ', input$chroma,
       ', lightness = ', input$lightness,
       ', contrast = ', input$contrast,
-      ', center = ', switch(input$center, No = 'rep(1/3,3)', Yes = 'NA'),
+      ', center = ', ifelse(input$center, 'NA', 'rep(1/3,3)'),
       ', spread = ', input$spread,
-      ', show_data = ', switch(input$show_data, No = FALSE, Yes = TRUE),
-      ', show_center = ', switch(input$show_center, No = FALSE, Yes = TRUE),
+      ', show_data = ', input$show_data,
+      ', show_center = ', input$show_center,
       ', label_as = "', input$label_as, '"',
-      ', crop = ', switch(input$show_center, No = FALSE, Yes = TRUE),
+      ', crop = ', input$crop,
       ', legend = TRUE)'
     )
   })
@@ -78,20 +74,21 @@ server <- function(input, output) {
                        breaks = input$breaks,
                        hue = input$hue, chroma = input$chroma,
                        lightness = input$lightness, contrast = input$contrast,
-                       center = switch(input$center, No = rep(1/3,3), Yes = NA),
+                       center = if (input$center) NA else rep(1/3,3),
                        spread = input$spread,
-                       show_data = switch(input$show_data, No = FALSE, Yes = TRUE),
-                       show_center = switch(input$show_center, No = FALSE, Yes = TRUE),
+                       show_data = input$show_data,
+                       show_center = input$show_center,
                        label_as = input$label_as,
-                       crop = switch(input$crop, No = FALSE, Yes = TRUE),
+                       crop = input$crop,
                        legend = TRUE)
 
     # customize legend
     lgnd <- mixed[['legend']] +
       labs(x = 'Primary', y = 'Secondary', z = 'Tertiary',
            caption = paste0('Labor force composition in European regions 2016\n',
-                            switch(input$center, No = 'Colors show deviations from balanced composition',
-                                   input$center, Yes = 'Colors show deviation from average composition'))) +
+                            ifelse(input$center,
+                                   'Colors show deviation from average composition',
+                                   'Colors show deviations from balanced composition'))) +
       theme(plot.background = element_rect(fill = 'grey95', color = 'grey50'))
 
     # merge data and map

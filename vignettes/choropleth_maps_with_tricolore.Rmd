@@ -46,8 +46,7 @@ Here I show how to create a choropleth map of the regional distribution of educa
 
 ```{r}
 # color-code the data set and generate a color-key
-tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                  breaks = 4, show_center = FALSE)
+tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 ```
 
 `tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`). We add the vector of colors to the map-data.
@@ -65,9 +64,9 @@ The secret ingredient is `scale_fill_identity()` to make sure that each region i
 library(ggplot2)
 
 plot_educ <-
-  # using data `euro_educ_map`...
+  # using sf dataframe `euro_example`...
   ggplot(euro_example) +
-  # ...draw a polygon for each `group` along `long` and `lat`...
+  # ...draw a polygon for each region...
   geom_sf(aes(fill = rgb), size = 0.1) +
   # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity()
@@ -119,7 +118,7 @@ The `ggplot2` example above is easily adapted to `leaflet`. This time I use a co
 ```{r}
 # color-code the data set and generate a color-key
 tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
-                  breaks = Inf, show_center = FALSE)
+                  breaks = Inf)
 
 # add the vector of colors to the `euro_example` data
 euro_example$rgb <- tric$hexsrgb
