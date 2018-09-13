@@ -13,8 +13,8 @@ sub-triangles. Column order: id, p1, p2, p3 with id=1,...,k^2.}
 \item{k}{Number of rows in the segmented equilateral triangle.}
 }
 \value{
-Index, vertex id and barycentric vertex coordinates for each of the
-        k^2 sub-triangles.
+A numeric matrix with index, vertex id and barycentric vertex
+  coordinates for each of the k^2 sub-triangles.
 }
 \description{
 Given the barycentric centroid coordinates of the sub-triangles in an

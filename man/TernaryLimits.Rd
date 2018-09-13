@@ -21,4 +21,6 @@ Return the Limits of Ternary Coordinates
 \examples{
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::TernaryLimits(P)
+
 }
+\keyword{internal}

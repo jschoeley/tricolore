@@ -4,6 +4,7 @@ This is a critical update establishing compatability with ggplot/ggtern 3.0.0.
 
 * local debian 9.5, R 3.5.0
 * ubuntu 14.04 (on travis-ci), R 3.5.0
+* windows (via devtools::build_win)
 
 ## R CMD check results
 

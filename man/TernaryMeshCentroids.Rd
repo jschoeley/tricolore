@@ -10,7 +10,8 @@ TernaryMeshCentroids(k)
 \item{k}{Number of rows in the segmented equilateral triangle.}
 }
 \value{
-A matrix of barycentric centroid coordinates of regions id=1,...,k^2.
+A numeric matrix of with index and barycentric centroid coordinates
+  of regions id=1,...,k^2.
 }
 \description{
 Segment an equilateral triangle into k^2 equilateral sub-triangles and return

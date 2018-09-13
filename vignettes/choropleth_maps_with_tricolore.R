@@ -18,7 +18,7 @@ tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 
 ## ------------------------------------------------------------------------
 # add the vector of colors to the `euro_example` data
-euro_example$rgb <- tric$hexsrgb
+euro_example$rgb <- tric$rgb
 
 ## ------------------------------------------------------------------------
 library(ggplot2)
@@ -37,7 +37,7 @@ plot_educ
 library(ggtern)
 plot_educ +
   annotation_custom(
-    ggplotGrob(tric$legend),
+    ggplotGrob(tric$key),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   )
 
@@ -45,7 +45,7 @@ plot_educ +
 plot_educ <-
   plot_educ +
   annotation_custom(
-    ggplotGrob(tric$legend +
+    ggplotGrob(tric$key +
                  theme(plot.background = element_rect(fill = NA, color = NA)) +
                  labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
@@ -66,7 +66,7 @@ tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
                   breaks = Inf)
 
 # add the vector of colors to the `euro_example` data
-euro_example$rgb <- tric$hexsrgb
+euro_example$rgb <- tric$rgb
 
 ## ------------------------------------------------------------------------
 library(sf)
@@ -112,7 +112,7 @@ makePlotURI <- function(expr, width, height, ...) {
 }
 
 legend_symbol <- makePlotURI({
-  print(tric$legend +
+  print(tric$key +
           theme(plot.background = element_rect(fill = NA, color = NA)) +
           labs(L = '0-2', T = '3-4', R = '5-8'))
 }, 200, 200, bg = "transparent")

@@ -12,7 +12,7 @@ PowerScale(P, scale = 1)
 \item{scale}{Power scalar.}
 }
 \value{
-n by m matrix of powered compositions.
+n by m numeric matrix of powered compositions.
 }
 \description{
 Raise a compositional data-set to a given power.

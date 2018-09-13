@@ -12,7 +12,8 @@ TernaryDistance(p, C)
 \item{C}{n by 3 matrix of ternary coordinates {p1, p2, p3}_i for i=1,...,n.}
 }
 \value{
-Vector of distances between coordinate p and all coordinates in C.
+A numeric vector of distances between coordinate p and all
+  coordinates in C.
 }
 \description{
 The distances between ternary coordinate p and a set of ternary coordinates C.

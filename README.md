@@ -24,7 +24,7 @@ install.packages('tricolore')
 library(tricolore); DemoTricolore()
 ```
 
-The `Tricolore()` function expects a dataframe of three-part compositions, color-codes the compositions and returns a list with elements `hexsrgb` and `legend`. The first list element is a vector of rgb codes for the color-coded compositions, the latter element gives a plot of the color key.
+The `Tricolore()` function expects a dataframe of three-part compositions, color-codes the compositions and returns a list with elements `rgb` and `key`. The first list element is a vector of rgb codes for the color-coded compositions, the latter element gives a plot of the color key.
 
 Here's a minimal example using simulated data.
 
@@ -36,13 +36,13 @@ P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 # color-code each composition and return a corresponding color key
 colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 # the color-coded compositions
-head(colors_and_legend$hexsrgb)
+head(colors_and_legend$rgb)
 ```
 
-    ## [1] "#BC8C67FF" "#A37D7DFF" "#7A86A1FF" "#7A86A1FF" "#4AA0BBFF" "#727272FF"
+    ## [1] "#6E8E72" "#7A86A1" "#6E8E72" "#7A86A1" "#A48AC6" "#7A86A1"
 
 ``` r
-colors_and_legend$legend
+colors_and_legend$key
 ```
 
 ![A ternary color key with the color-coded compositional data visible as points.](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
@@ -64,11 +64,11 @@ tric_educ <- Tricolore(euro_example,
                        p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 ```
 
-`tric` contains both a vector of color-coded compositions (`tric$hexsrgb`) and the corresponding color key (`tric$legend`). We add the vector of colors to the map-data.
+`tric` contains both a vector of color-coded compositions (`tric$rgb`) and the corresponding color key (`tric$key`). We add the vector of colors to the map-data.
 
 ``` r
 # add the vector of colors to the `euro_example` data
-euro_example$educ_rgb <- tric_educ$hexsrgb
+euro_example$educ_rgb <- tric_educ$rgb
 ```
 
 **2. Using `ggplot2` and the joined color-coded education data and geodata, plot a ternary choropleth map of education attainment in the European regions. Add the color key to the map.**
@@ -98,7 +98,7 @@ Using `annotation_custom()` and `ggplotGrob` we can add the color key produced b
 library(ggtern)
 plot_educ +
   annotation_custom(
-    ggplotGrob(tric_educ$legend),
+    ggplotGrob(tric_educ$key),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   )
 ```
@@ -112,7 +112,7 @@ plot_educ <-
   plot_educ +
   annotation_custom(
     ggplotGrob(
-      tric_educ$legend +
+      tric_educ$key +
         labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   )
@@ -144,14 +144,14 @@ By default `tricolore` uses a discrete colors scale with 16 colors. This can be 
 tric_educ_disc <- Tricolore(euro_example,
                             p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
                             breaks = Inf)
-euro_example$educ_rgb_disc <- tric_educ_disc$hexsrgb
+euro_example$educ_rgb_disc <- tric_educ_disc$rgb
 
 ggplot(euro_example) +
   geom_sf(aes(fill = educ_rgb_disc), size = 0.1) +
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(
-      tric_educ_disc$legend +
+      tric_educ_disc$key +
         labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -164,21 +164,21 @@ ggplot(euro_example) +
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
-...and a `breaks = 2` gives a discrete color scale with 2<sup>2</sup> = 9 colors.
+...and a `breaks = 2` gives a discrete color scale with 2<sup>2</sup> = 4 colors, highlighting the regions with an absolute majority of any part of the composition.
 
 ``` r
 # color-code the data set and generate a color-key
 tric_educ_disc <- Tricolore(euro_example,
                             p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
                             breaks = 2)
-euro_example$educ_rgb_disc <- tric_educ_disc$hexsrgb
+euro_example$educ_rgb_disc <- tric_educ_disc$rgb
 
 ggplot(euro_example) +
   geom_sf(aes(fill = educ_rgb_disc), size = 0.1) +
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(
-      tric_educ_disc$legend +
+      tric_educ_disc$key +
         labs(L = '0-2', T = '3-4', R = '5-8')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -197,15 +197,16 @@ Ternary centering
 While the ternary balance scheme allows for dense yet clear visualizations of *well spread out* ternary compositions the technique is less informative when used with highly *unbalanced data*. The map below shows the regional labor force composition in Europe as of 2016 in nearly monochromatic colors, the different shades of blue signifying a working population which is concentrated in the tertiary (services) sector. Regions in Turkey and Eastern Europe show a somewhat higher concentration of workers in the primary (production) sector but overall the data shows little variation with regards to the *visual reference point*, i.e. the greypoint marking perfectly balanced proportions.
 
 ``` r
-tric_lf_non_centered <- Tricolore(euro_example, 'lf_pri', 'lf_sec', 'lf_ter')
+tric_lf_non_centered <- Tricolore(euro_example, breaks = Inf,
+                                  'lf_pri', 'lf_sec', 'lf_ter')
 
-euro_example$rgb_lf_non_centered <- tric_lf_non_centered$hexsrgb
+euro_example$rgb_lf_non_centered <- tric_lf_non_centered$rgb
 
 ggplot(euro_example) +
   geom_sf(aes(fill = rgb_lf_non_centered), size = 0.1) +
   scale_fill_identity() +
   annotation_custom(
-    ggplotGrob(tric_lf_non_centered$legend +
+    ggplotGrob(tric_lf_non_centered$key +
                  labs(L = '% Primary', T = '% Secondary', R = '% Tertiary')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +
@@ -228,14 +229,14 @@ tric_lf_centered <-
             'lf_pri', 'lf_sec', 'lf_ter',
             center = NA, crop = TRUE)
 
-euro_example$rgb_lf_centered <- tric_lf_centered$hexsrgb
+euro_example$rgb_lf_centered <- tric_lf_centered$rgb
 
 ggplot(euro_example) +
   geom_sf(aes(fill = rgb_lf_centered), size = 0.1) +
   scale_fill_identity() +
   annotation_custom(
     ggplotGrob(
-      tric_lf_centered$legend +
+      tric_lf_centered$key +
         labs(L = '% Primary', T = '% Secondary', R = '% Tertiary')),
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   ) +

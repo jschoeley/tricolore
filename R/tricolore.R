@@ -49,16 +49,48 @@ ValidateMainArguments <- function (df, p1, p2, p3) {
 
 }
 
-#' Validate Parameters
+#' Validate Shared Parameters
 #'
-#' Validate parameters of tricolore function.
+#' Validate parameters shared across tricolore functions.
 #'
-#' @param pars List of parameters.
+#' @param pars A named list of parameters.
 #'
-#' @importFrom assertthat assert_that is.number is.scalar is.flag
+#' @importFrom assertthat assert_that is.scalar is.flag
 #'
 #' @keywords internal
-ValidateParameters <- function (pars) {
+ValidateParametersShared <- function (pars) {
+
+  with(pars, {
+    # center either NA or three element numeric vector
+    # with sum 1 and elements > 0
+    assert_that((is.scalar(center) && is.na(center)) ||
+                  (length(center) == 3L &&
+                     all(is.numeric(center)) &&
+                     sum(center) == 1 &&
+                     all(center != 0)),
+                msg = 'center must be either NA or a three element numeric vector with sum == 1 and all element > 0.')
+    # flags
+    assert_that(is.flag(legend), is.flag(show_data),
+                is.flag(show_center), is.flag(crop))
+    # character options
+    assert_that(is.scalar(label_as),
+                is.character(label_as),
+                label_as %in% c('pct', 'pct_diff'),
+                msg = 'label_as must be either "pct" or "pct_diff".')
+  })
+
+}
+
+#' Validate Tricolore Parameters
+#'
+#' Validate parameters of Tricolore function.
+#'
+#' @param pars A named list of parameters.
+#'
+#' @importFrom assertthat assert_that is.number is.scalar
+#'
+#' @keywords internal
+ValidateParametersTricolore <- function (pars) {
 
   # a modified version of assertthat::is.count that regards
   # infinite values as counts
@@ -81,25 +113,30 @@ ValidateParameters <- function (pars) {
     assert_that(is.number(lightness), lightness >= 0 && lightness <= 1)
     # contrast is numeric scalar in range [0, 1]
     assert_that(is.number(contrast), contrast >= 0 && contrast <= 1)
-    # center either NA or three element numeric vector
-    # with sum 1 and elements > 0
-    assert_that((is.scalar(center) && is.na(center)) ||
-                  (length(center) == 3L &&
-                     all(is.numeric(center)) &&
-                     sum(center) == 1 &&
-                     all(center != 0)),
-                msg = 'center must be either NA or a three element numeric vector with sum == 1 and all element > 0.')
     # spread is positive numeric scalar
     assert_that(is.number(spread), spread > 0, is.finite(spread))
-    # flags
-    assert_that(is.flag(legend), is.flag(show_data),
-                is.flag(show_center), is.flag(crop))
-    # character options
-    assert_that(is.scalar(label_as),
-                is.character(label_as),
-                label_as %in% c('pct', 'pct_diff'),
-                msg = 'label_as must be either "pct" or "pct_diff".')
   })
+
+  ValidateParametersShared(pars)
+
+}
+
+#' Validate TricoloreSextant Parameters
+#'
+#' Validate parameters of TricoloreSextant function.
+#'
+#' @param pars A named list of parameters.
+#'
+#' @importFrom assertthat assert_that is.number is.scalar
+#'
+#' @keywords internal
+ValidateParametersTricoloreSextant <- function (pars) {
+
+  with(pars, {
+    assert_that(is.character(values), length(values) == 6)
+  })
+
+  ValidateParametersShared(pars)
 
 }
 
@@ -194,7 +231,7 @@ Pertube <- function (P, c = rep(1/3, 3)) {
 #' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
 #' @param scale Power scalar.
 #'
-#' @return n by m matrix of powered compositions.
+#' @return n by m numeric matrix of powered compositions.
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
@@ -230,7 +267,8 @@ PowerScale <- function (P, scale = 1) {
 #'
 #' @param k Number of rows in the segmented equilateral triangle.
 #'
-#' @return A matrix of barycentric centroid coordinates of regions id=1,...,k^2.
+#' @return A numeric matrix of with index and barycentric centroid coordinates
+#'   of regions id=1,...,k^2.
 #'
 #' @references
 #' S. H. Derakhshan and C. V. Deutsch (2009): A Color Scale for Ternary Mixtures.
@@ -264,8 +302,8 @@ TernaryMeshCentroids <- function (k) {
 #'          sub-triangles. Column order: id, p1, p2, p3 with id=1,...,k^2.
 #' @param k Number of rows in the segmented equilateral triangle.
 #'
-#' @return Index, vertex id and barycentric vertex coordinates for each of the
-#'         k^2 sub-triangles.
+#' @return A numeric matrix with index, vertex id and barycentric vertex
+#'   coordinates for each of the k^2 sub-triangles.
 #'
 #' @examples
 #' k = 2
@@ -300,7 +338,8 @@ TernaryMeshVertices <- function (C) {
 #' @param p A vector of ternary coordinates {p1, p2, p3}.
 #' @param C n by 3 matrix of ternary coordinates {p1, p2, p3}_i for i=1,...,n.
 #'
-#' @return Vector of distances between coordinate p and all coordinates in C.
+#' @return A numeric vector of distances between coordinate p and all
+#'   coordinates in C.
 #'
 #' @references
 #' https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Distance_between_points
@@ -391,6 +430,8 @@ TernaryCenterGrid <- function (center, spacing) {
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::TernaryLimits(P)
+#'
+#' @keywords internal
 TernaryLimits <- function (P, na.rm = TRUE) {
   limits <- matrix(NA, nrow = 2, ncol = 3,
                    dimnames = list(c('lower', 'upper'),
@@ -402,64 +443,150 @@ TernaryLimits <- function (P, na.rm = TRUE) {
   return(limits)
 }
 
-# Ternary Color Scale -----------------------------------------------------
+#' Vertex Coordinates of Sextants in Equilateral Triangle
+#'
+#' Given a barycentric center coordinate return the vertex coordinates of the
+#' of the sextant regions.
+#'
+#' @param center The sextant center.
+#'   A vector of ternary coordinates {p1, p2, p3}.
+#'
+#' @return Index, vertex id and barycentric vertex coordinates for each of the
+#'         6 sextants.
+#'
+#' @examples
+#' tricolore:::TernarySextantVertices(rep(1/3, 3))
+#'
+#' @keywords internal
+TernarySextantVertices <- function (center) {
 
-#' RGB Mixture of Ternary Composition
+  # define corner points
+  p1 = c(1, 0, 0); p2 = c(0, 1, 0); p3 = c(0, 0, 1)
+  a1 <- c(center[1], 1-center[1], 0); a2 <- c(center[1], 0, 1-center[1])
+  b1 <- c(0, center[2], 1-center[2]); b2 <- c(1-center[2], center[2], 0)
+  c1 <- c(1-center[3], 0, center[3]); c2 <- c(0, 1-center[3], center[3])
+
+  # ternary sextant vertices
+  V <- cbind(
+    id =
+      c(rep(1, 5), rep(2, 4),
+        rep(3, 5), rep(4, 4),
+        rep(5, 5), rep(6, 4)),
+    vertex = rep(c(1:5, 1:4), 3),
+    matrix(
+      c(center, c1, p1, b2, center, # 1
+        center, b2, a1, center,     # 2
+        center, a1, p2, c2, center, # 3
+        center, c2, b1, center,     # 4
+        center, b1, p3, a2, center, # 5
+        center, a2, c1, center),    # 6
+      ncol = 3, nrow = 27, byrow = TRUE,
+      dimnames = list(NULL, c('p1', 'p2', 'p3'))
+    )
+  )
+
+  return(V)
+
+}
+
+#' Return Surrounding Sextant of Barycentric Coordinates
+#'
+#' Given barycentric coordinates return the id of the surrounding sextant.
+#'
+#' @param P n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+#'          i=1,...,n.
+#' @param center The sextant center.
+#'   A vector of ternary coordinates {p1, p2, p3}.
+#'
+#' @return An n element character vector of sextant id's 1 to 6.
+#'
+#' @examples
+#' P <- prop.table(matrix(runif(9), ncol = 3), 1)
+#' tricolore:::TernarySurroundingSextant(P, rep(1/3, 3))
+#'
+#' @keywords internal
+TernarySurroundingSextant <- function (P, center) {
+  # six cases, six sextants, NA if at center or NA in input
+  is_larger <- t(t(P) > center)
+  id <- apply(is_larger, 1, function (x) {
+    y <- NA
+    if (identical(x, c(TRUE, FALSE, FALSE))) y <- 1
+    if (identical(x, c(TRUE, TRUE, FALSE)))  y <- 2
+    if (identical(x, c(FALSE, TRUE, FALSE))) y <- 3
+    if (identical(x, c(FALSE, TRUE, TRUE)))  y <- 4
+    if (identical(x, c(FALSE, FALSE, TRUE))) y <- 5
+    if (identical(x, c(TRUE, FALSE, TRUE)))  y <- 6
+    y
+  })
+  return(id)
+}
+
+# Ternary Color Maps ------------------------------------------------------
+
+#' CIE-Lch Mixture of Ternary Composition
 #'
 #' Return the ternary balance scheme colors for a matrix of ternary compositions.
 #'
 #' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
 #'          i=1, ..., n.
+#' @param center Ternary coordinates of the grey-point.
 #' @param breaks Number of breaks in the discrete color scale. An integer >1.
 #'               Values above 99 imply no discretization.
 #' @param h_ Primary hue of the first ternary element in angular degrees [0, 360].
 #' @param c_ Maximum possible chroma of mixed colors [0, 200].
 #' @param l_ Lightness of mixed colors [0, 100].
 #' @param contrast Lightness contrast of the color scale [0, 1).
-#' @param center Ternary coordinates of the grey-point.
 #' @param spread Spread of the color scale around center > 0.
 #'
 #' @return An n row data frame giving, for each row of the input P, the input
 #' proportions (p1, p2, p3), parameters of the color mixture (h, c, l) and the
-#' hexsrgb string of the mixed colors.
+#' hex-rgb string of the mixed colors (rgb).
 #'
 #' @examples
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
-#' tricolore:::ColorMap(P, breaks = 5, h_ = 80, c_ = 170, l_ = 80,
-#'                      contrast = 0.6, center = rep(1/3, 3), spread = 1)
+#' tricolore:::ColorMapTricolore(P, center = rep(1/3, 3), breaks = 4,
+#'                               h_ = 80, c_ = 140, l_ = 80,
+#'                               contrast = 0.4, spread = 1)
 #'
 #' @importFrom grDevices hcl hsv
 #'
 #' @keywords internal
-ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
+ColorMapTricolore <- function (P, center, breaks, h_, c_, l_, contrast, spread) {
+
+  ### Discretize ###
+
+  # closing (copy of closed, non-transformed input data for output)
+  P <- P_notrans <- prop.table(P, margin = 1)
+
+  # discretize to nearest ternary mesh centroid
+  # don't discretize if breaks > 99 to avoid expensive calculations
+  # which don't make much of a difference in output
+  if (breaks < 100) {
+    P <- TernaryNearest(P, TernaryMeshCentroids(breaks)[,-1])
+  }
+
+  ### Center and scale ###
+
+  # centering
+  P <- Pertube(P, 1/center)
+  # scaling
+  P <- PowerScale(P, spread)
+
+  ### Colorize ###
+
+  # calculate the chroma matrix C by scaling the row proportions
+  # of the input matrix P by the maximum chroma parameter.
+  C <- P*c_
 
   # generate primary colors starting with a hue value in [0, 360) and then
   # picking two equidistant points on the circumference of the color wheel.
   # input hue in degrees, all further calculations in radians.
   phi <- (h_*0.0174 + c(0, 2.09, 4.19)) %% 6.28
 
-  # closing
-  P <- Plgnd <- prop.table(P, margin = 1)
-  # centering
-  P <- Pertube(P, 1/center)
-  # scaling
-  P <- PowerScale(P, spread)
-
-  # discretize composition
-  if (breaks < 100) {
-    # don't discretize if breaks > 99
-    # to avoid expensive calculations which don't make
-    # much of a difference in output
-    P <- TernaryNearest(P, TernaryMeshCentroids(breaks)[,-1])
-  }
-
-  # calculate the chroma matrix C by scaling the row proportions
-  # of the input matrix P by the maximum chroma parameter.
-  C <- P*c_
-
   # the complex matrix Z represents each case (i) and group (j=1,2,3) specific
   # color in complex polar form with hue as angle and chroma as radius.
-  Z <- matrix(complex(argument = phi, modulus = c(t(C))), ncol = 3, byrow = TRUE)
+  Z <- matrix(complex(argument = phi, modulus = c(t(C))),
+              ncol = 3, byrow = TRUE)
 
   # adding up the rows gives the CIE-Lab (cartesian) coordinates
   # of the convex color mixture in complex form.
@@ -475,64 +602,124 @@ ColorMap <- function (P, breaks, h_, c_, l_, contrast, center, spread) {
 
   # convert the complex representation of the color mixture to
   # hex-srgb representation via the hcl (CIE-Luv) color space
-  hexsrgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
-                 alpha = 1, fixup = TRUE)
+  rgb <- hcl(h = M[,1], c = M[,2], l = M[,3],
+             alpha = 1, fixup = TRUE)
   # remove alpha information
-  hexsrgb <- substr(hexsrgb, 1, 7)
+  rgb <- substr(rgb, 1, 7)
 
-  # non-transformed compositions, hcl values of mixtures and hexsrgb code
-  result <- data.frame(Plgnd, M[,1], M[,2], M[,3], hexsrgb,
+  ### Output ###
+
+  # non-transformed compositions, hcl values of mixtures and rgb code
+  result <- data.frame(P_notrans, M[,1], M[,2], M[,3], rgb,
                        row.names = NULL, check.rows = FALSE,
                        check.names = FALSE, stringsAsFactors = FALSE)
-  colnames(result) <- c('p1', 'p2', 'p3', 'h', 'c', 'l', 'hexsrgb')
+  colnames(result) <- c('p1', 'p2', 'p3', 'h', 'c', 'l', 'rgb')
   return(result)
 }
 
-#' Ternary Balance Scheme Legend
+#' Sextant Encoding of Ternary Composition
 #'
-#' Plot a ternary balance scheme legend.
+#' Return the sextant scheme colors for a matrix of ternary compositions.
 #'
-#' @inheritParams ColorMap
-#' @param label_as "pct" for percent-share labels or "pct_diff" for
-#'   percent-point-difference from center labels.
-#' @param limits A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
+#' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
+#'          i=1, ..., n.
+#' @param center Ternary coordinates of the sextant meeting point.
+#' @param values 6 element character vector of rgb-codes.
+#'
+#' @return An n row data frame giving, for each row of the input P, the input
+#' proportions (p1, p2, p3), sextant id (sextant) and the hex-rgb string of the
+#' mixed colors (rgb).
 #'
 #' @examples
-#' tricolore:::ColorKey(breaks = 5, h_ = 0, c_ = 140, l_ = 70,
-#'                      contrast = 0.5, center = rep(1/3, 3),
-#'                      spread = 1, label_as = "pct")
+#' P <- prop.table(matrix(runif(9), ncol = 3), 1)
+#' tricolore:::ColorMapSextant(P, c(1/3, 1/3, 1/3),
+#'                             c('#01A0C6', '#B8B3D8', '#F11D8C', '#FFB3B3',
+#'                               '#FFFF00', '#B3DCC3'))
+#' @keywords internal
+ColorMapSextant <- function (P, center, values) {
+  # close composition
+  P <- prop.table(P, margin = 1)
+
+  # assign points to sextants and corresponding color codes
+  sextant <- TernarySurroundingSextant(P, center)
+  rgb <- values[sextant]
+
+  # non-transformed compositions, sextant id and hexsrgb code
+  result <- data.frame(P, sextant, rgb,
+                       row.names = NULL, check.rows = FALSE,
+                       check.names = FALSE, stringsAsFactors = FALSE)
+  colnames(result) <- c('p1', 'p2', 'p3', 'sextant', 'rgb')
+  return(result)
+}
+
+# Ternary Color Keys ------------------------------------------------------
+
+#' Breaks and Labels for Ternary Color Key
 #'
-#' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
-#'   scale_fill_identity element_text element_blank
-#' @importFrom ggtern ggtern geom_mask theme_classic theme annotate
-#'   scale_L_continuous scale_R_continuous scale_T_continuous
+#' Return various types of breaks and labels for ternary color keys.
+#'
+#' @param type   An integer 1, 2, or 3.
+#' @param center Ternary coordinates of the grey-point.
+#' @param breaks Number of breaks in the discrete color scale. An integer >1.
+#'               Values above 99 imply no discretization.
+#'
+#' @return A list of lists containing breaks and labels for each of the 3
+#'   ternary axes.
+#'
+#' @examples
+#' tricolore:::BreaksAndLabels(1, breaks = 3)
+#' tricolore:::BreaksAndLabels(2)
+#' tricolore:::BreaksAndLabels(3, center = c(1/3, 1/3, 1/3))
 #'
 #' @keywords internal
-ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
-                      limits = matrix(0:1, nrow = 2, ncol = 3)) {
+BreaksAndLabels <- function (type, center = NULL, breaks = NULL) {
+  brk_lab <-
+    switch(type,
+           list(breaks = list(p1 = seq(0, 1, length.out = breaks+1),
+                              p2 = seq(0, 1, length.out = breaks+1),
+                              p3 = seq(0, 1, length.out = breaks+1)),
+                labels = list(p1 = round(seq(0, 1, length.out = breaks+1)*100, 1),
+                              p2 = round(seq(0, 1, length.out = breaks+1)*100, 1),
+                              p3 = round(seq(0, 1, length.out = breaks+1)*100, 1))),
+           list(breaks = list(p1 = c(0.25, 0.5, 0.75),
+                              p2 = c(0.25, 0.5, 0.75),
+                              p3 = c(0.25, 0.5, 0.75)),
+                labels = list(p1 = c('25', '50', '75'),
+                              p2 = c('25', '50', '75'),
+                              p3 = c('25', '50', '75'))),
+           TernaryCenterGrid(center = center, spacing = 10)
+    )
+  return(brk_lab)
+}
 
-  # don't allow more than 99^2 different colors/regions in the legend
-  if (breaks > 99) { breaks = 100 }
+#' Template for Ternary Key
+#'
+#' Return various types of breaks and labels for ternary color keys.
+#'
+#' @param legend_surface A data frame with numeric 'id', 'p1', 'p2', 'p3' and
+#'                       character column 'rgb'.
+#' @param limits A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
+#' @param brklab Breaks and labels as returned by \code{\link{BreaksAndLabels}}.
+#' @param show_center Should the center be marked on the legend? (logical)
+#' @param center Ternary coordinates of the grey-point.
+#' @param lwd A numeric scalar giving the linewidth of the legend surface
+#'            polygons.
+#'
+#' @return A ggtern grob.
+#'
+#' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
+#'   scale_fill_identity element_text
+#' @importFrom ggtern ggtern geom_mask theme_classic theme
+#'   scale_L_continuous scale_R_continuous scale_T_continuous
+#'   geom_Lline geom_Tline geom_Rline
+#'
+#' @keywords internal
+BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {
 
-  # partition the ternary legend into k^2 equilateral sub-triangles
-  # calculate ternary vertex coordinates and fill color for each sub-triangle.
-  C <- TernaryMeshCentroids(breaks)
-  V <- TernaryMeshVertices(C)
-  rgbs <- ColorMap(P = C[,-1], breaks = 100, h_, c_, l_,
-                   contrast, center, spread)[['hexsrgb']]
-
-  legend_surface <- data.frame(V, rgb = rep(rgbs, 3))
-
-  # legend grid (percent share or percent point difference from center)
-  pct_grid <- list(breaks = seq(0, 1, length.out = breaks+1),
-                   labels = round(seq(0, 1, length.out = breaks+1)*100, 1))
-  pct_diff_grid <- TernaryCenterGrid(center = center, spacing = 10)
-
-  # plot legend
-  legend <-
+  key <-
     # basic legend
     ggtern(legend_surface, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
-    geom_polygon(aes_string(group = 'id', fill = 'rgb', color = 'rgb'), lwd = 1) +
+    geom_polygon(aes_string(group = 'id', fill = 'rgb', color = 'rgb'), lwd = lwd) +
     geom_mask() +
     # rgb color input
     scale_color_identity(guide = FALSE) +
@@ -543,58 +730,139 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
           tern.axis.title.R = element_text(hjust = 0.8, vjust = 0.6, angle = 60)) +
     # grid and labels
     list(
-      # dynamic axis labels, for breaks < 10 label
-      # at the border of two regions
-      if (label_as == 'pct' && breaks <= 10) {
-        list(
-          scale_L_continuous(
-            limits = limits[,1],
-            breaks = pct_grid[['breaks']],
-            labels = pct_grid[['labels']]
-          ),
-          scale_T_continuous(
-            limits = limits[,2],
-            breaks = pct_grid[['breaks']],
-            labels = pct_grid[['labels']]
-          ),
-          scale_R_continuous(
-            limits = limits[,3],
-            breaks = pct_grid[['breaks']],
-            labels = pct_grid[['labels']]
-          )
+      list(
+        scale_L_continuous(
+          limits = limits[,1],
+          breaks = brklab[['breaks']][['p1']],
+          labels = brklab[['labels']][['p1']]
+        ),
+        scale_T_continuous(
+          limits = limits[,2],
+          breaks = brklab[['breaks']][['p2']],
+          labels = brklab[['labels']][['p2']]
+        ),
+        scale_R_continuous(
+          limits = limits[,3],
+          breaks = brklab[['breaks']][['p3']],
+          labels = brklab[['labels']][['p3']]
         )
-      },
-      # automatic proportion labels for breaks > 10
-      if (label_as == 'pct' && breaks > 10) {
+      ),
+      if (show_center) {
         list(
-          scale_L_continuous(limits = limits[,1]),
-          scale_T_continuous(limits = limits[,2]),
-          scale_R_continuous(limits = limits[,3])
-        )
-      },
-      # percent-difference labels
-      if (label_as == 'pct_diff') {
-        list(
-          scale_L_continuous(
-            limits = limits[,1],
-            breaks = pct_diff_grid[['breaks']][['p1']],
-            labels = pct_diff_grid[['labels']][['p1']]
-          ),
-          scale_T_continuous(
-            limits = limits[,2],
-            breaks = pct_diff_grid[['breaks']][['p2']],
-            labels = pct_diff_grid[['labels']][['p2']]
-          ),
-          scale_R_continuous(
-            limits = limits[,3],
-            breaks = pct_diff_grid[['breaks']][['p3']],
-            labels = pct_diff_grid[['labels']][['p3']]
-          )
+          geom_Lline(Lintercept = center[1], color = 'black', alpha = 0.5),
+          geom_Tline(Tintercept = center[2], color = 'black', alpha = 0.5),
+          geom_Rline(Rintercept = center[3], color = 'black', alpha = 0.5)
         )
       }
     )
 
-  return(legend)
+  return(key)
+
+}
+
+#' Ternary Balance Scheme Legend
+#'
+#' Plot a ternary balance scheme legend.
+#'
+#' @inheritParams ColorMapTricolore
+#' @param label_as "pct" for percent-share labels or "pct_diff" for
+#'   percent-point-difference from center labels.
+#' @param show_center Should the center be marked on the legend? (logical)
+#' @param limits A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
+#'
+#' @return A ggtern grob.
+#'
+#' @examples
+#' tricolore:::ColorKeyTricolore(center = rep(1/3, 3), breaks = 4,
+#'                               h_ = 80, c_ = 140, l_ = 80,
+#'                               contrast = 0.4, spread = 1,
+#'                               label_as = "pct", show_center = FALSE)
+#'
+#' @keywords internal
+ColorKeyTricolore <- function (center, breaks, h_, c_, l_, contrast, spread,
+                               label_as, show_center,
+                               limits = matrix(0:1, nrow = 2, ncol = 3)) {
+
+  ### Create and colorize legend surface ###
+
+  # don't allow more than 99^2 different colors/regions in the legend
+  if (breaks > 99) { breaks = 100 }
+
+  # calculate ternary vertex coordinates and
+  # fill color for each sub-triangle
+  C <- TernaryMeshCentroids(breaks)
+  V <- TernaryMeshVertices(C)
+  rgb <- ColorMapTricolore(P = C[,-1], center, breaks = 100, h_, c_, l_,
+                           contrast, spread)[['rgb']]
+
+  legend_surface <- data.frame(V, rgb = rep(rgb, 3),
+                               row.names = NULL, check.rows = FALSE,
+                               check.names = FALSE, stringsAsFactors = FALSE)
+
+  ### Breaks and labels ###
+
+  if (label_as == 'pct' && breaks <= 10) {
+    brklab <- BreaksAndLabels(1, center, breaks)
+  }
+  if (label_as == 'pct' && breaks > 10) {
+    brklab <- BreaksAndLabels(2, center, breaks)
+  }
+  if (label_as == 'pct_diff') {
+    brklab <- BreaksAndLabels(3, center, breaks)
+  }
+
+  ### Plot key ###
+
+  return(BasicKey(legend_surface, limits, brklab, show_center, center, lwd = 1))
+
+}
+
+#' Sextant Scheme Legend
+#'
+#' Plot a sextant scheme legend.
+#'
+#' @inheritParams ColorMapSextant
+#' @param label_as "pct" for percent-share labels or "pct_diff" for
+#'   percent-point-difference from center labels.
+#' @param show_center Should the center be marked on the legend? (logical)
+#' @param limits A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
+#'
+#' @return A ggtern grob.
+#'
+#' @examples
+#'tricolore:::ColorKeySextant(center = prop.table(runif(3)),
+#'                            values = c('#01A0C6', '#B8B3D8', '#F11D8C',
+#'                                       '#FFB3B3', '#FFFF00', '#B3DCC3'),
+#'                            label_as = 'pct_diff', show_center = TRUE)
+#'
+#' @keywords internal
+ColorKeySextant <- function (center, values, label_as, show_center,
+                             limits = matrix(0:1, nrow = 2, ncol = 3)) {
+
+  ### Create and colorize legend surface ###
+
+  # calculate ternary vertex coordinates and
+  # fill color for each sub-triangle
+  V <- TernarySextantVertices(center)
+  rgb <- rep(values, c(5, 4, 5, 4, 5, 4))
+
+  legend_surface <- data.frame(V, rgb = rgb,
+                               row.names = NULL, check.rows = FALSE,
+                               check.names = FALSE, stringsAsFactors = FALSE)
+
+  ### Breaks and labels ###
+
+  if (label_as == 'pct') {
+    brklab <- BreaksAndLabels(2, center)
+  }
+  if (label_as == 'pct_diff') {
+    brklab <- BreaksAndLabels(3, center)
+  }
+
+  ### Plot key ###
+
+  return(BasicKey(legend_surface, limits, brklab, show_center, center, lwd = 0))
+
 }
 
 # User functions ----------------------------------------------------------
@@ -611,17 +879,130 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
 #'           of ternary composition (string).
 #' @param p3 Column name for variable in df giving third proportion
 #'           of ternary composition (string).
+#' @param center Ternary coordinates of the color scale center.
+#'               (default = 1/3,1/3,1/3). NA puts center over the compositional
+#'               mean of the data.
 #' @param breaks Number of per-axis breaks in the discrete color scale.
 #'               An integer >1. Values above 99 imply no discretization.
 #' @param hue Primary hue of the first ternary element (0 to 1).
 #' @param chroma Maximum possible chroma of mixed colors (0 to 1).
 #' @param lightness Lightness of mixed colors (0 to 1).
 #' @param contrast Lightness contrast of the color scale (0 to 1).
+#' @param spread The spread of the color scale. Choose values > 1 to focus the
+#'               color scale on the center.
+#' @param legend Should a legend be returned along with the colors? (default=TRUE)
+#' @param show_data Should the data be shown on the legend? (default=TRUE)
+#' @param show_center Should the center be shown on the legend?
+#'   (default=FALSE if center is at c(1/3, 1/3, 1/3), otherwise TRUE)
+#' @param label_as "pct" for percent-share labels or "pct_diff" for
+#'   percent-point-difference from center labels.
+#'   (default='pct' if center is at c(1/3, 1/3, 1/3), otherwise 'pct_diff')
+#' @param crop Should the legend be cropped to the data? (default=FALSE)
+#' @param input_validation Should the function arguments be validated? (default=TRUE)
+#'
+#' @return
+#' * legend=FALSE: A vector of rgbs hex-codes representing the ternary balance
+#'                 scheme colors.
+#' * legend=TRUE: A list with elements "rgb" and "key".
+#'
+#' @examples
+#' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
+#' Tricolore(P, 'V1', 'V2', 'V3')
+#'
+#' @importFrom ggplot2 aes_string geom_point labs
+#'
+#' @md
+#'
+#' @export
+Tricolore <- function (df, p1, p2, p3,
+                       center = rep(1/3, 3),
+                       breaks = ifelse(identical(center, rep(1/3, 3)), 4, Inf),
+                       hue = 0.2, chroma = 0.7, lightness = 0.8,
+                       contrast = 0.4, spread = 1,
+                       legend = TRUE, show_data = TRUE,
+                       show_center = ifelse(identical(center, rep(1/3, 3)),
+                                            FALSE, TRUE),
+                       label_as = ifelse(identical(center, rep(1/3, 3)),
+                                         'pct', 'pct_diff'),
+                       crop = FALSE, input_validation = TRUE) {
+
+  # validation of main input arguments
+  if (input_validation) {
+    ValidateMainArguments(df, p1, p2, p3)
+    ValidateParametersTricolore(
+      list(breaks = breaks, hue = hue, chroma = chroma,
+           lightness = lightness, contrast = contrast,
+           center = center, spread = spread, legend = legend,
+           show_data = show_data, show_center = show_center,
+           label_as = label_as, crop = crop)
+    )
+  }
+
+  # construct 3 column matrix of proportions
+  P <- cbind(df[[p1]], df[[p2]], df[[p3]])
+  # ensure data is closed
+  P <- prop.table(P, 1)
+
+  # center color-scale over data's centre if center==NA
+  if ( is.na(center[1]) ) { center = Centre(P) }
+
+  # derive the color mixture
+  # the magic numbers rescale the [0,1] color-specification to the
+  # cylindrical-coordinates format required by ColorMapTricolore()
+  mixture <- ColorMapTricolore(P, center, breaks,
+                               hue*360, chroma*200, lightness*100,
+                               contrast, spread)
+
+  # if specified, return a legend along with the srgb color mixtures...
+  if (legend) {
+
+    # crop legend to to data range if crop==TRUE
+    if (crop) {
+      limits <- TernaryLimits(P, na.rm = TRUE)
+      # else use full range
+    } else {
+      limits <- matrix(0:1, nrow = 2, ncol = 3)
+    }
+
+    key <-
+      ColorKeyTricolore(center, breaks, hue*360, chroma*200, lightness*100,
+                        contrast, spread, label_as, show_center, limits) +
+      list(
+        # labels take names from input variables
+        labs(x = p1, y = p2, z = p3),
+        if (show_data) {
+          geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
+                     color = 'black', shape = 16, size = 0.5, alpha = 0.5,
+                     data = mixture)
+        }
+      )
+
+    result <- list(rgb = mixture[['rgb']], key = key)
+    # ... else just return a vector of hexsrgb codes of the mixed colors
+  } else {
+    result <- mixture[['rgb']]
+  }
+
+  return(result)
+}
+
+
+#' Ternary Sextant Color Scale
+#'
+#' Color-code three-part compositions with a ternary sextant color scale and
+#' return a color key.
+#'
+#' @param df Data frame of compositional data.
+#' @param p1 Column name for variable in df giving first proportion
+#'           of ternary composition (string).
+#' @param p2 Column name for variable in df giving second proportion
+#'           of ternary composition (string).
+#' @param p3 Column name for variable in df giving third proportion
+#'           of ternary composition (string).
 #' @param center Ternary coordinates of the color scale center.
 #'               (default = 1/3,1/3,1/3). NA puts center over the compositional
 #'               mean of the data.
-#' @param spread The spread of the color scale. Choose values > 1 to focus the
-#'               color scale on the center.
+#' @param values 6 element character vector of rgb-codes.
 #' @param legend Should a legend be returned along with the colors? (default=TRUE)
 #' @param show_data Should the data be shown on the legend? (default=TRUE)
 #' @param show_center Should the center be shown on the legend?
@@ -635,59 +1016,51 @@ ColorKey <- function (breaks, h_, c_, l_, contrast, center, spread, label_as,
 #' @return
 #' * legend=FALSE: A vector of rgbs hex-codes representing the ternary balance
 #'                 scheme colors.
-#' * legend=TRUE: A list with elements "hexsrgb" and "legend".
+#' * legend=TRUE: A list with elements "rgb" and "key".
 #'
 #' @examples
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
-#' Tricolore(P, 'V1', 'V2', 'V3')
+#' TricoloreSextant(P, 'V1', 'V2', 'V3')
 #'
 #' @importFrom ggplot2 aes_string geom_point labs
-#' @importFrom ggtern geom_Lline geom_Tline geom_Rline
-#' @importFrom assertthat assert_that is.string
 #'
 #' @md
 #'
 #' @export
-Tricolore <- function (df, p1, p2, p3,
-                       breaks = 4, hue = 0.2, chroma = 0.7, lightness = 0.8,
-                       contrast = 0.4, center = rep(1/3, 3), spread = 1,
-                       legend = TRUE, show_data = TRUE,
-                       show_center = ifelse(identical(center, rep(1/3, 3)),
-                                                      FALSE, TRUE),
-                       label_as = ifelse(identical(center, rep(1/3, 3)),
-                                         'pct', 'pct_diff'),
-                       crop = FALSE, input_validation = TRUE) {
+TricoloreSextant <- function (df, p1, p2, p3,
+                              center = rep(1/3, 3),
+                              values = c("#FFFF00", "#B3DCC3", "#01A0C6",
+                                         "#B8B3D8", "#F11D8C", "#FFB3B3"),
+                              legend = TRUE, show_data = TRUE, show_center = TRUE,
+                              label_as = ifelse(identical(center, rep(1/3, 3)),
+                                                'pct', 'pct_diff'),
+                              crop = FALSE, input_validation = TRUE) {
 
   # validation of main input arguments
   if (input_validation) {
     ValidateMainArguments(df, p1, p2, p3)
-    ValidateParameters(list(breaks = breaks, hue = hue, chroma = chroma,
-                            lightness = lightness, contrast = contrast,
-                            center = center, spread = spread, legend = legend,
-                            show_data = show_data, show_center = show_center,
-                            label_as = label_as, crop = crop))
-    }
+    ValidateParametersTricoloreSextant(
+      list(values = values,
+           center = center,
+           legend = legend,
+           show_data = show_data,
+           show_center = show_center,
+           label_as = label_as,
+           crop = crop)
+    )
+  }
 
   # construct 3 column matrix of proportions
   P <- cbind(df[[p1]], df[[p2]], df[[p3]])
   # ensure data is closed
   P <- prop.table(P, 1)
 
-  # use continuous colors for off-center color scales
-  if (!identical(center, rep(1/3, 3))) {
-    if (breaks < 100) {
-      message('Discrete colors not supported for center != c(1/3, 1/3, 1/3). Reverting to continuous.')
-    }
-    breaks = 100
-  }
   # center color-scale over data's centre if center==NA
   if ( is.na(center[1]) ) { center = Centre(P) }
 
+
   # derive the color mixture
-  # the magic numbers rescale the [0,1] color-specification to the
-  # cylindrical-coordinates format required by ColorMap()
-  mixture <- ColorMap(P, breaks, hue*360, chroma*200, lightness*100,
-                      contrast, center, spread)
+  mixture <- ColorMapSextant(P, center, values)
 
   # if specified, return a legend along with the srgb color mixtures...
   if (legend) {
@@ -695,24 +1068,16 @@ Tricolore <- function (df, p1, p2, p3,
     # crop legend to to data range if crop==TRUE
     if (crop) {
       limits <- TernaryLimits(P, na.rm = TRUE)
-    # else use full range
+      # else use full range
     } else {
       limits <- matrix(0:1, nrow = 2, ncol = 3)
     }
 
-    lgnd <-
-      ColorKey(breaks, hue*360, chroma*200, lightness*100,
-               contrast, center, spread, label_as, limits = limits) +
+    key <-
+      ColorKeySextant(center, values, label_as, show_center, limits) +
       list(
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
-        if (show_center) {
-          list(
-            geom_Lline(Lintercept = center[1], color = 'black', alpha = 0.5),
-            geom_Tline(Tintercept = center[2], color = 'black', alpha = 0.5),
-            geom_Rline(Rintercept = center[3], color = 'black', alpha = 0.5)
-          )
-        },
         if (show_data) {
           geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
                      color = 'black', shape = 16, size = 0.5, alpha = 0.5,
@@ -720,13 +1085,14 @@ Tricolore <- function (df, p1, p2, p3,
         }
       )
 
-    result <- list(hexsrgb = mixture[['hexsrgb']], legend = lgnd)
-  # ... else just return a vector of hexsrgb codes of the mixed colors
+    result <- list(rgb = mixture[['rgb']], key = key)
+    # ... else just return a vector of hexsrgb codes of the mixed colors
   } else {
-    result <- mixture[['hexsrgb']]
+    result <- mixture[['rgb']]
   }
 
   return(result)
+
 }
 
 #' Interactive Tricolore Demonstration

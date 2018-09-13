@@ -1,3 +1,15 @@
+# tricolore 1.2.0
+
+* allow for discrete re-centered scales
+* add new discrete scales TricoloreSextant
+* reorder Tricolore*() arguments
+* rename Tricolore*() list output to `rgb` and `key`
+* add new features to shiny app
+
+# tricolore 1.1.1
+
+* make TernaryLimits() internal
+
 # tricolore 1.1.0
 
 * change defaults
