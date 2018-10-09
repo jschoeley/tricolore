@@ -105,12 +105,12 @@ ValidateParametersTricolore <- function (pars) {
     # breaks is count scalar > 1 (can't use is.count() because
     # it throws an error when encountering infinite values)
     assert_that(is.scalar(breaks), is.count2(breaks), breaks > 1)
-    # hue is numeric scalar in range [0, 1]
-    assert_that(is.number(hue), hue >= 0 && hue <= 1)
+    # hue is either a scalar or a vector of three numeric values in range [0, 1]
+    assert_that(length(hue) %in% c(1,3), all(!is.na(as.numeric(hue))), all(hue >= 0 & hue <= 1))
     # chroma is numeric scalar in range [0, 1]
     assert_that(is.number(chroma), chroma >= 0 && chroma <= 1)
-    # lightness is numeric scalar in range [0, 1]
-    assert_that(is.number(lightness), lightness >= 0 && lightness <= 1)
+    # lightness is either a scalar or a vector of three numeric values in range [0, 1]
+    assert_that(length(lightness) %in% c(1,3), all(!is.na(as.numeric(lightness))), all(lightness >= 0 & lightness <= 1))
     # contrast is numeric scalar in range [0, 1]
     assert_that(is.number(contrast), contrast >= 0 && contrast <= 1)
     # spread is positive numeric scalar
@@ -572,16 +572,29 @@ ColorMapTricolore <- function (P, center, breaks, h_, c_, l_, contrast, spread) 
   # scaling
   P <- PowerScale(P, spread)
 
+  ### Lightness ###
+
+  # Lightness may be different for the different values
+  if(length(l_) != 1){
+    # Calculate a lightness for each cas composed of the three lightness parts
+    l_ = rowSums(t(t(P) * l_))
+  }
+        
   ### Colorize ###
 
   # calculate the chroma matrix C by scaling the row proportions
   # of the input matrix P by the maximum chroma parameter.
   C <- P*c_
 
-  # generate primary colors starting with a hue value in [0, 360) and then
-  # picking two equidistant points on the circumference of the color wheel.
+  # see if the hue was given as only on value
+  if(length(h_) == 1){
+    # generate primary colors starting with a hue value in [0, 360) and then
+    # picking two equidistant points on the circumference of the color wheel.
+    h_ <- c(h_, h_ + 120, h_ + 240) %% 360
+  }
+        
   # input hue in degrees, all further calculations in radians.
-  phi <- (h_*0.0174 + c(0, 2.09, 4.19)) %% 6.28
+  phi <- (2.0 * pi * h_ / 360.0) %% (2.0 * pi)
 
   # the complex matrix Z represents each case (i) and group (j=1,2,3) specific
   # color in complex polar form with hue as angle and chroma as radius.
