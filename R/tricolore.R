@@ -899,6 +899,9 @@ ColorKeySextant <- function (center, values, label_as, show_center,
 #'   (default='pct' if center is at c(1/3, 1/3, 1/3), otherwise 'pct_diff')
 #' @param crop Should the legend be cropped to the data? (default=FALSE)
 #' @param input_validation Should the function arguments be validated? (default=TRUE)
+#' @param data_size Size of data point in legend (default=0.5)
+#' @param data_alpha Opacity of data point in legend (default=0.5)
+#' @param data_color Color of data point in legend (default='black')
 #'
 #' @return
 #' * legend=FALSE: A vector of rgbs hex-codes representing the ternary balance
@@ -924,7 +927,7 @@ Tricolore <- function (df, p1, p2, p3,
                                             FALSE, TRUE),
                        label_as = ifelse(identical(center, rep(1/3, 3)),
                                          'pct', 'pct_diff'),
-                       crop = FALSE, input_validation = TRUE) {
+                       crop = FALSE, input_validation = TRUE,data_size=0.5,data_alpha=0.5,data_color="black") {
 
   # validation of main input arguments
   if (input_validation) {
@@ -972,7 +975,7 @@ Tricolore <- function (df, p1, p2, p3,
         labs(x = p1, y = p2, z = p3),
         if (show_data) {
           geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
-                     color = 'black', shape = 16, size = 0.5, alpha = 0.5,
+                     color = data_color, shape = 16, size = data_size, alpha = data_alpha,
                      data = mixture)
         }
       )
