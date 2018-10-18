@@ -1,2 +1,1 @@
 x add regional age structures at a glance vignette
-v add TricoloreSextant

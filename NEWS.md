@@ -1,3 +1,5 @@
+# tricolore 1.2.1
+
 # tricolore 1.2.0
 
 * allow for discrete re-centered scales
