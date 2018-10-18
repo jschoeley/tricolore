@@ -1,8 +1,8 @@
-Tricolore. A flexible color scale for ternary compositions
+<img src="inst/figures/tricolore.png" align="right" width="150" height="174" /> tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley & Ilya Kashnitsky
 
-[![GitHub tag](https://img.shields.io/github/tag/jschoeley/tricolore.svg?style=flat-square)]() [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg?style=flat-square)](https://travis-ci.org/jschoeley/tricolore) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
+[![CRAN\_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore) [![Travis branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg)](https://travis-ci.org/jschoeley/tricolore) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 What is *tricolore*?
 --------------------
@@ -39,7 +39,7 @@ colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 head(colors_and_legend$rgb)
 ```
 
-    ## [1] "#6E8E72" "#7A86A1" "#6E8E72" "#7A86A1" "#A48AC6" "#7A86A1"
+    ## [1] "#6E8E72" "#727272" "#CA7FA1" "#4AA0BB" "#727272" "#899E56"
 
 ``` r
 colors_and_legend$key
@@ -248,3 +248,12 @@ ggplot(euro_example) +
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-13-1.png)
+
+Contributing
+------------
+
+This software is an academic project. We welcome any issues and pull requests.
+
+Please report any bugs you find by submitting an issue on github.com/jschoeley/tricolore/issues.
+
+If you wish to contribute, please submit a pull request following the guidelines stated in [CONTRIBUTING.md](https://github.com/jschoeley/tricolore/blob/devel/CONTRIBUTING.md).
