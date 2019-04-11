@@ -1,4 +1,5 @@
 library(shiny)
+library(sf)
 library(dplyr)
 library(ggtern)
 library(tricolore)

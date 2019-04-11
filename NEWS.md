@@ -1,5 +1,7 @@
 # tricolore 1.2.1
 
+* allow TricoloreDemo() to run as stand-alone shiny-app (i.e. on shinyapps server)
+
 # tricolore 1.2.0
 
 * allow for discrete re-centered scales
