@@ -1,10 +1,10 @@
-This is a critical update establishing compatability with ggplot/ggtern 3.0.0.
+This is a critical update establishing compatability with ggplot/ggtern 3.2.0.
 
 ## Test environments
 
-* local debian 9.5, R 3.5.0
-* ubuntu 14.04 (on travis-ci), R 3.5.0
-* windows (via devtools::build_win)
+* local: Linux Mint 19.1 9.5, R 3.6.1
+* travis-ci: Linux Ubuntu 14.04, R 3.5.0
+* devtools::build_win: Windows
 
 ## R CMD check results
 

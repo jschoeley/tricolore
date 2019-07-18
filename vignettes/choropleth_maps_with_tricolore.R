@@ -27,7 +27,7 @@ plot_educ <-
   # using sf dataframe `euro_example`...
   ggplot(euro_example) +
   # ...draw a polygon for each region...
-  geom_sf(aes(fill = rgb), size = 0.1) +
+  geom_sf(aes(fill = rgb, geometry = geometry), size = 0.1) +
   # ...and color each region according to the color code in the variable `rgb`
   scale_fill_identity()
 

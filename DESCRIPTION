@@ -10,7 +10,7 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
-Imports: grDevices, ggplot2 (>= 3.0.0), ggtern (>= 3.0.0), dplyr, shiny, assertthat
+Imports: grDevices, ggplot2 (>= 3.0.0), ggtern (>= 3.0.0), shiny, assertthat
 RoxygenNote: 6.1.1
-Suggests: testthat, knitr, rmarkdown, sf, leaflet, httpuv
+Suggests: testthat, knitr, rmarkdown, sf, leaflet, httpuv, dplyr
 VignetteBuilder: knitr
