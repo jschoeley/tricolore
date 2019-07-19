@@ -5,11 +5,8 @@ tricolore on CRAN was "archived on 2019-07-03 as check problems were not correct
 ## Test environments
 
 * local: Linux Mint 19.1, R 3.6.1, 64 bit
-* travis-ci: Linux Ubuntu 14.04, R 3.5.0
-* rhub:
-  - Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-  - Ubuntu Linux 16.04 LTS, R-release, GCC
-  - Fedora Linux, R-devel, clang, gfortran
+* travis-ci: Linux Ubuntu 16.04 LTS, R 3.6.0
+* rhub builder: Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
 ## R CMD check results
 
