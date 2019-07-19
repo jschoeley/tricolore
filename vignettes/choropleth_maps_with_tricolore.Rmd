@@ -217,4 +217,4 @@ Literature
 
 Brewer, C. A. (1994). Color Use Guidelines for Mapping and Visualization. In A. M. MacEachren & D. R. F. Taylor (Eds.), Visualization in Modern Cartography (pp. 123–147). Oxford, UK: Pergamon.
 
-Dorling, D. (2012). The Visualization of Spatial Social Structure. Chichester, UK: Wiley. Retrieved from https://sasi.group.shef.ac.uk/thesis/prints.html
+Dorling, D. (2012). The Visualization of Spatial Social Structure. Chichester, UK: Wiley.

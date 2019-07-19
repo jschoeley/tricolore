@@ -6,7 +6,10 @@ tricolore on CRAN was "archived on 2019-07-03 as check problems were not correct
 
 * local: Linux Mint 19.1, R 3.6.1, 64 bit
 * travis-ci: Linux Ubuntu 16.04 LTS, R 3.6.0
-* rhub builder: Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+* rhub builder:
+  - Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+  - Linux Fedora 30, R-devel, 64 bit
+* win-builder:  Windows Server 2008, R-devel, 64 bit
 
 ## R CMD check results
 
