@@ -18,7 +18,7 @@ knitr::opts_chunk$set(warning=FALSE,
 What is *tricolore*?
 --------------------
 
-`tricolore` is an R library providing a flexible color scale for the visualization of three-part (ternary) compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colours and to draw a suitable color-key. `tricolore` flexibly adapts to different visualization challenges via
+`tricolore` is an R library providing a flexible color scale for the visualization of three-part (ternary) compositions. Its main functionality is to color-code any ternary composition as a mixture of three primary colors and to draw a suitable color-key. `tricolore` flexibly adapts to different visualization challenges via
 
 - *discrete* and *continuous* color support,
 - support for unbalanced compositional data via *centering*,
@@ -60,7 +60,7 @@ Here I demonstrate how to create a choropleth map of the regional distribution o
 
 The data set `euro_example` contains the administrative boundaries for the European NUTS-2 regions in the column `geometry`. This data can be used to plot a choropleth map of Europe using the `sf` package. Each region is represented by a single row. The name of a region is given by the variable `name` while the respective [NUTS-2](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics) geocode is given by the variable `id`. For each region some compositional statistics are available: Variables starting with `ed` refer to the relative share of population ages 25 to 64 by educational attainment in 2016 and variables starting with `lf` refer to the relative share of workers by labor-force sector in the European NUTS-2 regions 2016.
 
-**1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the dataframe. Store the color key seperately.**
+**1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the dataframe. Store the color key separately.**
 
 ```{r}
 # color-code the data set and generate a color-key

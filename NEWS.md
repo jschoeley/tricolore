@@ -1,6 +1,6 @@
 # tricolore 1.2.1
 
-* fix bugs in vignette related to geom_sf requiring explicit geometry geom
+* establish compatibility with ggplot/ggtern 3.2.0
 * allow TricoloreDemo() to run as stand-alone shiny-app (i.e. on shinyapps server)
 
 # tricolore 1.2.0
