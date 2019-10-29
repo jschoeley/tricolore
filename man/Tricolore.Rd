@@ -10,7 +10,8 @@ Tricolore(df, p1, p2, p3, center = rep(1/3, 3),
   legend = TRUE, show_data = TRUE,
   show_center = ifelse(identical(center, rep(1/3, 3)), FALSE, TRUE),
   label_as = ifelse(identical(center, rep(1/3, 3)), "pct", "pct_diff"),
-  crop = FALSE, input_validation = TRUE)
+  crop = FALSE, input_validation = TRUE, data_size = 0.5,
+  data_alpha = 0.5, data_color = "black")
 }
 \arguments{
 \item{df}{Data frame of compositional data.}
@@ -56,6 +57,12 @@ percent-point-difference from center labels.
 \item{crop}{Should the legend be cropped to the data? (default=FALSE)}
 
 \item{input_validation}{Should the function arguments be validated? (default=TRUE)}
+
+\item{data_size}{Size of data point in legend (default=0.5)}
+
+\item{data_alpha}{Opacity of data point in legend (default=0.5)}
+
+\item{data_color}{Color of data point in legend (default='black')}
 }
 \value{
 \itemize{
