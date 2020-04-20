@@ -4,7 +4,8 @@
 \name{euro_example}
 \alias{euro_example}
 \title{NUTS-2 Level Geodata and Compositional Data for Europe}
-\format{A data frame with 312 rows and 9 variables:
+\format{
+A data frame with 312 rows and 9 variables:
   \describe{
     \item{id}{NUTS-2 code.}
     \item{name}{Name of NUTS-2 region.}
@@ -15,7 +16,8 @@
     \item{lf_sec}{Share of labor-force in secondary sector.}
     \item{lf_ter}{Share of labor-force in tertiary sector.}
     \item{geometry}{Polygon outlines for regions in sf package format.}
-  }}
+  }
+}
 \source{
 Derived from Eurostats European Geodata.
   (c) EuroGeographics for the administrative boundaries.

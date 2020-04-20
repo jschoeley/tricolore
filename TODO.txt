@@ -1,2 +1,0 @@
-x add regional age structures at a glance vignette
-x add ggplot scale function

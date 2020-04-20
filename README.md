@@ -49,7 +49,7 @@ colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 head(colors_and_legend$rgb)
 ```
 
-    ## [1] "#BC8C67" "#727272" "#727272" "#CA7FA1" "#A37D7D" "#6E8E72"
+    ## [1] "#A37D7D" "#7A86A1" "#AF9B47" "#6E8E72" "#00AFAE" "#727272"
 
 ``` r
 colors_and_legend$key
@@ -165,8 +165,7 @@ plot_educ +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
@@ -196,8 +195,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
@@ -225,8 +223,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
@@ -261,8 +258,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in labor force composition',
-       subtitle = 'Regional distribution of labor force across the three sectors in 2016.',
-       caption = 'Data by eurostat (lfst_r_lfe2en2).')
+       subtitle = 'Regional distribution of labor force across the three sectors in 2016.')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
@@ -308,8 +304,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in labor force composition',
-       subtitle = 'Regional distribution of labor force across the three sectors in 2016.',
-       caption = 'Data by eurostat (lfst_r_lfe2en2).')
+       subtitle = 'Regional distribution of labor force across the three sectors in 2016.')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->

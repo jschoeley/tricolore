@@ -1,4 +1,4 @@
-## ----setup, include = FALSE----------------------------------------------
+## ----setup, include = FALSE---------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   tidy = FALSE,
@@ -6,21 +6,18 @@ knitr::opts_chunk$set(
   fig.width = 6, fig.height = 6
 )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(tricolore)
-library(dplyr)
 
-as_tibble(euro_example)
-
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # color-code the data set and generate a color-key
 tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8')
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # add the vector of colors to the `euro_example` data
 euro_example$rgb <- tric$rgb
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(ggplot2)
 
 plot_educ <-
@@ -33,7 +30,7 @@ plot_educ <-
 
 plot_educ 
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(ggtern)
 plot_educ +
   annotation_custom(
@@ -41,7 +38,7 @@ plot_educ +
     xmin = 55e5, xmax = 75e5, ymin = 8e5, ymax = 80e5
   )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 plot_educ <-
   plot_educ +
   annotation_custom(
@@ -52,15 +49,16 @@ plot_educ <-
   )
 plot_educ
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 plot_educ +
   theme_void() +
   coord_sf(datum = NA) +
-  labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+  labs(
+   title = 'European inequalities in educational attainment',
+      subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.'
+  )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 # color-code the data set and generate a color-key
 tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
                   breaks = Inf)
@@ -68,7 +66,7 @@ tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
 # add the vector of colors to the `euro_example` data
 euro_example$rgb <- tric$rgb
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library(sf)
 library(leaflet)
 
@@ -79,7 +77,7 @@ euro_example %>%
               fillColor = euro_example$rgb,
               fillOpacity = 1)
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 euro_example %>%
   st_transform(crs = 4326) %>%
   leaflet() %>%
@@ -102,7 +100,7 @@ euro_example %>%
                 )
   )
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 makePlotURI <- function(expr, width, height, ...) {
   pngFile <- shiny::plotPNG(function() { expr }, width = width, height = height, ...)
   on.exit(unlink(pngFile))
@@ -127,7 +125,7 @@ df <- data.frame(
 euro_example %>%
   st_transform(crs = 4326) %>%
   leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTerrain) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
               fillColor = euro_example$rgb,
               fillOpacity = 1,
