@@ -1,3 +1,8 @@
+# tricolore 1.2.2
+
+* establish compatibility with ggplot/ggtern 3.3.0
+* remove 'caption' labels from example plots as it causes rendering bug
+
 # tricolore 1.2.1
 
 * establish compatibility with ggplot/ggtern 3.2.0

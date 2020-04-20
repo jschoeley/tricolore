@@ -4,8 +4,18 @@
 \alias{ColorKeyTricolore}
 \title{Ternary Balance Scheme Legend}
 \usage{
-ColorKeyTricolore(center, breaks, h_, c_, l_, contrast, spread, label_as,
-  show_center, limits = matrix(0:1, nrow = 2, ncol = 3))
+ColorKeyTricolore(
+  center,
+  breaks,
+  h_,
+  c_,
+  l_,
+  contrast,
+  spread,
+  label_as,
+  show_center,
+  limits = matrix(0:1, nrow = 2, ncol = 3)
+)
 }
 \arguments{
 \item{center}{Ternary coordinates of the grey-point.}

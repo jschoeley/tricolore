@@ -708,10 +708,10 @@ BreaksAndLabels <- function (type, center = NULL, breaks = NULL) {
 #' @return A ggtern grob.
 #'
 #' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
-#'   scale_fill_identity element_text
-#' @importFrom ggtern ggtern geom_mask theme_classic theme
+#'   scale_fill_identity element_text theme
+#' @importFrom ggtern ggtern geom_mask
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
-#'   geom_Lline geom_Tline geom_Rline
+#'   geom_Lline geom_Tline geom_Rline theme_classic
 #'
 #' @keywords internal
 BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {

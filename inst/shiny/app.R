@@ -136,11 +136,19 @@ server <- function(input, output) {
     # customize legend
     lgnd <- mixed[['key']] +
       labs(x = 'Primary', y = 'Secondary', z = 'Tertiary',
-           caption = paste0(title,
-                            ifelse(input$center,
-                                   'Colors show deviation from average composition',
-                                   'Colors show deviations from balanced composition'))) +
-      theme(plot.background = element_rect(fill = 'grey95', color = 'grey50'))
+           subtitle =
+             paste0(
+               title,
+               ifelse(input$center,
+                      'Colors show deviation from average composition',
+                      'Colors show deviations from balanced composition\n'),
+               'Data by eurostat'
+             )
+      ) +
+      theme(
+        plot.background = element_rect(fill = 'grey95', color = 'grey50'),
+        plot.subtitle = element_text(size = 9)
+      )
 
     # merge data and map
     euro_example$rgb <- mixed[['rgb']]
@@ -154,8 +162,7 @@ server <- function(input, output) {
                         xmin = 54e5, xmax = 74e5,
                         ymin = 8e5, ymax = 80e5) +
       scale_fill_identity() +
-      coord_sf(expand = FALSE, datum = NA) +
-      labs(caption = 'Data by eurostat. Jonas Schöley | github.com/jschoeley/tricolore | twitter: @jschoeley')
+      coord_sf(expand = FALSE, datum = NA)
 
     print(euro_map)
   })

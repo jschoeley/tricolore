@@ -126,8 +126,7 @@ plot_educ +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 Continuous vs. discrete colors
@@ -154,8 +153,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 ...and a `breaks = 2` gives a discrete color scale with $2^2=4$ colors, highlighting the regions with an absolute majority of any part of the composition.
@@ -179,8 +177,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.')
 ```
 
 Ternary centering
@@ -205,8 +202,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in labor force composition',
-       subtitle = 'Regional distribution of labor force across the three sectors in 2016.',
-       caption = 'Data by eurostat (lfst_r_lfe2en2).')
+       subtitle = 'Regional distribution of labor force across the three sectors in 2016.')
 
 ```
 
@@ -234,8 +230,7 @@ ggplot(euro_example) +
   theme_void() +
   coord_sf(datum = NA) +
   labs(title = 'European inequalities in labor force composition',
-       subtitle = 'Regional distribution of labor force across the three sectors in 2016.',
-       caption = 'Data by eurostat (lfst_r_lfe2en2).')
+       subtitle = 'Regional distribution of labor force across the three sectors in 2016.')
 ```
 
 Contributing

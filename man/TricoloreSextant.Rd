@@ -4,11 +4,20 @@
 \alias{TricoloreSextant}
 \title{Ternary Sextant Color Scale}
 \usage{
-TricoloreSextant(df, p1, p2, p3, center = rep(1/3, 3),
-  values = c("#FFFF00", "#B3DCC3", "#01A0C6", "#B8B3D8", "#F11D8C",
-  "#FFB3B3"), legend = TRUE, show_data = TRUE, show_center = TRUE,
+TricoloreSextant(
+  df,
+  p1,
+  p2,
+  p3,
+  center = rep(1/3, 3),
+  values = c("#FFFF00", "#B3DCC3", "#01A0C6", "#B8B3D8", "#F11D8C", "#FFB3B3"),
+  legend = TRUE,
+  show_data = TRUE,
+  show_center = TRUE,
   label_as = ifelse(identical(center, rep(1/3, 3)), "pct", "pct_diff"),
-  crop = FALSE, input_validation = TRUE)
+  crop = FALSE,
+  input_validation = TRUE
+)
 }
 \arguments{
 \item{df}{Data frame of compositional data.}

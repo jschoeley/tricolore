@@ -26,9 +26,6 @@ The data
 
 ```{r}
 library(tricolore)
-library(dplyr)
-
-as_tibble(euro_example)
 ```
 
 The data set `euro_example` contains the administrative boundaries for the European NUTS-2 regions in the column `geometry`. This data can be used to plot a choropleth map of Europe using the `sf` package. Each region is represented by a single row. The name of a region is given by the variable `name` while the respective [NUTS-2](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics) geocode is given by the variable `id`. For each region some compositional statistics are available: Variables starting with `ed` refer to the relative share of population ages 25 to 64 by educational attainment in 2016 and variables starting with `lf` refer to the relative share of workers by labor-force sector in the European NUTS-2 regions 2016.
@@ -105,9 +102,10 @@ Some final touches...
 plot_educ +
   theme_void() +
   coord_sf(datum = NA) +
-  labs(title = 'European inequalities in educational attainment',
-       subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.',
-       caption = 'Data by eurostat (edat_lfse_04).')
+  labs(
+   title = 'European inequalities in educational attainment',
+      subtitle = 'Regional distribution of ISCED education levels for people aged 25-64 in 2016.'
+  )
 ```
 
 `leaflet` for ternary choropleth maps
@@ -191,7 +189,7 @@ df <- data.frame(
 euro_example %>%
   st_transform(crs = 4326) %>%
   leaflet() %>%
-  addProviderTiles(providers$Esri.WorldTerrain) %>%
+  addProviderTiles(providers$Esri.WorldGrayCanvas) %>%
   addPolygons(smoothFactor = 0.1, weight = 0,
               fillColor = euro_example$rgb,
               fillOpacity = 1,

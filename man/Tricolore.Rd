@@ -4,13 +4,25 @@
 \alias{Tricolore}
 \title{Ternary Balance Color Scale}
 \usage{
-Tricolore(df, p1, p2, p3, center = rep(1/3, 3),
-  breaks = ifelse(identical(center, rep(1/3, 3)), 4, Inf), hue = 0.2,
-  chroma = 0.7, lightness = 0.8, contrast = 0.4, spread = 1,
-  legend = TRUE, show_data = TRUE,
+Tricolore(
+  df,
+  p1,
+  p2,
+  p3,
+  center = rep(1/3, 3),
+  breaks = ifelse(identical(center, rep(1/3, 3)), 4, Inf),
+  hue = 0.2,
+  chroma = 0.7,
+  lightness = 0.8,
+  contrast = 0.4,
+  spread = 1,
+  legend = TRUE,
+  show_data = TRUE,
   show_center = ifelse(identical(center, rep(1/3, 3)), FALSE, TRUE),
   label_as = ifelse(identical(center, rep(1/3, 3)), "pct", "pct_diff"),
-  crop = FALSE, input_validation = TRUE)
+  crop = FALSE,
+  input_validation = TRUE
+)
 }
 \arguments{
 \item{df}{Data frame of compositional data.}

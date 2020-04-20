@@ -4,8 +4,13 @@
 \alias{ColorKeySextant}
 \title{Sextant Scheme Legend}
 \usage{
-ColorKeySextant(center, values, label_as, show_center,
-  limits = matrix(0:1, nrow = 2, ncol = 3))
+ColorKeySextant(
+  center,
+  values,
+  label_as,
+  show_center,
+  limits = matrix(0:1, nrow = 2, ncol = 3)
+)
 }
 \arguments{
 \item{center}{Ternary coordinates of the sextant meeting point.}
