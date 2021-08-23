@@ -722,8 +722,8 @@ BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {
     geom_polygon(aes_string(group = 'id', fill = 'rgb', color = 'rgb'), lwd = lwd) +
     geom_mask() +
     # rgb color input
-    scale_color_identity(guide = FALSE) +
-    scale_fill_identity(guide = FALSE) +
+    scale_color_identity(guide = "none") +
+    scale_fill_identity(guide = "none") +
     # theme
     theme_classic() +
     theme(tern.axis.title.L = element_text(hjust = 0.2, vjust = 1, angle = -60),
