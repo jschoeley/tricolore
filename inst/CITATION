@@ -1,0 +1,26 @@
+citHeader('To cite tricolore in publications, please use:')
+
+citEntry(
+  entry = 'article',
+  author = 'Jonas Schöley and Ilya Kashnitsky',
+  title = 'tricolore. A flexible color scale for ternary compositions',
+  journal = 'CRAN',
+  year = '2021',
+  note = 'Version 1.2.3',
+  url = 'https://cran.r-project.org/package=tricolore',
+  textVersion = 'J. Schöley and I. Kashnitsky (2021). tricolore: A flexible
+  color scale for ternary compositions. Version 1.2.3.  CRAN. URL https://cran.r-project.org/package=tricolore'
+)
+
+citEntry(
+  entry = 'article',
+  author = 'Jonas Schöley',
+  title = 'The centered ternary balance scheme. A technique to visualize surfaces of unbalanced three-part compositions',
+  journal      = 'Demographic Research',
+  year         = '2021',
+  month        = 'mar',
+  pages        = '443--458',
+  volume       = '44',
+  doi          = '10.4054/DemRes.2021.44.19',
+  textVersion = 'J. Schöley (2021). The centered ternary balance scheme: A technique to visualize surfaces of unbalanced three-part compositions. Demographic Research, Vol. 44, p. 443-458. DOI 10.4054/DemRes.2021.44.19'
+)
