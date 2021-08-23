@@ -1,8 +1,10 @@
-<img src="inst/figures/tricolore.png" align="right" width="150" height="174" /> tricolore. A flexible color scale for ternary compositions
+tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley & Ilya Kashnitsky
 
 [![CRAN\_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
+\[![GitHub Actions
+R-CMD-check](https://github.com/jschoeley/tricolore/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -14,10 +16,10 @@ functionality is to color-code any ternary composition as a mixture of
 three primary colors and to draw a suitable color-key. `tricolore`
 flexibly adapts to different visualization challenges via
 
-  - *discrete* and *continuous* color support,
-  - support for unbalanced compositional data via *centering*,
-  - support for data with very narrow range via *scaling*,
-  - *hue*, *chroma* and *lightness* options.
+-   *discrete* and *continuous* color support,
+-   support for unbalanced compositional data via *centering*,
+-   support for data with very narrow range via *scaling*,
+-   *hue*, *chroma* and *lightness* options.
 
 ![](README_files/teaser.png)
 
@@ -47,7 +49,7 @@ colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 head(colors_and_legend$rgb)
 ```
 
-    ## [1] "#A37D7D" "#7A86A1" "#AF9B47" "#6E8E72" "#00AFAE" "#727272"
+    ## [1] "#BC8C67" "#CB82C5" "#6E8E72" "#CA7FA1" "#CA7FA1" "#6E8E72"
 
 ``` r
 colors_and_legend$key
@@ -198,9 +200,9 @@ ggplot(euro_example) +
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-…and a `breaks = 2` gives a discrete color scale with \(2^2=4\) colors,
-highlighting the regions with an absolute majority of any part of the
-composition.
+…and a `breaks = 2` gives a discrete color scale with 2<sup>2</sup> = 4
+colors, highlighting the regions with an absolute majority of any part
+of the composition.
 
 ``` r
 # color-code the data set and generate a color-key
