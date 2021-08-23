@@ -1,3 +1,5 @@
+# tricolore 1.2.3
+
 # tricolore 1.2.2
 
 * establish compatibility with ggplot/ggtern 3.3.0
