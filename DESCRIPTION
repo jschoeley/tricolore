@@ -2,8 +2,15 @@ Package: tricolore
 Type: Package
 Title: A Flexible Color Scale for Ternary Compositions
 Version: 1.2.3.0001
-Author: Jonas Schöley, Ilya Kashnitsky
-Maintainer: Jonas Schöley <jschoeley@gmail.com>
+Authors@R: c(
+  person(
+    "Jonas", "Schöley", email = "jschoeley@gmail.com", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-3340-8518")
+  ),
+  person(
+    "Ilya", "Kashnitsky", role = c("aut"),
+    comment = c(ORCID = "0000-0003-1835-8687")
+  ))
 Description: A flexible color scale for ternary compositions with options for
   discretization, centering and scaling.
 License: GPL-3
