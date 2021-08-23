@@ -3,8 +3,6 @@
 Jonas Schöley & Ilya Kashnitsky
 
 [![CRAN\_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
-[![Travis
-branch](https://img.shields.io/travis/jschoeley/tricolore/master.svg)](https://travis-ci.org/jschoeley/tricolore)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 

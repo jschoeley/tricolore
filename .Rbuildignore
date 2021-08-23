@@ -6,7 +6,6 @@ README.md
 README.R
 data-raw
 TODO.txt
-travis.yml
 examples
 ^cran-comments\.md$
 CODE_OF_CONDUCT.md
