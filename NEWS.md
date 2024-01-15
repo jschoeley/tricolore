@@ -1,3 +1,7 @@
+# tricolore 1.2.4
+
+* establish compatibility with ggplot/ggtern 3.4.2
+
 # tricolore 1.2.3
 
 * add startup message and citation information

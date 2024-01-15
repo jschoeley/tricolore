@@ -5,11 +5,11 @@ citEntry(
   author = 'Jonas Schöley and Ilya Kashnitsky',
   title = 'tricolore. A flexible color scale for ternary compositions',
   journal = 'CRAN',
-  year = '2021',
-  note = 'Version 1.2.3',
+  year = '2024',
+  note = 'Version 1.2.4',
   url = 'https://cran.r-project.org/package=tricolore',
-  textVersion = 'J. Schöley and I. Kashnitsky (2021). tricolore: A flexible
-  color scale for ternary compositions. Version 1.2.3.  CRAN. URL https://cran.r-project.org/package=tricolore'
+  textVersion = 'J. Schöley and I. Kashnitsky (2024). tricolore: A flexible
+  color scale for ternary compositions. Version 1.2.4.  CRAN. URL https://cran.r-project.org/package=tricolore'
 )
 
 citEntry(
