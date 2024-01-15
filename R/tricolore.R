@@ -707,8 +707,8 @@ BreaksAndLabels <- function (type, center = NULL, breaks = NULL) {
 #'
 #' @return A ggtern grob.
 #'
-#' @importFrom ggplot2 geom_polygon scale_color_identity
-#'   scale_fill_identity element_text theme
+#' @importFrom ggplot2 scale_color_identity
+#'   scale_fill_identity element_text theme layer
 #' @importFrom ggtern ggtern aes geom_mask
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'   geom_Lline geom_Tline geom_Rline theme_classic
@@ -719,8 +719,16 @@ BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {
 
   key <-
     # basic legend
-    ggtern(legend_surface, aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']])) +
-    geom_polygon(aes(group = .data[['id']], fill = .data[['rgb']], color = .data[['rgb']]), lwd = lwd) +
+    ggtern(legend_surface) +
+    layer(
+      geom = 'polygon', stat = 'identity', position = 'identity',
+      mapping = aes(
+        x = .data[['p1']], y = .data[['p2']], z = .data[['p3']],
+        group = .data[['id']], fill = .data[['rgb']], color = .data[['rgb']]
+      ),
+      params = list(lwd = lwd),
+      check.aes = FALSE, check.param = FALSE
+    ) +
     geom_mask() +
     # rgb color input
     scale_color_identity(guide = FALSE) +
@@ -910,7 +918,7 @@ ColorKeySextant <- function (center, values, label_as, show_center,
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 #' Tricolore(P, 'V1', 'V2', 'V3')
 #'
-#' @importFrom ggplot2 geom_point labs
+#' @importFrom ggplot2 labs layer
 #' @importFrom ggtern aes
 #' @importFrom rlang .data
 #'
@@ -974,9 +982,12 @@ Tricolore <- function (df, p1, p2, p3,
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
         if (show_data) {
-          geom_point(aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
-                     color = 'black', shape = 16, size = 0.5, alpha = 0.5,
-                     data = mixture)
+          layer(
+            geom = 'point', stat = 'identity', position = 'identity',
+            mapping = aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
+            params = list(color = 'black', shape = 16, size = 0.5, alpha = 0.5),
+            check.aes = FALSE, check.param = FALSE
+          )
         }
       )
 
@@ -1025,7 +1036,7 @@ Tricolore <- function (df, p1, p2, p3,
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 #' TricoloreSextant(P, 'V1', 'V2', 'V3')
 #'
-#' @importFrom ggplot2 geom_point labs
+#' @importFrom ggplot2 labs layer
 #' @importFrom ggtern aes
 #' @importFrom rlang .data
 #'
@@ -1063,7 +1074,6 @@ TricoloreSextant <- function (df, p1, p2, p3,
   # center color-scale over data's centre if center==NA
   if ( is.na(center[1]) ) { center = Centre(P) }
 
-
   # derive the color mixture
   mixture <- ColorMapSextant(P, center, values)
 
@@ -1084,9 +1094,13 @@ TricoloreSextant <- function (df, p1, p2, p3,
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
         if (show_data) {
-          geom_point(aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
-                     color = 'black', shape = 16, size = 0.5, alpha = 0.5,
-                     data = mixture)
+          layer(
+            geom = 'point', stat = 'identity', position = 'identity',
+            mapping = aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
+            params = list(color = 'black', shape = 16, size = 0.5, alpha = 0.5),
+            data = mixture,
+            check.aes = FALSE, check.param = FALSE
+          )
         }
       )
 
