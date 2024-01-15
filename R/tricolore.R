@@ -707,19 +707,20 @@ BreaksAndLabels <- function (type, center = NULL, breaks = NULL) {
 #'
 #' @return A ggtern grob.
 #'
-#' @importFrom ggplot2 aes_string geom_polygon scale_color_identity
+#' @importFrom ggplot2 geom_polygon scale_color_identity
 #'   scale_fill_identity element_text theme
-#' @importFrom ggtern ggtern geom_mask
+#' @importFrom ggtern ggtern aes geom_mask
 #'   scale_L_continuous scale_R_continuous scale_T_continuous
 #'   geom_Lline geom_Tline geom_Rline theme_classic
+#' @importFrom rlang .data
 #'
 #' @keywords internal
 BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {
 
   key <-
     # basic legend
-    ggtern(legend_surface, aes_string(x = 'p1', y = 'p2', z = 'p3')) +
-    geom_polygon(aes_string(group = 'id', fill = 'rgb', color = 'rgb'), lwd = lwd) +
+    ggtern(legend_surface, aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']])) +
+    geom_polygon(aes(group = .data[['id']], fill = .data[['rgb']], color = .data[['rgb']]), lwd = lwd) +
     geom_mask() +
     # rgb color input
     scale_color_identity(guide = FALSE) +
@@ -830,10 +831,10 @@ ColorKeyTricolore <- function (center, breaks, h_, c_, l_, contrast, spread,
 #' @return A ggtern grob.
 #'
 #' @examples
-#'tricolore:::ColorKeySextant(center = prop.table(runif(3)),
-#'                            values = c('#01A0C6', '#B8B3D8', '#F11D8C',
-#'                                       '#FFB3B3', '#FFFF00', '#B3DCC3'),
-#'                            label_as = 'pct_diff', show_center = TRUE)
+#' tricolore:::ColorKeySextant(center = prop.table(runif(3)),
+#'                             values = c('#01A0C6', '#B8B3D8', '#F11D8C',
+#'                                        '#FFB3B3', '#FFFF00', '#B3DCC3'),
+#'                             label_as = 'pct_diff', show_center = TRUE)
 #'
 #' @keywords internal
 ColorKeySextant <- function (center, values, label_as, show_center,
@@ -909,7 +910,9 @@ ColorKeySextant <- function (center, values, label_as, show_center,
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 #' Tricolore(P, 'V1', 'V2', 'V3')
 #'
-#' @importFrom ggplot2 aes_string geom_point labs
+#' @importFrom ggplot2 geom_point labs
+#' @importFrom ggtern aes
+#' @importFrom rlang .data
 #'
 #' @md
 #'
@@ -971,7 +974,7 @@ Tricolore <- function (df, p1, p2, p3,
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
         if (show_data) {
-          geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
+          geom_point(aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
                      color = 'black', shape = 16, size = 0.5, alpha = 0.5,
                      data = mixture)
         }
@@ -1022,7 +1025,9 @@ Tricolore <- function (df, p1, p2, p3,
 #' P <- as.data.frame(prop.table(matrix(runif(3^6), ncol = 3), 1))
 #' TricoloreSextant(P, 'V1', 'V2', 'V3')
 #'
-#' @importFrom ggplot2 aes_string geom_point labs
+#' @importFrom ggplot2 geom_point labs
+#' @importFrom ggtern aes
+#' @importFrom rlang .data
 #'
 #' @md
 #'
@@ -1079,7 +1084,7 @@ TricoloreSextant <- function (df, p1, p2, p3,
         # labels take names from input variables
         labs(x = p1, y = p2, z = p3),
         if (show_data) {
-          geom_point(aes_string(x = 'p1', y = 'p2', z = 'p3'),
+          geom_point(aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
                      color = 'black', shape = 16, size = 0.5, alpha = 0.5,
                      data = mixture)
         }
