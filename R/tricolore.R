@@ -986,6 +986,7 @@ Tricolore <- function (df, p1, p2, p3,
             geom = 'point', stat = 'identity', position = 'identity',
             mapping = aes(x = .data[['p1']], y = .data[['p2']], z = .data[['p3']]),
             params = list(color = 'black', shape = 16, size = 0.5, alpha = 0.5),
+            data = mixture,
             check.aes = FALSE, check.param = FALSE
           )
         }
