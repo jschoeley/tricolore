@@ -1,6 +1,9 @@
 # tricolore 1.2.4
 
 * establish compatibility with ggplot/ggtern 3.4.2
+* update deprecated ggplot code
+* update outdated crs spec in example data
+* add Schöley (2021) reference to vignette
 
 # tricolore 1.2.3
 
