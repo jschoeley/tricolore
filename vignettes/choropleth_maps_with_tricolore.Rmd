@@ -216,3 +216,5 @@ Literature
 Brewer, C. A. (1994). Color Use Guidelines for Mapping and Visualization. In A. M. MacEachren & D. R. F. Taylor (Eds.), Visualization in Modern Cartography (pp. 123–147). Oxford, UK: Pergamon.
 
 Dorling, D. (2012). The Visualization of Spatial Social Structure. Chichester, UK: Wiley.
+
+Schöley, J. (2021). The centered ternary balance scheme: A technique to visualize surfaces of unbalanced three-part compositions. Demographic Research (44).
