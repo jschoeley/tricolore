@@ -1,7 +1,7 @@
 Package: tricolore
 Type: Package
 Title: A Flexible Color Scale for Ternary Compositions
-Version: 1.2.4.0004
+Version: 1.2.4.0005
 Authors@R: c(
   person(
     "Jonas", "Schöley", email = "jschoeley@gmail.com", role = c("aut", "cre"),
