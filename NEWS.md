@@ -8,6 +8,7 @@
 # tricolore 1.2.3
 
 * add startup message and citation information
+* establish compatibility with ggplot2 3.3.4/3.3.5 (@hhmacedo, #13)
 
 # tricolore 1.2.2
 
