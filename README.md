@@ -1,4 +1,4 @@
-tricolore. A flexible color scale for ternary compositions
+<img src="inst/figures/tricolore.png" align="right" width="150" height="174" />tricolore. A flexible color scale for ternary compositions
 ================
 Jonas Schöley & Ilya Kashnitsky
 
