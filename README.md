@@ -3,7 +3,7 @@ tricolore. A flexible color scale for ternary compositions
 Jonas Schöley & Ilya Kashnitsky
 
 [![CRAN\_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
-\[![GitHub Actions
+![GitHub Actions
 R-CMD-check](https://github.com/jschoeley/tricolore/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
