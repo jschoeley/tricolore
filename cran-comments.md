@@ -1,4 +1,4 @@
-This is a re-submission of the package `tricolore` (https://cran.r-project.org/web/packages/tricolore/index.html) removed from CRAN on 2023-05-07 along with its dependency `ggtern`. As `ggtern` is available again, tricolore can return to CRAN as well.
+This is a re-submission of the package `tricolore` (https://cran.r-project.org/web/packages/tricolore/index.html) removed from CRAN on 2023-05-07 along with its dependency `ggtern`. As `ggtern` is available again, `tricolore` can return to CRAN as well. NOTEs have been fixed.
 
 ## Test environments
 
@@ -11,4 +11,8 @@ This is a re-submission of the package `tricolore` (https://cran.r-project.org/w
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs, or NOTEs.
+There were no ERRORs, or WARNINGs. The following NOTEs don't require further action:
+
+- Possibly misspelled words in DESCRIPTION: discretization (15:3).
+	- https://en.wikipedia.org/wiki/Discretization
+- CRAN repository db overrides: X-CRAN-Comment: Archived on 2023-05-07 as requires archived package 'ggtern'.
