@@ -9,8 +9,6 @@ TernaryMeshVertices(C)
 \arguments{
 \item{C}{n by 4 matrix of barycentric centroid coordinates of n=k^2
 sub-triangles. Column order: id, p1, p2, p3 with id=1,...,k^2.}
-
-\item{k}{Number of rows in the segmented equilateral triangle.}
 }
 \value{
 A numeric matrix with index, vertex id and barycentric vertex

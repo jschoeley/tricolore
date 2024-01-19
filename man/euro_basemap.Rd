@@ -10,7 +10,7 @@ An object of class \code{gg} (inherits from \code{ggplot}) of length 9.
 \source{
 Derived from Eurostats European Geodata.
   (c) EuroGeographics for the administrative boundaries.
-  \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+  \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 }
 \usage{
 euro_basemap
