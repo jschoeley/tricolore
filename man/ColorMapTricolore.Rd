@@ -7,7 +7,7 @@
 ColorMapTricolore(P, center, breaks, h_, c_, l_, contrast, spread)
 }
 \arguments{
-\item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
+\item{P}{n by 3 matrix of ternary compositions [p1, p2, p3](i) for
 i=1, ..., n.}
 
 \item{center}{Ternary coordinates of the grey-point.}
@@ -27,7 +27,7 @@ Values above 99 imply no discretization.}
 }
 \value{
 An n row data frame giving, for each row of the input P, the input
-proportions (p1, p2, p3), parameters of the color mixture (h, c, l) and the
+proportions [p1, p2, p3], parameters of the color mixture (h, c, l) and the
 hex-rgb string of the mixed colors (rgb).
 }
 \description{

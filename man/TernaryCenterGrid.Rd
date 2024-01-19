@@ -8,7 +8,7 @@ TernaryCenterGrid(center, spacing)
 }
 \arguments{
 \item{center}{The center of the grid.
-A vector of ternary coordinates {p1, p2, p3}.}
+A vector of ternary coordinates [p1, p2, p3].}
 
 \item{spacing}{The spacing of the grid in percent-point increments.
 A numeric > 0.}

@@ -7,9 +7,9 @@
 TernaryDistance(p, C)
 }
 \arguments{
-\item{p}{A vector of ternary coordinates {p1, p2, p3}.}
+\item{p}{A vector of ternary coordinates [p1, p2, p3].}
 
-\item{C}{n by 3 matrix of ternary coordinates {p1, p2, p3}_i for i=1,...,n.}
+\item{C}{n by 3 matrix of ternary coordinates [p1, p2, p3](i) for i=1,...,n.}
 }
 \value{
 A numeric vector of distances between coordinate p and all

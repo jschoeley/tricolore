@@ -7,11 +7,11 @@
 TernarySurroundingSextant(P, center)
 }
 \arguments{
-\item{P}{n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+\item{P}{n by 3 matrix of ternary coordinates [p1, p2, p3](i) for
 i=1,...,n.}
 
 \item{center}{The sextant center.
-A vector of ternary coordinates {p1, p2, p3}.}
+A vector of ternary coordinates [p1, p2, p3].}
 }
 \value{
 An n element character vector of sextant id's 1 to 6.

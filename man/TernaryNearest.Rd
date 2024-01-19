@@ -7,7 +7,7 @@
 TernaryNearest(P, C)
 }
 \arguments{
-\item{P, C}{n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+\item{P, C}{n by 3 matrix of ternary coordinates [p1, p2, p3](i) for
 i=1,...,n. n may be different for P and C.}
 }
 \value{

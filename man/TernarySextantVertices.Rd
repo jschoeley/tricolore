@@ -8,7 +8,7 @@ TernarySextantVertices(center)
 }
 \arguments{
 \item{center}{The sextant center.
-A vector of ternary coordinates {p1, p2, p3}.}
+A vector of ternary coordinates [p1, p2, p3].}
 }
 \value{
 Index, vertex id and barycentric vertex coordinates for each of the

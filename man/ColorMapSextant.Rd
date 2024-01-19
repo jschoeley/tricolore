@@ -7,7 +7,7 @@
 ColorMapSextant(P, center, values)
 }
 \arguments{
-\item{P}{n by 3 matrix of ternary compositions {p1, p2, p3}_i for
+\item{P}{n by 3 matrix of ternary compositions [p1, p2, p3](i) for
 i=1, ..., n.}
 
 \item{center}{Ternary coordinates of the sextant meeting point.}
@@ -16,7 +16,7 @@ i=1, ..., n.}
 }
 \value{
 An n row data frame giving, for each row of the input P, the input
-proportions (p1, p2, p3), sextant id (sextant) and the hex-rgb string of the
+proportions [p1, p2, p3], sextant id (sextant) and the hex-rgb string of the
 mixed colors (rgb).
 }
 \description{
