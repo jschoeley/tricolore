@@ -71,7 +71,7 @@ plot_educ <-
 plot_educ 
 ```
 
-Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](http://www.ggtern.com/) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
+Using `annotation_custom()` and `ggplotGrob` we can add the color key produced by `Tricolore()` to the map. Internally, the color key is produced with the [`ggtern`](https://CRAN.R-project.org/package=ggtern) package. In order for it to render correctly we need to load `ggtern` *after* loading `ggplot2`. Don't worry, the `ggplot2` functions still work.
 
 ```{r}
 library(ggtern)
@@ -122,7 +122,7 @@ tric <- Tricolore(euro_example, p1 = 'ed_0to2', p2 = 'ed_3to4', p3 = 'ed_5to8',
 euro_example$rgb <- tric$rgb
 ```
 
-`leaflet` requires geodata in spherical coordinates (longitude-latitude format). Therefore I reproject the data to a [suitable crs](http://spatialreference.org/ref/epsg/wgs-84/) using the `sf` package.
+`leaflet` requires geodata in spherical coordinates (longitude-latitude format). Therefore I reproject the data to a [suitable crs](https://spatialreference.org/ref/epsg/4326/) using the `sf` package.
 
 ```{r}
 library(sf)

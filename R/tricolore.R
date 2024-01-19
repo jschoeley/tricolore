@@ -1142,7 +1142,7 @@ DemoTricolore <- function () {
 #' @source
 #'   Derived from Eurostats European Geodata.
 #'   (c) EuroGeographics for the administrative boundaries.
-#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+#'   \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 'euro_basemap'
 
 #' NUTS-2 Level Geodata and Compositional Data for Europe
@@ -1176,7 +1176,7 @@ DemoTricolore <- function () {
 #' @source
 #'   Derived from Eurostats European Geodata.
 #'   (c) EuroGeographics for the administrative boundaries.
-#'   \url{http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+#'   \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
 #'
 #'   Education data derived from Eurostats table "edat_lfse_04".
 #'
