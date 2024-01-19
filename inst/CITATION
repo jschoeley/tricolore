@@ -1,8 +1,8 @@
 citHeader('To cite tricolore in publications, please use:')
 
-citEntry(
-  entry = 'article',
-  author = 'Jonas Schöley and Ilya Kashnitsky',
+bibentry(
+  bibtype = 'Article',
+  author = c(person('Jonas', 'Schöley', role = c('aut', 'cre')), person('Ilya', 'Kashnitsky', role = 'aut')),
   title = 'tricolore. A flexible color scale for ternary compositions',
   journal = 'CRAN',
   year = '2024',
@@ -12,9 +12,9 @@ citEntry(
   color scale for ternary compositions. Version 1.2.4.  CRAN. URL https://cran.r-project.org/package=tricolore'
 )
 
-citEntry(
-  entry = 'article',
-  author = 'Jonas Schöley',
+bibentry(
+  bibtype = 'Article',
+  author = person('Jonas', 'Schöley'),
   title = 'The centered ternary balance scheme. A technique to visualize surfaces of unbalanced three-part compositions',
   journal      = 'Demographic Research',
   year         = '2021',
