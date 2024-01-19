@@ -334,8 +334,8 @@ TernaryMeshVertices <- function (C) {
 #'
 #' The distances between ternary coordinate p and a set of ternary coordinates C.
 #'
-#' @param p A vector of ternary coordinates {p1, p2, p3}.
-#' @param C n by 3 matrix of ternary coordinates {p1, p2, p3}_i for i=1,...,n.
+#' @param p A vector of ternary coordinates [p1, p2, p3].
+#' @param C n by 3 matrix of ternary coordinates [p1, p2, p3](i) for i=1,...,n.
 #'
 #' @return A numeric vector of distances between coordinate p and all
 #'   coordinates in C.
@@ -356,7 +356,7 @@ TernaryDistance <- function(p, C) {
 
 #' For Ternary Coordinates P Return the Nearest Coordinate in Set C
 #'
-#' @param P,C n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+#' @param P,C n by 3 matrix of ternary coordinates [p1, p2, p3](i) for
 #'            i=1,...,n. n may be different for P and C.
 #'
 #' @return n by 3 matrix of ternary coordinates in C.
@@ -375,7 +375,7 @@ TernaryNearest <- function (P, C) {
 #' Return Ternary Gridlines Centered Around Some Composition
 #'
 #' @param center The center of the grid.
-#'   A vector of ternary coordinates {p1, p2, p3}.
+#'   A vector of ternary coordinates [p1, p2, p3].
 #' @param spacing The spacing of the grid in percent-point increments.
 #'   A numeric > 0.
 #'
@@ -420,7 +420,7 @@ TernaryCenterGrid <- function (center, spacing) {
 
 #' Return the Limits of Ternary Coordinates
 #'
-#' @param P n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+#' @param P n by 3 matrix of ternary coordinates [p1, p2, p3](i) for
 #'          i=1,...,n.
 #' @param na.rm Should NAs be removed? (default=TRUE)
 #'
@@ -448,7 +448,7 @@ TernaryLimits <- function (P, na.rm = TRUE) {
 #' of the sextant regions.
 #'
 #' @param center The sextant center.
-#'   A vector of ternary coordinates {p1, p2, p3}.
+#'   A vector of ternary coordinates [p1, p2, p3].
 #'
 #' @return Index, vertex id and barycentric vertex coordinates for each of the
 #'         6 sextants.
@@ -492,10 +492,10 @@ TernarySextantVertices <- function (center) {
 #'
 #' Given barycentric coordinates return the id of the surrounding sextant.
 #'
-#' @param P n by 3 matrix of ternary coordinates {p1, p2, p3}_i for
+#' @param P n by 3 matrix of ternary coordinates [p1, p2, p3](i) for
 #'          i=1,...,n.
 #' @param center The sextant center.
-#'   A vector of ternary coordinates {p1, p2, p3}.
+#'   A vector of ternary coordinates [p1, p2, p3].
 #'
 #' @return An n element character vector of sextant id's 1 to 6.
 #'
@@ -526,7 +526,7 @@ TernarySurroundingSextant <- function (P, center) {
 #'
 #' Return the ternary balance scheme colors for a matrix of ternary compositions.
 #'
-#' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
+#' @param P n by 3 matrix of ternary compositions [p1, p2, p3](i) for
 #'          i=1, ..., n.
 #' @param center Ternary coordinates of the grey-point.
 #' @param breaks Number of breaks in the discrete color scale. An integer >1.
@@ -538,7 +538,7 @@ TernarySurroundingSextant <- function (P, center) {
 #' @param spread Spread of the color scale around center > 0.
 #'
 #' @return An n row data frame giving, for each row of the input P, the input
-#' proportions (p1, p2, p3), parameters of the color mixture (h, c, l) and the
+#' proportions [p1, p2, p3], parameters of the color mixture (h, c, l) and the
 #' hex-rgb string of the mixed colors (rgb).
 #'
 #' @examples
@@ -620,13 +620,13 @@ ColorMapTricolore <- function (P, center, breaks, h_, c_, l_, contrast, spread) 
 #'
 #' Return the sextant scheme colors for a matrix of ternary compositions.
 #'
-#' @param P n by 3 matrix of ternary compositions {p1, p2, p3}_i for
+#' @param P n by 3 matrix of ternary compositions [p1, p2, p3](i) for
 #'          i=1, ..., n.
 #' @param center Ternary coordinates of the sextant meeting point.
 #' @param values 6 element character vector of rgb-codes.
 #'
 #' @return An n row data frame giving, for each row of the input P, the input
-#' proportions (p1, p2, p3), sextant id (sextant) and the hex-rgb string of the
+#' proportions [p1, p2, p3], sextant id (sextant) and the hex-rgb string of the
 #' mixed colors (rgb).
 #'
 #' @examples
