@@ -168,7 +168,7 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
 #'
 #' Calculate the centre of a compositional data set.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
+#' @param P n by m matrix of compositions [p1, ..., pm]_i for i=1,...,n.
 #'
 #' @return The centre of P as an m element numeric vector.
 #'
@@ -199,8 +199,8 @@ Centre <- function (P) {
 #'
 #' Pertubate a compositional data set by a compositional vector.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
-#' @param c Compositional pertubation vector {c1, ..., cm}.
+#' @param P n by m matrix of compositions [p1, ..., pm]_i for i=1,...,n.
+#' @param c Compositional pertubation vector [c1, ..., cm].
 #'
 #' @return n by m matrix of pertubated compositions.
 #'
@@ -228,7 +228,7 @@ Pertube <- function (P, c = rep(1/3, 3)) {
 #'
 #' Raise a compositional data-set to a given power.
 #'
-#' @param P n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.
+#' @param P n by m matrix of compositions [p1, ..., pm]_i for i=1,...,n.
 #' @param scale Power scalar.
 #'
 #' @return n by m numeric matrix of powered compositions.

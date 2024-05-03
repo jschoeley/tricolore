@@ -7,9 +7,9 @@
 Pertube(P, c = rep(1/3, 3))
 }
 \arguments{
-\item{P}{n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.}
+\item{P}{n by m matrix of compositions [p1, ..., pm]_i for i=1,...,n.}
 
-\item{c}{Compositional pertubation vector {c1, ..., cm}.}
+\item{c}{Compositional pertubation vector [c1, ..., cm].}
 }
 \value{
 n by m matrix of pertubated compositions.

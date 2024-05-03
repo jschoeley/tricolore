@@ -7,7 +7,7 @@
 Centre(P)
 }
 \arguments{
-\item{P}{n by m matrix of compositions {p1, ..., pm}_i for i=1,...,n.}
+\item{P}{n by m matrix of compositions [p1, ..., pm]_i for i=1,...,n.}
 }
 \value{
 The centre of P as an m element numeric vector.
