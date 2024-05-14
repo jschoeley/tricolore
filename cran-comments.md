@@ -11,6 +11,19 @@ This is a re-submission of the package `tricolore` (https://cran.r-project.org/w
 
 ## R CMD check results
 
-There were no ERRORs, or WARNINGs. The following NOTEs don't require further action:
+The following changes proposed by Konstanze Lauseker have been
+implemented:
 
-- CRAN repository db overrides: X-CRAN-Comment: Archived on 2023-05-07 as requires archived package 'ggtern'.
+- "Please do not start the description with the title, "This package",
+package name, or similar."
+  - FIXED: Updated and expanded description.
+- "Please proofread your DESCRIPTION. It currently reads: continous
+  I believe it should be: continuous"
+  - FIXED: Fixed typo.
+- "If there are references describing the methods in your package, please
+add these in the description field of your DESCRIPTION file"
+  - FIXED: Added references to DESCRIPTION in stated format.
+- Please omit one colon. (triple colon)
+  - FIXED: Following Uwe Ligges recommendation I've added a note to each
+  documentation example where I use the triple colon stating:
+  "NOTE: only intended for internal use and not part of the API"
