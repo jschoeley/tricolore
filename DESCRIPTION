@@ -13,7 +13,7 @@ Authors@R: c(
   ))
 Description: Compositional data consisting of three-parts can be color
   mapped with a ternary color scale. Such a scale is provided by
-  the tricolore packages with options for discrete and contiunous
+  the tricolore packages with options for discrete and continuous
   colors, mean-centering and scaling. See 
   Jonas Schöley (2021) "The centered ternary balance scheme. A technique
   to visualize surfaces of unbalanced three-part compositions"
