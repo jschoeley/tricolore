@@ -19,6 +19,7 @@ A numeric vector of distances between coordinate p and all
 The distances between ternary coordinate p and a set of ternary coordinates C.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 p <- c(0.5, 0.2, 0.3)
 C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
 tricolore:::TernaryDistance(p, C)

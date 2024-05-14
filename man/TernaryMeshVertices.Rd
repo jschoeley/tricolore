@@ -20,6 +20,7 @@ equilateral triangle subdivided into k^2 equilateral sub-triangles, return
 the barycentric vertex coordinates of each sub-triangle.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 k = 2
 C <- tricolore:::TernaryMeshCentroids(k)
 tricolore:::TernaryMeshVertices(C)

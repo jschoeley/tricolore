@@ -20,6 +20,7 @@ A list of lists.
 Return Ternary Gridlines Centered Around Some Composition
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::TernaryCenterGrid(c(1/6, 2/6, 3/6), 10)
 
 }

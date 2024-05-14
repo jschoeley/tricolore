@@ -47,6 +47,7 @@ A ggtern grob.
 Plot a ternary balance scheme legend.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::ColorKeyTricolore(center = rep(1/3, 3), breaks = 4,
                               h_ = 80, c_ = 140, l_ = 80,
                               contrast = 0.4, spread = 1,

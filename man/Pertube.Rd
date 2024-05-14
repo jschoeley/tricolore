@@ -18,6 +18,7 @@ n by m matrix of pertubated compositions.
 Pertubate a compositional data set by a compositional vector.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(12), 4), margin = 1)
 cP <- tricolore:::Pertube(P, 1/tricolore:::Centre(P))
 tricolore:::Centre(cP)

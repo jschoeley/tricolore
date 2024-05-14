@@ -17,6 +17,7 @@ n by 3 matrix of ternary coordinates in C.
 For Ternary Coordinates P Return the Nearest Coordinate in Set C
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 C <- tricolore:::TernaryMeshCentroids(2)[,-1]
 tricolore:::TernaryNearest(P, C)

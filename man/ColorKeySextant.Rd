@@ -31,6 +31,7 @@ A ggtern grob.
 Plot a sextant scheme legend.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::ColorKeySextant(center = prop.table(runif(3)),
                             values = c('#01A0C6', '#B8B3D8', '#F11D8C',
                                        '#FFB3B3', '#FFFF00', '#B3DCC3'),

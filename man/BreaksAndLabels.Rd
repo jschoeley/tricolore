@@ -22,6 +22,7 @@ A list of lists containing breaks and labels for each of the 3
 Return various types of breaks and labels for ternary color keys.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::BreaksAndLabels(1, breaks = 3)
 tricolore:::BreaksAndLabels(2)
 tricolore:::BreaksAndLabels(3, center = c(1/3, 1/3, 1/3))

@@ -19,6 +19,7 @@ A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
 Return the Limits of Ternary Coordinates
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::TernaryLimits(P)
 

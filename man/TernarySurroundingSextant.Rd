@@ -20,6 +20,7 @@ An n element character vector of sextant id's 1 to 6.
 Given barycentric coordinates return the id of the surrounding sextant.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::TernarySurroundingSextant(P, rep(1/3, 3))
 

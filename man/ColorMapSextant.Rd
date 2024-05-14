@@ -23,6 +23,7 @@ mixed colors (rgb).
 Return the sextant scheme colors for a matrix of ternary compositions.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(9), ncol = 3), 1)
 tricolore:::ColorMapSextant(P, c(1/3, 1/3, 1/3),
                             c('#01A0C6', '#B8B3D8', '#F11D8C', '#FFB3B3',

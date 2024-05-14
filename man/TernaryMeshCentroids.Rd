@@ -18,6 +18,7 @@ Segment an equilateral triangle into k^2 equilateral sub-triangles and return
 the barycentric centroid coordinates of each sub-triangle.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::TernaryMeshCentroids(1)
 tricolore:::TernaryMeshCentroids(2)
 tricolore:::TernaryMeshCentroids(3)

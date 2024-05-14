@@ -19,6 +19,7 @@ Given a barycentric center coordinate return the vertex coordinates of the
 of the sextant regions.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::TernarySextantVertices(rep(1/3, 3))
 
 }

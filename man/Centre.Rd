@@ -16,6 +16,7 @@ The centre of P as an m element numeric vector.
 Calculate the centre of a compositional data set.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(300), 100), margin = 1)
 tricolore:::Centre(P)
 

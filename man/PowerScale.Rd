@@ -18,6 +18,7 @@ n by m numeric matrix of powered compositions.
 Raise a compositional data-set to a given power.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 P <- prop.table(matrix(runif(12), 4), margin = 1)
 tricolore:::PowerScale(P, 2)
 

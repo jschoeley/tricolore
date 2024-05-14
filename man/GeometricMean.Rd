@@ -20,6 +20,7 @@ The geometric mean as numeric scalar.
 Calculate the geometric mean for a numeric vector.
 }
 \examples{
+# NOTE: only intended for internal use and not part of the API
 tricolore:::GeometricMean(0:100)
 tricolore:::GeometricMean(0:100, zero.rm = FALSE)
 
