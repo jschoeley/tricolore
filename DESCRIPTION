@@ -11,9 +11,19 @@ Authors@R: c(
     "Ilya", "Kashnitsky", role = c("aut"),
     comment = c(ORCID = "0000-0003-1835-8687")
   ))
-Description: A flexible color scale for ternary compositions with options for
-  discrete and continous colors, mean-centering and scaling.
+Description: Compositional data consisting of three-parts can be color
+  mapped with a ternary color scale. Such a scale is provided by
+  the tricolore packages with options for discrete and contiunous
+  colors, mean-centering and scaling. See 
+  Jonas Schöley (2021) "The centered ternary balance scheme. A technique
+  to visualize surfaces of unbalanced three-part compositions"
+  <doi:10.4054/DemRes.2021.44.19>,
+  Jonas Schöley, Frans Willekens (2017) "Visualizing compositional data
+  on the Lexis surface" <doi:10.4054/DemRes.2017.36.21>, and
+  Ilya Kashnitsky, Jonas Schöley (2018) "Regional population structures
+  at a glance" <doi:10.1016/S0140-6736(18)31194-2>.
 License: GPL-3
+URL: https://github.com/jschoeley/tricolore
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0)
