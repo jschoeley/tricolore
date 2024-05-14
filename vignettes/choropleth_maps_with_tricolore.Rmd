@@ -39,7 +39,7 @@ The education and labor-force compositions are *ternary*, i.e. made up from thre
 
 Here I show how to create a choropleth map of the regional distribution of education attainment in Europe 2016 using `ggplot2`.
 
-**1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the data frame. Store the color key seperately.**
+**1. Using the `Tricolore()` function, color-code each educational composition in the `euro_example` data set and add the resulting vector of hex-srgb colors as a new variable to the data frame. Store the color key separately.**
 
 ```{r}
 # color-code the data set and generate a color-key
