@@ -153,6 +153,7 @@ ValidateParametersTricoloreSextant <- function (pars) {
 #' @return The geometric mean as numeric scalar.
 #'
 #' @examples
+#' # NOTE: only intended for internal use and not part of the API
 #' tricolore:::GeometricMean(0:100)
 #' tricolore:::GeometricMean(0:100, zero.rm = FALSE)
 #'
@@ -173,6 +174,7 @@ GeometricMean <- function (x, na.rm = TRUE, zero.rm = TRUE) {
 #' @return The centre of P as an m element numeric vector.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(300), 100), margin = 1)
 #' tricolore:::Centre(P)
 #'
@@ -205,6 +207,7 @@ Centre <- function (P) {
 #' @return n by m matrix of pertubated compositions.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
 #' cP <- tricolore:::Pertube(P, 1/tricolore:::Centre(P))
 #' tricolore:::Centre(cP)
@@ -234,6 +237,7 @@ Pertube <- function (P, c = rep(1/3, 3)) {
 #' @return n by m numeric matrix of powered compositions.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(12), 4), margin = 1)
 #' tricolore:::PowerScale(P, 2)
 #'
@@ -274,6 +278,7 @@ PowerScale <- function (P, scale = 1) {
 #' S. H. Derakhshan and C. V. Deutsch (2009): A Color Scale for Ternary Mixtures.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::TernaryMeshCentroids(1)
 #' tricolore:::TernaryMeshCentroids(2)
 #' tricolore:::TernaryMeshCentroids(3)
@@ -305,6 +310,7 @@ TernaryMeshCentroids <- function (k) {
 #'   coordinates for each of the k^2 sub-triangles.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' k = 2
 #' C <- tricolore:::TernaryMeshCentroids(k)
 #' tricolore:::TernaryMeshVertices(C)
@@ -344,6 +350,7 @@ TernaryMeshVertices <- function (C) {
 #' https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Distance_between_points
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' p <- c(0.5, 0.2, 0.3)
 #' C <- prop.table(matrix(runif(3*10), ncol = 3), 1)
 #' tricolore:::TernaryDistance(p, C)
@@ -362,6 +369,7 @@ TernaryDistance <- function(p, C) {
 #' @return n by 3 matrix of ternary coordinates in C.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' C <- tricolore:::TernaryMeshCentroids(2)[,-1]
 #' tricolore:::TernaryNearest(P, C)
@@ -382,6 +390,7 @@ TernaryNearest <- function (P, C) {
 #' @return A list of lists.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::TernaryCenterGrid(c(1/6, 2/6, 3/6), 10)
 #'
 #' @keywords internal
@@ -427,6 +436,7 @@ TernaryCenterGrid <- function (center, spacing) {
 #' @return A 2 by 3 matrix of lower and upper limits for p1, p2 and p3.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::TernaryLimits(P)
 #'
@@ -454,6 +464,7 @@ TernaryLimits <- function (P, na.rm = TRUE) {
 #'         6 sextants.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::TernarySextantVertices(rep(1/3, 3))
 #'
 #' @keywords internal
@@ -500,6 +511,7 @@ TernarySextantVertices <- function (center) {
 #' @return An n element character vector of sextant id's 1 to 6.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::TernarySurroundingSextant(P, rep(1/3, 3))
 #'
@@ -542,6 +554,7 @@ TernarySurroundingSextant <- function (P, center) {
 #' hex-rgb string of the mixed colors (rgb).
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::ColorMapTricolore(P, center = rep(1/3, 3), breaks = 4,
 #'                               h_ = 80, c_ = 140, l_ = 80,
@@ -630,6 +643,7 @@ ColorMapTricolore <- function (P, center, breaks, h_, c_, l_, contrast, spread) 
 #' mixed colors (rgb).
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' P <- prop.table(matrix(runif(9), ncol = 3), 1)
 #' tricolore:::ColorMapSextant(P, c(1/3, 1/3, 1/3),
 #'                             c('#01A0C6', '#B8B3D8', '#F11D8C', '#FFB3B3',
@@ -666,6 +680,7 @@ ColorMapSextant <- function (P, center, values) {
 #'   ternary axes.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::BreaksAndLabels(1, breaks = 3)
 #' tricolore:::BreaksAndLabels(2)
 #' tricolore:::BreaksAndLabels(3, center = c(1/3, 1/3, 1/3))
@@ -781,6 +796,7 @@ BasicKey <- function(legend_surface, limits, brklab, show_center, center, lwd) {
 #' @return A ggtern grob.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::ColorKeyTricolore(center = rep(1/3, 3), breaks = 4,
 #'                               h_ = 80, c_ = 140, l_ = 80,
 #'                               contrast = 0.4, spread = 1,
@@ -838,6 +854,7 @@ ColorKeyTricolore <- function (center, breaks, h_, c_, l_, contrast, spread,
 #' @return A ggtern grob.
 #'
 #' @examples
+#' NOTE: only intended for internal use and not part of the API
 #' tricolore:::ColorKeySextant(center = prop.table(runif(3)),
 #'                             values = c('#01A0C6', '#B8B3D8', '#F11D8C',
 #'                                        '#FFB3B3', '#FFFF00', '#B3DCC3'),
