@@ -24,6 +24,6 @@ euro_basemap <-
   geom_sf(color = NA, fill = 'grey90') +
   coord_sf(expand = FALSE, datum = NA) +
   theme_void() +
-  theme(panel.border = element_rect(fill = NA, color = 'grey90', size = 1))
+  theme(panel.border = element_rect(fill = NA, color = 'grey90', linewidth = 1))
 
 save(euro_basemap, file = './data-raw/euro_basemap.RData', compress = 'xz')

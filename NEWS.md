@@ -1,3 +1,7 @@
+# tricolore 1.2.5
+
+* re-export `euro_basemap.RData` to fix (@clementviolet, #24)
+
 # tricolore 1.2.4
 
 * establish compatibility with ggplot/ggtern 3.4.2
