@@ -1,7 +1,7 @@
 Package: tricolore
 Type: Package
 Title: A Flexible Color Scale for Ternary Compositions
-Version: 1.2.5
+Version: 1.2.6.0001
 Authors@R: c(
   person(
     "Jonas", "Schöley", email = "jschoeley@gmail.com", role = c("aut", "cre"),
@@ -27,7 +27,7 @@ URL: https://github.com/jschoeley/tricolore
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0)
-Imports: grDevices, ggplot2 (>= 3.4.0), ggtern (>= 3.4.0), rlang (>= 1.1.0), shiny, assertthat
+Imports: grDevices, ggplot2 (>= 4.0.0), ggtern (>= 4.0.0), rlang (>= 1.1.0), shiny, assertthat
 RoxygenNote: 7.3.1
 Suggests: testthat, knitr, rmarkdown, sf, leaflet, httpuv, dplyr
 VignetteBuilder: knitr
