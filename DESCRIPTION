@@ -28,6 +28,6 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0)
 Imports: grDevices, ggplot2 (>= 4.0.0), ggtern (>= 4.0.0), rlang (>= 1.1.0), shiny, assertthat
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Suggests: testthat, knitr, rmarkdown, sf, leaflet, httpuv, dplyr
 VignetteBuilder: knitr

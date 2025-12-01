@@ -5,7 +5,7 @@
 \alias{euro_basemap}
 \title{Flat Map of European Continent}
 \format{
-An object of class \code{gg} (inherits from \code{ggplot}) of length 9.
+An object of class \code{ggplot} (inherits from \code{ggplot2::ggplot}, \code{ggplot2::gg}, \code{S7_object}, \code{gg}) of length 1.
 }
 \source{
 Derived from Eurostats European Geodata.

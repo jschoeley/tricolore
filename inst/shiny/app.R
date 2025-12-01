@@ -93,7 +93,7 @@ server <- function(input, output) {
 
     if (input$data == 'educ') {
       p1 = 'ed_0to2'; p2 = 'ed_3to4'; p3 = 'ed_5to8'
-      title = 'Compos. of education lvls in European regions 2016\n'
+      title = 'Composition of education levels in European regions 2016\n'
     }
     if (input$data == 'lf') {
       p1 = 'lf_pri'; p2 = 'lf_sec'; p3 = 'lf_ter'
@@ -140,14 +140,17 @@ server <- function(input, output) {
              paste0(
                title,
                ifelse(input$center,
-                      'Colors show deviation from average composition',
+                      'Colors show deviation from average composition\n',
                       'Colors show deviations from balanced composition\n'),
                'Data by eurostat'
              )
       ) +
       theme(
-        plot.background = element_rect(fill = 'grey95', color = 'grey50'),
-        plot.subtitle = element_text(size = 9)
+        plot.background = element_blank(),
+        plot.subtitle = element_text(size = 8),
+        panel.background = element_blank(),
+        tern.plot.background = element_blank(),
+        tern.panel.background = element_blank(),
       )
 
     # merge data and map
@@ -162,7 +165,7 @@ server <- function(input, output) {
                         xmin = 54e5, xmax = 74e5,
                         ymin = 8e5, ymax = 80e5) +
       scale_fill_identity() +
-      coord_sf(expand = FALSE, datum = NA)
+      coord_sf(expand = FALSE, datum = NA, default = TRUE)
 
     print(euro_map)
   })
