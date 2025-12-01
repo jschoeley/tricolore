@@ -1,8 +1,13 @@
-<img src="inst/figures/tricolore.png" align="right" width="150" height="174" />tricolore. A flexible color scale for ternary compositions
+tricolore. A flexible color scale for ternary compositions
 ================
-Jonas Schöley & Ilya Kashnitsky
 
-[![CRAN\_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
+Jonas Schöley
+[![ORCID](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0002-3340-8518)
+[jschoeley.com](https://www.jschoeley.com/) · Ilya Kashnitsky
+[![ORCID](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0003-1835-8687)
+[ikashnitsky.phd](https://ikashnitsky.phd/me.html)
+
+[![CRAN_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
 ![GitHub Actions
 R-CMD-check](https://github.com/jschoeley/tricolore/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![License: GPL
@@ -16,10 +21,10 @@ functionality is to color-code any ternary composition as a mixture of
 three primary colors and to draw a suitable color-key. `tricolore`
 flexibly adapts to different visualization challenges via
 
--   *discrete* and *continuous* color support,
--   support for unbalanced compositional data via *centering*,
--   support for data with very narrow range via *scaling*,
--   *hue*, *chroma* and *lightness* options.
+- *discrete* and *continuous* color support,
+- support for unbalanced compositional data via *centering*,
+- support for data with very narrow range via *scaling*,
+- *hue*, *chroma* and *lightness* options.
 
 ![](README_files/teaser.png)
 
@@ -49,14 +54,18 @@ colors_and_legend <- Tricolore(P, 'V1', 'V2', 'V3')
 head(colors_and_legend$rgb)
 ```
 
-    ## [1] "#BC8C67" "#CB82C5" "#6E8E72" "#CA7FA1" "#CA7FA1" "#6E8E72"
+    ## [1] "#727272" "#4AA0BB" "#6E8E72" "#BC8C67" "#37A789" "#A48AC6"
 
 ``` r
 colors_and_legend$key
 ```
 
-![A ternary color key with the color-coded compositional data visible as
-points.](README_files/figure-gfm/unnamed-chunk-3-1.png)
+<figure>
+<img src="README_files/figure-gfm/unnamed-chunk-3-1.png"
+alt="A ternary color key with the color-coded compositional data visible as points." />
+<figcaption aria-hidden="true">A ternary color key with the color-coded
+compositional data visible as points.</figcaption>
+</figure>
 
 You can familiarize yourself with the various options of `tricolore` by
 running `DemoTricolore()`.
@@ -200,9 +209,9 @@ ggplot(euro_example) +
 
 ![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
-…and a `breaks = 2` gives a discrete color scale with 2<sup>2</sup> = 4
-colors, highlighting the regions with an absolute majority of any part
-of the composition.
+…and a `breaks = 2` gives a discrete color scale with $2^2=4$ colors,
+highlighting the regions with an absolute majority of any part of the
+composition.
 
 ``` r
 # color-code the data set and generate a color-key
@@ -288,7 +297,7 @@ higher than average share of workers active in the primary sector.
 tric_lf_centered <-
   Tricolore(euro_example,
             'lf_pri', 'lf_sec', 'lf_ter',
-            center = NA, crop = TRUE)
+            center = NA, crop = FALSE)
 
 euro_example$rgb_lf_centered <- tric_lf_centered$rgb
 

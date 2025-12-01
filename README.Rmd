@@ -1,6 +1,5 @@
 ---
 title: "tricolore. A flexible color scale for ternary compositions"
-author: "Jonas Schöley & Ilya Kashnitsky"
 output: github_document
 ---
 
@@ -11,8 +10,11 @@ knitr::opts_chunk$set(warning=FALSE,
                       fig.height = 12)
 ```
 
+Jonas Schöley [![ORCID](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0002-3340-8518) [jschoeley.com](https://www.jschoeley.com/) ·
+Ilya Kashnitsky [![ORCID](https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png)](https://orcid.org/0000-0003-1835-8687) [ikashnitsky.phd](https://ikashnitsky.phd/me.html)
+
 [![CRAN_Version](https://www.r-pkg.org/badges/version/tricolore)](https://cran.r-project.org/package=tricolore)
-[![GitHub Actions R-CMD-check](https://github.com/jschoeley/tricolore/actions/workflows/R-CMD-check.yaml/badge.svg)
+![GitHub Actions R-CMD-check](https://github.com/jschoeley/tricolore/actions/workflows/R-CMD-check.yaml/badge.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 What is *tricolore*?
@@ -214,7 +216,7 @@ Centering the color scale over the labor-force composition of the average Europe
 tric_lf_centered <-
   Tricolore(euro_example,
             'lf_pri', 'lf_sec', 'lf_ter',
-            center = NA, crop = TRUE)
+            center = NA, crop = FALSE)
 
 euro_example$rgb_lf_centered <- tric_lf_centered$rgb
 
