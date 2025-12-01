@@ -11,4 +11,8 @@ This submission fixes CRAN check ERRORs which arose due to the 4.0.0 update of t
 
 ## R CMD check results
 
-OK (no warnings, no notes)
+> 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+## Test results
+
+> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 39 ]
