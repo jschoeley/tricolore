@@ -5,8 +5,8 @@ bibentry(
   author = c(person('Jonas', 'Schöley', role = c('aut', 'cre')), person('Ilya', 'Kashnitsky', role = 'aut')),
   title = 'tricolore. A flexible color scale for ternary compositions',
   journal = 'CRAN',
-  year = '2024',
-  note = 'Version 1.2.4',
+  year = '2025',
+  note = 'Version 1.2.6',
   url = 'https://cran.r-project.org/package=tricolore',
   textVersion = 'J. Schöley and I. Kashnitsky (2024). tricolore: A flexible
   color scale for ternary compositions. Version 1.2.4.  CRAN. URL https://cran.r-project.org/package=tricolore'
