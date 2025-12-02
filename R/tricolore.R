@@ -1156,9 +1156,8 @@ DemoTricolore <- function () {
 #' A ggplot object rendering a flat background map of the European continent.
 #'
 #' @source
-#'   Derived from Eurostats European Geodata.
-#'   (c) EuroGeographics for the administrative boundaries.
-#'   \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+#'   Derived from geodata provided by the Natural Earth project.
+#'   \url{https://www.naturalearthdata.com/}
 'euro_basemap'
 
 #' NUTS-2 Level Geodata and Compositional Data for Europe
@@ -1192,7 +1191,7 @@ DemoTricolore <- function () {
 #' @source
 #'   Derived from Eurostats European Geodata.
 #'   (c) EuroGeographics for the administrative boundaries.
-#'   \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+#'   \url{https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2016-files.html}
 #'
 #'   Education data derived from Eurostats table "edat_lfse_04".
 #'

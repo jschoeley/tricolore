@@ -21,7 +21,7 @@ A data frame with 312 rows and 9 variables:
 \source{
 Derived from Eurostats European Geodata.
   (c) EuroGeographics for the administrative boundaries.
-  \url{https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/}
+  \url{https://gisco-services.ec.europa.eu/distribution/v2/nuts/nuts-2016-files.html}
 
   Education data derived from Eurostats table "edat_lfse_04".
 
