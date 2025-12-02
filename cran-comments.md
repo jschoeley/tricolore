@@ -16,3 +16,15 @@ This submission fixes CRAN check ERRORs which arose due to the 4.0.0 update of t
 ## Test results
 
 > [ FAIL 0 | WARN 0 | SKIP 0 | PASS 39 ]
+
+## CRAN maintainer comments
+
+- FIXED invalid URLs
+
+> Found the following (possibly) invalid URLs:
+> https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units/
+> 
+> Please fix and resubmit.
+> 
+> Best,
+> Uwe Ligges
